@@ -10,6 +10,7 @@ import org.springframework.web.server.ResponseStatusException;
 
 import java.time.LocalDateTime;
 import java.util.Optional;
+import java.util.UUID;
 
 @Service
 public class BookmarkService {
@@ -23,10 +24,9 @@ public class BookmarkService {
     }
 
     public BookmarkResponse addNewBookmark(CreateBookmarkRequest createBookmarkRequest){
-        // Do I need to do any null or empty checks, or since we are pulling from API, do we know the correct info comes over everytime?
         BookmarkRecord record = new BookmarkRecord();
-        record.setBookmarkId(createBookmarkRequest.getBookmarkId());
-        record.setBookmarkCreationDate(LocalDateTime.now().toString()); //is this where we want to set this?
+        record.setBookmarkId(UUID.randomUUID().toString());
+        record.setBookmarkCreationDate(LocalDateTime.now().toString());
         record.setTitle(createBookmarkRequest.getTitle());
         record.setAuthor(createBookmarkRequest.getAuthor());
         record.setGenre(createBookmarkRequest.getGenre());

@@ -29,7 +29,7 @@ public class CreateBookmarkRequest {
     @JsonProperty("ISBN13")
     private String isbn13;
 
-    //@NotEmpty- because it is the GSI, and will that mean bookmarkcreationdate needs it as well?
+    @NotEmpty
     @JsonProperty("Read_Status")
     private String readStatus;
 
