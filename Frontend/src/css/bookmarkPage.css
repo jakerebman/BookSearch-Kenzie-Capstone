@@ -2,9 +2,9 @@ body {
     font-family: Arial, Helvetica, sans-serif;
     /*background-color: #000000;*/
     background-image: url("images/library-books-shelves.jpg");
-    background-repeat: no-repeat;
+    /*background-repeat: no-repeat;*/
     /*background-size: cover;*/
-    background-size: auto;
+    background-size: cover;
 }
 
 * {
@@ -17,6 +17,11 @@ body {
     -webkit-box-sizing: border-box;
     -moz-box-sizing: border-box;
     box-sizing: border-box;
+}
+
+.fa-search {
+    width: 30px;
+    height: 30px;
 }
 
 /*The sticky class is added to the navbar with JS when it reaches its scroll position */
@@ -39,7 +44,7 @@ html {
 .column {
     float: left;
 }
-.left, .right{
+.left, .right {
     width: 25%;
 }
 
@@ -73,6 +78,37 @@ label {
     justify-content: center;
     /*text-align: center;*/
     background-color: #f2eecb;
+}
+
+.scroll-box {
+    overflow-y: scroll;
+    height: 84vh;
+    padding: 10px 20px;
+    margin: 20px;
+    width: auto;
+}
+.scroll-description {
+    overflow-y: scroll;
+    height: 23vh;
+    padding: 10px 20px;
+    margin: 20px;
+    width: auto;
+}
+
+.search-result {
+    height: 91vh;
+}
+
+.book-window {
+    height: 60vh;
+}
+
+.book-description{
+    height: 30vh;
+}
+
+.shelf{
+    height: 91vh
 }
 
 .header {
@@ -115,7 +151,7 @@ h3.title {
 
 p.create-collection-result {
     font-size: 14px;
-    color: #7f8c9b /* #848586*/;
+    color: #7f8c9b;
     line-height: 150%;
 }
 
@@ -129,10 +165,12 @@ h2.create-collection-result {
 }
 
 .card-result{
-    color: #ffffff/*(--primary-color)*/;
-    background-color: #FFFFFF/*(--secondary-color)*/;
+    color: #ffffff;
+    background-color: #FFFFFF;
+    height: 53vh;
     margin: 20px;
     padding: 10px 20px;
+    background-image: url("images/bookPages.jpg");
 }
 
 .card-image {
@@ -145,12 +183,23 @@ h2.create-collection-result {
     margin: 18px;
     text-align: center;
 }
-/*Picture Carousel*/
+/*Book Window Image*/
 img {
     height: 100%;
     width: auto;
 }
 
+.bookmark{
+    float: right;
+}
+
+.book-image{
+    height: 600px;
+    width: 400px;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+}
 .navbar {
     overflow: hidden;
     background-image: linear-gradient(to right, #051937, #004d7a, #008793, #00bf72, #a8eb12);
@@ -162,15 +211,15 @@ img {
     padding: 12px 16px;
 }
 
-.navbar a {
-    float: left;
-    font-size: 16px;
-    font-weight: bold;
-    color: white;
-    text-align: center;
-    padding: 20px 16px;
-    text-decoration: none;
-}
+/*.navbar a {*/
+/*    float: left;*/
+/*    font-size: 16px;*/
+/*    font-weight: bold;*/
+/*    color: white;*/
+/*    text-align: center;*/
+/*    padding: 20px 16px;*/
+/*    text-decoration: none;*/
+/*}*/
 
 .search-bar {
     font-weight: bold;
