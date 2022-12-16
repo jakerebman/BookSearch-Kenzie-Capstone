@@ -1,0 +1,549 @@
+body {
+    font-family: Arial, Helvetica, sans-serif;
+    /*background-color: #000000;*/
+    background-image: url("images/library-books-shelves.jpg");
+    background-repeat: no-repeat;
+    /*background-size: cover;*/
+    background-size: auto;
+}
+
+* {
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+}
+*:before,
+*:after {
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+}
+
+/*The sticky class is added to the navbar with JS when it reaches its scroll position */
+.sticky {
+    position: fixed;
+    top: 0;
+    width: 100%;
+}
+
+/*Add some top padding to the page content to prevent sudden quick movement (as the navigation bar gets a new position at the top of the page (position:fixed and top:0) */
+.sticky + .content {
+    padding-top: 60px;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+/*Screen Split*/
+.column {
+    float: left;
+}
+.left, .right{
+    width: 25%;
+}
+
+.middle{
+    width: 48%;
+}
+
+
+/*Add Board Game Form*/
+label {
+    padding: 7px;
+    font-weight: bold;
+    display: block;
+    /*display: flex;*/
+    margin-bottom: 0.25rem;
+    color: #2d3748;
+}
+
+.card {
+    /*box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);*/
+    box-shadow: 0 20px 25px -5px rgba(255, 215, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+    transition: 0.3s;
+    width: 97.33%;
+    height: auto;
+    border-style: solid;
+    border-width: 1px;
+    border-radius: 10px;
+    border-color: sienna;
+    margin: 15px;
+    position: center;
+    justify-content: center;
+    /*text-align: center;*/
+    background-color: #f2eecb;
+}
+
+.header {
+    height: 50px;
+    /*padding: 1px 1px;*/
+}
+
+h2.title{
+    float: right;
+    margin: 10px;
+}
+h3.title {
+    margin: 20px;
+    padding-top: 50px;
+}
+
+.card:hover {
+    box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
+}
+
+#create-collection-results {
+    /* Causes results screen to not show up until changed to something
+    like 'flex' */
+    display: none;
+    flex-direction: column;
+    text-align: center;
+    padding: 5px;
+    margin: 10px;
+}
+
+.collection-results-header {
+    color: #000000;
+    text-align: left;
+    background-size: cover;
+    height: 30%;
+    font-size: 16px;
+    font-weight: 600;
+    padding: 0;
+}
+
+p.create-collection-result {
+    font-size: 14px;
+    color: #7f8c9b /* #848586*/;
+    line-height: 150%;
+}
+
+h2.create-collection-result {
+    color: #FFFFFF;
+}
+
+.card-content .form-field {
+    display: flex;
+    flex-direction: column;
+}
+
+.card-result{
+    color: #ffffff/*(--primary-color)*/;
+    background-color: #FFFFFF/*(--secondary-color)*/;
+    margin: 20px;
+    padding: 10px 20px;
+}
+
+.card-image {
+    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+    transition: 0.3s;
+    width: 88%;
+    height: 30%;
+    border-radius: 5px;
+    /*padding: 15px;*/
+    margin: 18px;
+    text-align: center;
+}
+/*Picture Carousel*/
+img {
+    height: 100%;
+    width: auto;
+}
+
+.navbar {
+    overflow: hidden;
+    background-image: linear-gradient(to right, #051937, #004d7a, #008793, #00bf72, #a8eb12);
+
+}
+
+.pbandj-logo {
+    float: left;
+    padding: 12px 16px;
+}
+
+.navbar a {
+    float: left;
+    font-size: 16px;
+    font-weight: bold;
+    color: white;
+    text-align: center;
+    padding: 20px 16px;
+    text-decoration: none;
+}
+
+.search-bar {
+    font-weight: bold;
+    color: black;
+    padding: 10px 16px;
+    float: left;
+    height: 24px;
+    margin-bottom: 40px;
+    margin-right: 10px;
+    box-sizing: border-box;
+    display: flex;
+}
+/* Style the search submit button */
+button.search-button[type='submit'] {
+    /*text-indent: -999px;*/
+    overflow: hidden;
+    height: 50px;
+    /* Try width 30px once alignment issue fixed*/
+    width: 40px;
+    padding: 0;
+    /*margin: auto;*/
+    margin-top: 7px;
+    margin-right: 20px;
+    border: 1px solid transparent;
+    border-radius: inherit;
+    cursor: pointer;
+    background: dimgrey no-repeat center;
+    transition-duration: 0.4s;
+    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+}
+
+#search-input[type='submit'] {
+    -webkit-box-sizing: content-box;
+    -moz-box-sizing: content-box;
+    box-sizing: content-box;
+    -webkit-appearance: textfield;
+    -moz-appearance: textfield;
+}
+
+button.search-button[type='submit']:hover {
+    opacity: 1;
+    background-color: #9E9FA0;
+    color: white;
+}
+
+.topnav-right {
+    float: right;
+}
+
+.dropdown {
+    float: left;
+    overflow: hidden;
+}
+
+.dropdown .dropbtn {
+    font-size: 16px;
+    border: none;
+    outline: none;
+    font-weight: bold;
+    color: white;
+    padding: 20px 16px;
+    background-color: inherit;
+    font-family: inherit;
+    margin: 0;
+    /*float: center;*/
+}
+
+.navbar a:hover, .dropdown:hover .dropbtn {
+    background-image: linear-gradient(to right top, aqua, purple);
+}
+
+.dropdown-content {
+    display: none;
+    position: absolute;
+    background-image: linear-gradient(to left, #051937, #004d7a, #008793, #00bf72, #a8eb12);
+    min-width: 160px;
+    box-shadow: inherit;
+}
+
+.dropdown-content a {
+    float: none;
+    color: white;
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+    text-align: left;
+}
+
+.dropdown-content a:hover {
+    background-color: #ddd;
+}
+
+.dropdown:hover .dropdown-content {
+    display: block;
+}
+
+.page-name {
+    text-align: center;
+    padding: 10px;
+    font-weight: bold;
+    font-size: 40px;
+}
+
+/* Style the form submit button */
+#form-submit {
+    text-align: center;
+    position: relative;
+    cursor: pointer;
+    transition-duration: 0.4s;
+    display: block;
+    margin: 20px auto;
+    width: 85px;
+    height: 30px;
+    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+}
+
+#form-submit button:hover {
+    background-color: #9E9FA0;
+    color: white;
+}
+
+.card h3 {
+    text-align: left;
+    font-size: 20px;
+    padding-top: 0;
+    margin-top: 0;
+}
+
+.collection-btn button {
+    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);transition-duration: 0.4s;
+    width: 85px;
+    padding: 5px 5px;
+    text-align: center;
+    position: center;
+    font-size: 85%;
+    cursor: pointer;
+    justify-content: center;
+    align-items: center;
+    display: inline-block;
+    margin-right: 20px;
+}
+
+.collection-btn button:hover {
+    background-color: #9E9FA0;
+    color: white;
+}
+
+/* Carousel Styling */
+/** {*/
+/*    box-sizing:border-box*/
+/*}*/
+
+/*!* Slideshow container *!*/
+/*.slideshow-container {*/
+/*    max-width: 1000px;*/
+/*    position: relative;*/
+/*    margin: auto;*/
+/*}*/
+
+/* Hide the images by default */
+/*.mySlides {*/
+/*    display: none;*/
+/*    height: 600px;*/
+/*}*/
+
+/* Next & previous buttons */
+/*.prev, .next {*/
+/*    cursor: pointer;*/
+/*    position: absolute;*/
+/*    top: 50%;*/
+/*    width: auto;*/
+/*    margin-top: -22px;*/
+/*    padding: 16px;*/
+/*    color: white;*/
+/*    font-weight: bold;*/
+/*    font-size: 18px;*/
+/*    transition: 0.6s ease;*/
+/*    border-radius: 0 3px 3px 0;*/
+/*    user-select: none;*/
+/*}*/
+
+/*!* Position the "next button" to the right *!*/
+/*.next {*/
+/*    right: 0;*/
+/*    border-radius: 3px 0 0 3px;*/
+/*}*/
+
+/*!* On hover, add a black background color with a little bit see-through *!*/
+/*.prev:hover, .next:hover {*/
+/*    background-color: rgba(0,0,0,0.8);*/
+/*}*/
+
+/*.active, .dot:hover {*/
+/*    background-color: #717171;*/
+/*}*/
+
+/*!* Fading animation *!*/
+/*.fade {*/
+/*    animation-name: fade;*/
+/*    animation-duration: 1.5s;*/
+/*}*/
+
+/*@keyframes fade {*/
+/*    from {opacity: .4}*/
+/*    to {opacity: 1}*/
+/*}*/
+/* End of Carousel Styling */
+
+/* Form Styling */
+input {
+    width: 208px;
+    height: 30px;
+    position: center;
+}
+
+#collection-name {
+    width: 275px;
+    height: 33px;
+    position: center;
+    padding: 5px;
+}
+
+/* Style inputs, select elements and textareas */
+input[type=text], select, textarea {
+    /* uniform text field size */
+    box-sizing: border-box;
+    width: 275px;
+    padding: 5px;
+    /* match form field borders */
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    resize: vertical;
+    /* Set uniform font setting for the form */
+    font: 1em sans-serif;
+    position: center;
+}
+
+input::placeholder {
+    color: #a0aec0;
+}
+
+input:focus, textarea:focus {
+    outline: none;
+    border: 1px solid #a0aec0;
+    box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
+    background-clip: padding-box;
+}
+
+textarea {
+    /* Align multi-line text fields with their labels */
+    vertical-align: top;
+    /* Provide space to type some text */
+    height: 5em;
+    color: #000000;
+}
+
+textarea::placeholder {
+    color: #a0aec0;
+}
+
+.control-group .form-group {
+    margin-bottom: 2rem;
+    position: relative;
+    height: 50px;
+    width: 100%;
+    text-align: center;
+}
+
+.controls {
+    margin-top: 20px;
+}
+
+/*!* Clear floats after the columns */
+.row:after {
+    content: "";
+    display: table;
+    clear: both;
+}
+
+.placeholder {
+    color: #65657b;
+    font-family: sans-serif;
+    left: 20px;
+    line-height: 14px;
+    pointer-events: none;
+    position: absolute;
+    transform-origin: 0 50%;
+    transition: transform 200ms, color 200ms;
+    top: 20px;
+}
+
+.input:focus ~ .placeholder,
+.input:not(:placeholder-shown) ~ .placeholder {
+    transform: translateY(-30px) translateX(10px) scale(0.75);
+}
+
+.input:not(:placeholder-shown) ~ .placeholder {
+    color: #808097;
+}
+
+.input:focus ~ .placeholder {
+    color: #dc2f55;
+}
+
+/* End of Form Styling */
+
+/* Footer */
+.row-footer {
+    color: #000000;
+    font-size: 0.7em;
+    float: left;
+    position: fixed;
+    bottom: 0;
+}
+
+.back-to-top {
+    position: relative;
+    z-index: 2;
+}
+
+.back-to-top .btn-dark {
+    width: 35px;
+    height: 35px;
+    border-radius: 50%;
+    padding: 0;
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    background: #008793;
+    border-color: #2e2e2e;
+    display: none;
+    z-index: 999;
+    -webkit-transition: all 0.3s linear;
+    -o-transition: all 0.3s linear;
+    transition: all 0.3s linear;
+}
+
+.back-to-top .btn-dark:hover {
+    cursor: pointer;
+    background: #00bf72;
+    border-color: #2e2e2e; }
+
+
+/* Table Styling */
+table {
+    border-collapse: collapse;
+    border: 1px solid #7f7f7f;
+    border-spacing: 0;
+    color: #4a4a4d;
+    font: 12px/1.4 "Helvetica Neue", Helvetica, Arial, sans-serif;
+}
+
+th,
+td {
+    padding: 10px 15px;
+    vertical-align: middle;
+}
+
+th {
+    background: #395870;
+    background: linear-gradient(#49708f, #293f50);
+    color: #fff;
+    font-size: 11px;
+    text-transform: uppercase;
+}
+
+td {
+    border: 1px solid #7f7f7f;
+    /*width: 50px;*/
+    /*height: 50px;*/
+    /*text-align: center;*/
+}
+
+
+
+
