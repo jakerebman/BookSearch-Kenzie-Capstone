@@ -3,6 +3,8 @@ package com.kenzie.appserver.controller.model;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
+import java.util.List;
+
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class BookmarkResponse {
 
@@ -16,10 +18,10 @@ public class BookmarkResponse {
     private String title;
 
     @JsonProperty("Author")
-    private String author;
+    private List<String> author;
 
     @JsonProperty("Genre")
-    private String genre;
+    private List<String> genre;
 
     @JsonProperty("Num_Pages")
     private String numPages;
@@ -54,19 +56,19 @@ public class BookmarkResponse {
         this.title = title;
     }
 
-    public String getAuthor() {
+    public List<String> getAuthor() {
         return author;
     }
 
-    public void setAuthor(String author) {
+    public void setAuthor(List<String> author) {
         this.author = author;
     }
 
-    public String getGenre() {
+    public List<String> getGenre() {
         return genre;
     }
 
-    public void setGenre(String genre) {
+    public void setGenre(List<String> genre) {
         this.genre = genre;
     }
 
