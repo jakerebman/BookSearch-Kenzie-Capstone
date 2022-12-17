@@ -2,6 +2,7 @@ package com.kenzie.appserver.repositories.model;
 
 import com.amazonaws.services.dynamodbv2.datamodeling.*;
 
+import java.util.List;
 import java.util.Objects;
 
 @DynamoDBTable(tableName = "Bookmark")
@@ -16,8 +17,8 @@ public class BookmarkRecord {
     // TODO: Do we want to save this as a String or use a ZoneDateTime converter class?
     private String bookmarkCreationDate;
     private String title;
-    private String author;
-    private String genre;
+    private List<String> author;
+    private List<String> genre;
     private String numPages;
     private String isbn13;
     private String readStatus;
@@ -51,20 +52,20 @@ public class BookmarkRecord {
     }
 
     @DynamoDBAttribute(attributeName = "Author")
-    public String getAuthor() {
+    public List<String> getAuthor() {
         return author;
     }
 
-    public void setAuthor(String author) {
+    public void setAuthor(List<String> author) {
         this.author = author;
     }
 
     @DynamoDBAttribute(attributeName = "Genre")
-    public String getGenre() {
+    public List<String> getGenre() {
         return genre;
     }
 
-    public void setGenre(String genre) {
+    public void setGenre(List<String> genre) {
         this.genre = genre;
     }
 

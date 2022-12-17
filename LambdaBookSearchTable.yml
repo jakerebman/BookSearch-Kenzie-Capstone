@@ -1,0 +1,31 @@
+Resources:
+  UserTable:
+    Type: AWS::DynamoDB::BookSearch
+    Properties:
+      "AttributeDefinitions":
+        - "AttributeName": "bookSearchId"
+          "AttributeType": "S"
+      "KeySchema":
+        - "AttributeName": "bookSearchId"
+          "KeyType": "HASH"
+      PointInTimeRecoverySpecification:
+        PointInTimeRecoveryEnabled: false
+      BillingMode: PAY_PER_REQUEST
+      TableName: "BookSearch"
+      GlobalSecondaryIndexes:
+        - IndexName: "GenreIndex"
+          KeySchema:
+            - AttributeName: "genre"
+              KeyType: "HASH"
+            - AttributeName: "isbn13"
+              KeyType: "RANGE"
+          Projection:
+            ProjectionType: All
+        - IndexName: "AuthorIndex"
+          KeySchema:
+            - AttributeName: "author"
+              KeyType: "HASH"
+            - AttributeName: "isbn13"
+              KeyType: "RANGE"
+          Projection:
+            ProjectionType: All
