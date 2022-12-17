@@ -44,7 +44,7 @@ public class GetBookSearchByAuthor  implements RequestHandler<APIGatewayProxyReq
         }
 
         try {
-            String output = gson.toJson(bookSearchService.getRecommendationsByGenre(author));
+            String output = gson.toJson(bookSearchService.getRecommendationsByAuthor(author));
             return response
                     .withStatusCode(200)
                     .withBody(output);
