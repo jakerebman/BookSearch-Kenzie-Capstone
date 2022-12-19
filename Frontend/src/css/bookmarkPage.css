@@ -19,11 +19,6 @@ body {
     box-sizing: border-box;
 }
 
-.fa-search {
-    width: 30px;
-    height: 30px;
-}
-
 /*The sticky class is added to the navbar with JS when it reaches its scroll position */
 .sticky {
     position: fixed;
@@ -117,7 +112,7 @@ label {
 }
 
 h2.title{
-    float: right;
+    float: left;
     margin: 10px;
 }
 h3.title {
@@ -225,7 +220,7 @@ img {
     font-weight: bold;
     color: black;
     padding: 10px 16px;
-    float: left;
+    float: right;
     height: 24px;
     margin-bottom: 40px;
     margin-right: 10px;
