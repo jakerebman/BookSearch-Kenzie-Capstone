@@ -36,7 +36,7 @@ public class GetBookSearchByGenre implements RequestHandler<APIGatewayProxyReque
         APIGatewayProxyResponseEvent response = new APIGatewayProxyResponseEvent()
                 .withHeaders(headers);
 
-        String genre = input.getPathParameters().get("genre");
+        String genre = input.getPathParameters().get("Genre");
 
         if (genre == null || genre.length() == 0){
             return response

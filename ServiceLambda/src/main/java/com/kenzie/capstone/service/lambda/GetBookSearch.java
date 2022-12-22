@@ -16,7 +16,7 @@ import org.apache.logging.log4j.Logger;
 import java.util.HashMap;
 import java.util.Map;
 
-public class GetBookSearchByAuthor  implements RequestHandler<APIGatewayProxyRequestEvent, APIGatewayProxyResponseEvent> {
+public class GetBookSearch implements RequestHandler<APIGatewayProxyRequestEvent, APIGatewayProxyResponseEvent> {
 
     static final Logger log = LogManager.getLogger();
 
@@ -35,16 +35,16 @@ public class GetBookSearchByAuthor  implements RequestHandler<APIGatewayProxyReq
         APIGatewayProxyResponseEvent response = new APIGatewayProxyResponseEvent()
                 .withHeaders(headers);
 
-        String author = input.getPathParameters().get("Author");
+        String bookSearchId = input.getPathParameters().get("Book_Search_Id");
 
-        if (author == null || author.length() == 0){
+        if (bookSearchId == null || bookSearchId.length() == 0){
             return response
                     .withStatusCode(400)
-                    .withBody("author is null");
+                    .withBody("Id is null");
         }
 
         try {
-            String output = gson.toJson(bookSearchService.getRecommendationsByAuthor(author));
+            String output = gson.toJson(bookSearchService.getBookSearch(bookSearchId));
             return response
                     .withStatusCode(200)
                     .withBody(output);

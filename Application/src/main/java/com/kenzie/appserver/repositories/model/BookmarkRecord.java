@@ -17,10 +17,14 @@ public class BookmarkRecord {
     // TODO: Do we want to save this as a String or use a ZoneDateTime converter class?
     private String bookmarkCreationDate;
     private String title;
-    private List<String> author;
-    private List<String> genre;
+    private String author;
+    private String genre;
     private String numPages;
     private String isbn13;
+
+    private String description;
+
+    private String imageURL;
     private String readStatus;
 
     @DynamoDBHashKey(attributeName = "Bookmark_Id")
@@ -52,20 +56,20 @@ public class BookmarkRecord {
     }
 
     @DynamoDBAttribute(attributeName = "Author")
-    public List<String> getAuthor() {
+    public String getAuthor() {
         return author;
     }
 
-    public void setAuthor(List<String> author) {
+    public void setAuthor(String author) {
         this.author = author;
     }
 
     @DynamoDBAttribute(attributeName = "Genre")
-    public List<String> getGenre() {
+    public String getGenre() {
         return genre;
     }
 
-    public void setGenre(List<String> genre) {
+    public void setGenre(String genre) {
         this.genre = genre;
     }
 
@@ -86,6 +90,16 @@ public class BookmarkRecord {
     public void setIsbn13(String isbn13) {
         this.isbn13 = isbn13;
     }
+
+    @DynamoDBAttribute(attributeName = "Description")
+    public String getDescription(){return description;}
+
+    public void setDescription(String description) { this.description = description;}
+
+    @DynamoDBAttribute(attributeName = "Image_URL")
+    public String getImageURL(){return imageURL;}
+
+    public void setImageURL(String imageURL){this.imageURL = imageURL;}
 
     @DynamoDBIndexHashKey(globalSecondaryIndexName = READ_STATUS_GSI)
     @DynamoDBAttribute(attributeName = "Read_Status")

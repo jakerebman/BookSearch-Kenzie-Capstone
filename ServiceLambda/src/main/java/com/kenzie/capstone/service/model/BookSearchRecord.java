@@ -21,8 +21,10 @@ public class BookSearchRecord {
 
     private String description;
 
-    @DynamoDBHashKey(attributeName = "bookSearchId")
-    @DynamoDBIndexRangeKey(globalSecondaryIndexNames = {"AuthorIndex", "GenreIndex"}, attributeName = "bookSearchId")
+    private String imageURL;
+
+    @DynamoDBHashKey(attributeName = "Book_Search_Id")
+    @DynamoDBIndexRangeKey(globalSecondaryIndexNames = {"AuthorIndex", "GenreIndex"}, attributeName = "Book_Search_Id")
     public String getBookSearchId() {
         return bookSearchId;
     }
@@ -31,7 +33,7 @@ public class BookSearchRecord {
         this.bookSearchId = bookSearchId;
     }
 
-    @DynamoDBAttribute(attributeName = "title")
+    @DynamoDBAttribute(attributeName = "Title")
     public String getTitle() {
         return title;
     }
@@ -40,8 +42,8 @@ public class BookSearchRecord {
         this.title = title;
     }
 
-    @DynamoDBAttribute(attributeName = "author")
-    @DynamoDBIndexHashKey(globalSecondaryIndexName = "AuthorIndex", attributeName = "author")
+    @DynamoDBAttribute(attributeName = "Author")
+    @DynamoDBIndexHashKey(globalSecondaryIndexName = "AuthorIndex", attributeName = "Author")
     public String getAuthor() {
         return author;
     }
@@ -50,8 +52,8 @@ public class BookSearchRecord {
         this.author = author;
     }
 
-    @DynamoDBAttribute(attributeName = "genre")
-    @DynamoDBIndexHashKey(globalSecondaryIndexName = "GenreIndex", attributeName = "genre")
+    @DynamoDBAttribute(attributeName = "Genre")
+    @DynamoDBIndexHashKey(globalSecondaryIndexName = "GenreIndex", attributeName = "Genre")
     public String getGenre() {
         return genre;
     }
@@ -60,7 +62,7 @@ public class BookSearchRecord {
         this.genre = genre;
     }
 
-    @DynamoDBAttribute(attributeName = "numPages")
+    @DynamoDBAttribute(attributeName = "Num_Pages")
     public String getNumPages() {
         return numPages;
     }
@@ -69,7 +71,7 @@ public class BookSearchRecord {
         this.numPages = numPages;
     }
 
-    @DynamoDBAttribute(attributeName = "isbn13")
+    @DynamoDBAttribute(attributeName = "ISBN13")
     public String getIsbn13() {
         return isbn13;
     }
@@ -78,7 +80,7 @@ public class BookSearchRecord {
         this.isbn13 = isbn13;
     }
 
-    @DynamoDBAttribute(attributeName = "description")
+    @DynamoDBAttribute(attributeName = "Description")
     public String getDescription() {
         return description;
     }
@@ -86,4 +88,9 @@ public class BookSearchRecord {
     public void setDescription(String description) {
         this.description = description;
     }
+
+    @DynamoDBAttribute(attributeName = "Image_URL")
+    public String getImageURL(){return imageURL;}
+
+    public void setImageURL(String imageURL){this.imageURL = imageURL;}
 }

@@ -19,16 +19,22 @@ public class CreateBookmarkRequest {
     private String title;
 
     @JsonProperty("Author")
-    private List<String> author;
+    private String author;
 
     @JsonProperty("Genre")
-    private List<String> genre;
+    private String genre;
 
     @JsonProperty("Num_Pages")
     private String numPages;
 
     @JsonProperty("ISBN13")
     private String isbn13;
+
+    @JsonProperty("Description")
+    private String description;
+
+    @JsonProperty("Image_URL")
+    private String imageURL;
 
     @NotEmpty
     @JsonProperty("Read_Status")
@@ -58,19 +64,19 @@ public class CreateBookmarkRequest {
         this.title = title;
     }
 
-    public List<String> getAuthor() {
+    public String getAuthor() {
         return author;
     }
 
-    public void setAuthor(List<String> author) {
+    public void setAuthor(String author) {
         this.author = author;
     }
 
-    public List<String> getGenre() {
+    public String getGenre() {
         return genre;
     }
 
-    public void setGenre(List<String> genre) {
+    public void setGenre(String genre) {
         this.genre = genre;
     }
 
@@ -89,6 +95,14 @@ public class CreateBookmarkRequest {
     public void setIsbn13(String isbn13) {
         this.isbn13 = isbn13;
     }
+
+    public String getDescription(){return description;}
+
+    public void setDescription(String description) { this.description = description;}
+
+    public String getImageURL(){return imageURL;}
+
+    public void setImageURL(String imageURL){this.imageURL = imageURL;}
 
     public String getReadStatus() {
         return readStatus;
