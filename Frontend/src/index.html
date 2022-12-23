@@ -1,39 +1,66 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <script type="text/javascript" src="examplePage.js"></script>
-    <link rel="stylesheet" type="text/css" href="css/style.css">
-    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css">
+    <script type="text/javascript" src="src/pages/bookmarkPage.js"></script>
+    <title>Bookmark'd</title>
+    <meta charset="UTF-8">
+    <!-- icon link -->
+    <link rel="icon" href="images/PBANDJ%20Logo.jpg" type="image/x-icon">
+    <!-- /.end of icon link -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" type="text/css" href="css/bookmarkPage.css">
 </head>
-<body class="background">
-    <header class="header" id="header">
-        <div class="site-title">
-            <a class="header_home" href="index.html">Example App</a>
+<body>
+    <div class="card header">
+        <img class="pbandj-logo" src="images/PBANDJ%20Logo.jpg" alt="">
+        <h2 class="title">Bookmark'd</h2>
+        <div class="search-bar">
+            <input type="text" placeholder="Search by Author">
+            <button type="submit"><i class="fa fa-search"></i></button>
         </div>
-    </header>
-    <div class="card">
-        <h2>Create Example</h2>
-        <form class="card-content" id="create-form">
-            <p class="form-field">
-                <label>Name</label>
-                <input type="text" required class="validated-field" id="create-name-field">
-            </p>
-            <button type="submit">Create</button>
-        </form>
     </div>
-    <div class="card">
-        <h2>Get By ID</h2>
-        <form class="card-content" id="get-by-id-form">
-            <p class="form-field">
-                <label>ID</label>
-                <input type="text" required class="validated-field" id="id-field">
-            </p>
-            <button type="submit">Get</button>
-        </form>
-    </div>
-    <div class="card" id="result">
-        <h2>Result:</h2>
-        <p id="result-info"></p>
+    <div class="container">
+        <div class="column left">
+            <div class="card search-result" id="result">
+<!--            Not sure if we want the next line. Just creates space so it's not against the top.-->
+                <h1></h1>
+                <h3 class="title">Search Result:</h3>
+                <p id="result-info"></p>
+                <div class="card scroll-box">
+
+                </div>
+            </div>
+        </div>
+        <div class="column middle">
+            <div class="card book-window">
+                <h1></h1>
+                <h3 class="title">Book Window</h3>
+                <div class="card-result">
+                    <div class="card book-image">this is the image
+<!--                        <button class="bookmark ">BUTT</button>-->
+                        <button type="submit"><i class="fa fa-bookmark"></i></button>
+
+                    </div>
+                </div>
+            </div>
+            <div class="card book-description">
+                <h1></h1>
+                <h3 class="title">Book Description</h3>
+                <div class="card scroll-description">
+                </div>
+            </div>
+        </div>
+        <div class="column right">
+            <div class="card shelf">
+                <h1></h1>
+                <h3 class="title">Your Bookshelf</h3>
+                <div class="card scroll-box">
+                </div>
+            </div>
+<!--            <div class="card">-->
+
+<!--            </div>-->
+        </div>
     </div>
 
 </body>
