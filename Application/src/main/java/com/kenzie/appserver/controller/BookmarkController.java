@@ -22,7 +22,7 @@ public class BookmarkController {
 
     @PostMapping
     public ResponseEntity<BookmarkResponse> createNewBookmark(@RequestBody CreateBookmarkRequest createBookmarkRequest) {
-        if (createBookmarkRequest.getAuthor() == null || createBookmarkRequest.getAuthor().size() == 0) {
+        if (createBookmarkRequest.getAuthor() == null || createBookmarkRequest.getAuthor().length() == 0) {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Invalid Bookmark Author.");
         }
 

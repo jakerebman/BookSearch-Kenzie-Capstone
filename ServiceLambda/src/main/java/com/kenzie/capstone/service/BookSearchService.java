@@ -2,11 +2,13 @@ package com.kenzie.capstone.service;
 
 import com.kenzie.capstone.service.converter.BookSearchConverter;
 import com.kenzie.capstone.service.dao.BookSearchDao;
+import com.kenzie.capstone.service.exceptions.InvalidDataException;
 import com.kenzie.capstone.service.model.BookSearch;
 import com.kenzie.capstone.service.model.BookSearchRecord;
 
 import javax.inject.Inject;
 import java.util.List;
+import java.util.UUID;
 import java.util.stream.Collectors;
 
 
@@ -33,5 +35,10 @@ public class BookSearchService {
         return records.stream()
                 .map(record -> converter.fromRecordToBookSearch(record))
                 .collect(Collectors.toList());
+    }
+
+    public BookSearch getBookSearch(String bookSearchId){
+            BookSearchRecord record = bookSearchDao.getBookSearch(bookSearchId);
+            return converter.fromRecordToBookSearch(record);
     }
 }

@@ -19,6 +19,8 @@ public class BookSearch {
 
     private String description;
 
+    private String imageURL;
+
     public String getBookSearchId(){return bookSearchId;}
 
     public void setBookSearchId(String bookSearchId){this.bookSearchId = bookSearchId;}
@@ -70,6 +72,10 @@ public class BookSearch {
     public void setDescription(String description) {
         this.description = description;
     }
+
+    public String getImageURL(){return imageURL;}
+
+    public void setImageURL(String imageURL){this.imageURL = imageURL;}
 
     @Override
     public boolean equals(Object o){

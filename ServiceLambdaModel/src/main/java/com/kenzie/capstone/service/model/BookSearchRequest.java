@@ -18,6 +18,8 @@ public class BookSearchRequest {
 
     private String description;
 
+    private String imageURL;
+
     public String getBookSearchId(){return bookSearchId;}
 
     public void setBookSearchId(String bookSearchId){this.bookSearchId = bookSearchId;}
@@ -67,4 +69,8 @@ public class BookSearchRequest {
     public void setDescription(String description) {
         this.description = description;
     }
+
+    public String getImageURL(){return imageURL;}
+
+    public void setImageURL(String imageURL){this.imageURL = imageURL;}
 }

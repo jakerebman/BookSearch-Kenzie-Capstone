@@ -16,6 +16,7 @@ public class BookSearchConverter {
         record.setNumPages(request.getNumPages());
         record.setIsbn13(request.getIsbn13());
         record.setDescription(request.getDescription());
+        record.setImageURL(request.getImageURL());
         return record;
     }
 
@@ -28,6 +29,7 @@ public class BookSearchConverter {
         response.setNumPages(record.getNumPages());
         response.setIsbn13(record.getIsbn13());
         response.setDescription(record.getDescription());
+        response.setImageURL(record.getImageURL());
         return response;
     }
 
@@ -40,6 +42,7 @@ public class BookSearchConverter {
         bookSearch.setNumPages(record.getNumPages());
         bookSearch.setIsbn13(record.getIsbn13());
         bookSearch.setDescription(record.getDescription());
+        bookSearch.setImageURL(record.getImageURL());
         return bookSearch;
     }
 }
