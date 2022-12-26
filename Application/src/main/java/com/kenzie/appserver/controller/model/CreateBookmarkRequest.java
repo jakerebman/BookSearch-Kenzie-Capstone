@@ -7,13 +7,13 @@ import java.util.List;
 
 public class CreateBookmarkRequest {
 
-    @NotEmpty
-    @JsonProperty("Bookmark_Id")
-    private String bookmarkId;
-
-    //@JsonFormat()
-    @JsonProperty("Bookmark_Creation_Date")
-    private String bookmarkCreationDate;
+//    @NotEmpty
+//    @JsonProperty("Bookmark_Id")
+//    private String bookmarkId;
+//
+//    //@JsonFormat()
+//    @JsonProperty("Bookmark_Creation_Date")
+//    private String bookmarkCreationDate;
 
     @JsonProperty("Title")
     private String title;
@@ -40,21 +40,21 @@ public class CreateBookmarkRequest {
     @JsonProperty("Read_Status")
     private String readStatus;
 
-    public String getBookmarkId() {
-        return bookmarkId;
-    }
-
-    public void setBookmarkId(String bookmarkId) {
-        this.bookmarkId = bookmarkId;
-    }
-
-    public String getBookmarkCreationDate() {
-        return bookmarkCreationDate;
-    }
-
-    public void setBookmarkCreationDate(String bookmarkCreationDate) {
-        this.bookmarkCreationDate = bookmarkCreationDate;
-    }
+//    public String getBookmarkId() {
+//        return bookmarkId;
+//    }
+//
+//    public void setBookmarkId(String bookmarkId) {
+//        this.bookmarkId = bookmarkId;
+//    }
+//
+//    public String getBookmarkCreationDate() {
+//        return bookmarkCreationDate;
+//    }
+//
+//    public void setBookmarkCreationDate(String bookmarkCreationDate) {
+//        this.bookmarkCreationDate = bookmarkCreationDate;
+//    }
 
     public String getTitle() {
         return title;

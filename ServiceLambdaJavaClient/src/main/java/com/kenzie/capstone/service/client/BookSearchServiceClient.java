@@ -5,6 +5,7 @@ import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.kenzie.capstone.service.model.BookSearch;
+import com.kenzie.capstone.service.model.BookSearchResponse;
 
 import java.util.List;
 
@@ -22,10 +23,10 @@ public class BookSearchServiceClient {
 
     public BookSearchServiceClient(){this.mapper = new ObjectMapper();}
 
-    public List<BookSearch> getBookRecommendationsByGenre(String genre){
+    public List<BookSearchResponse> getBookRecommendationsByGenre(String genre){
         EndpointUtility utility = new EndpointUtility();
         String response = utility.getEndpoint(GET_BOOK_RECOMMENDATION_BY_GENRE.replace("{genre}", genre));
-        List<BookSearch> recommendation;
+        List<BookSearchResponse> recommendation;
         try{
             recommendation = mapper.readValue(response, new TypeReference<>(){});
         } catch (Exception e) {
@@ -35,10 +36,10 @@ public class BookSearchServiceClient {
         return recommendation;
     }
 
-    public List<BookSearch> getBookRecommendationsByAuthor(String author){
+    public List<BookSearchResponse> getBookRecommendationsByAuthor(String author){
         EndpointUtility utility = new EndpointUtility();
         String response = utility.getEndpoint(GET_BOOK_RECOMMENDATION_BY_AUTHOR.replace("{author}", author));
-        List<BookSearch> recommendation;
+        List<BookSearchResponse> recommendation;
         try{
             recommendation = mapper.readValue(response, new TypeReference<>(){});
         } catch (Exception e) {
@@ -47,15 +48,15 @@ public class BookSearchServiceClient {
         return recommendation;
     }
 
-    public BookSearch getBookSearch(String bookSearchId){
+    public BookSearchResponse getBookSearch(String bookSearchId){
         EndpointUtility utility = new EndpointUtility();
         String response = utility.getEndpoint(GET_BOOK.replace("{bookSearchId}", bookSearchId));
-        BookSearch bookSearch;
+        BookSearchResponse bookSearchResponse;
         try{
-           bookSearch = mapper.readValue(response, BookSearch.class);
+           bookSearchResponse = mapper.readValue(response, BookSearchResponse.class);
         } catch (Exception e) {
             throw new ApiGatewayException("Unable to deserialize JSON: " + e);
         }
-        return bookSearch;
+        return bookSearchResponse;
     }
 }
