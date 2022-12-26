@@ -6,15 +6,15 @@ import com.kenzie.appserver.controller.model.CreateBookmarkRequest;
 import com.kenzie.appserver.repositories.BookmarkRepository;
 import com.kenzie.appserver.repositories.model.BookmarkRecord;
 import com.kenzie.capstone.service.client.BookSearchServiceClient;
+import com.kenzie.capstone.service.model.BookSearch;
+import com.kenzie.capstone.service.model.BookSearchResponse;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
 import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
-import java.util.UUID;
+import java.util.*;
+import java.util.stream.Collectors;
 
 @Service
 public class BookmarkService {
@@ -83,6 +83,24 @@ public class BookmarkService {
         else{
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "bookmarkId not found");
         }
+    }
+
+    public List<BookSearchResponse> getBooksByGenre(String genre){
+        return Optional.ofNullable(client.getBookRecommendationsByGenre(genre))
+                .orElse(Collections.emptyList());
+
+    }
+
+    public List<BookSearchResponse> getBooksByAuthor(String author){
+        return Optional.ofNullable(client.getBookRecommendationsByAuthor(author))
+                .orElse(Collections.emptyList());
+
+    }
+
+    public BookSearchResponse getBook(String bookSearchId){
+        return Optional.ofNullable(client.getBookSearch(bookSearchId))
+                .orElse(new BookSearchResponse());
+
     }
 
     private BookmarkResponse recordToResponse(BookmarkRecord bookmarkRecord){
