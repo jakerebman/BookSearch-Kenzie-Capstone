@@ -10,7 +10,7 @@ var CURRENT_STATE;
 class BookmarkPage extends BaseClass {
     constructor() {
         super();
-        this.bindClassMethods(['onCreateCollection', 'onGetCollection', 'onDeleteCollection', 'confirmDeleteCollection', 'addItemsToTable', 'onCollectionPageDelete', 'onGetAllCollections','renderCollection'], this);
+        this.bindClassMethods(['dropDown','onCreateCollection', 'onGetCollection', 'onDeleteCollection', 'confirmDeleteCollection', 'addItemsToTable', 'onCollectionPageDelete', 'onGetAllCollections','renderCollection'], this);
         this.dataStore = new DataStore();
     }
 
@@ -564,8 +564,22 @@ class BookmarkPage extends BaseClass {
 
 
     }
-}
+    /* When the user clicks on the button,
+    toggle between hiding and showing the dropdown content */
+    async dropDown() {
+        document.getElementById("genres").classList.toggle("show");
+    }
 
+// Close the dropdown if the user clicks outside of it
+//     window.onclick = function(e) {
+//         if (!e.target.matches('.dropbtn')) {
+//             var genres = document.getElementById("genres");
+//             if (genres.classList.contains('show')) {
+//                 genres.classList.remove('show');
+//             }
+//         }
+//     }
+}
 
 /**
  * Main method to run when the page contents have loaded.
