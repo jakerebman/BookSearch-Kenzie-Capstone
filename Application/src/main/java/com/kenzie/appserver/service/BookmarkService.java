@@ -20,13 +20,15 @@ import java.util.stream.Collectors;
 public class BookmarkService {
 
     private final BookmarkRepository bookmarkRepository;
-    private final BookSearchServiceClient client;
+    private final BookSearchServiceClient bookSearchServiceClient;
 
-    public BookmarkService(BookmarkRepository bookmarkRepository, BookSearchServiceClient client ){
+    public BookmarkService(BookmarkRepository bookmarkRepository, BookSearchServiceClient bookSearchServiceClient) {
         this.bookmarkRepository = bookmarkRepository;
-        this.client = client;
+        this.bookSearchServiceClient = bookSearchServiceClient;
     }
 
+    // TODO: The following needs to be pulled from cache: title, author, genre, numPages, Isbn13, description and imageurl
+    // TODO: The frontend needs to pass the read status chosen by the user to the backend to store in the db
     public BookmarkResponse addNewBookmark(CreateBookmarkRequest createBookmarkRequest){
         BookmarkRecord record = new BookmarkRecord();
         record.setBookmarkId(UUID.randomUUID().toString());
@@ -65,6 +67,8 @@ public class BookmarkService {
     }
 
     //Todo: Talk about what we actually want to send to frontend
+    // TODO: Do we want to return a list of BookmarkResponses which includes all data - relevant if caching?
+    // Or use the BookmarkUpdateResponse and only return what's needed for rendering the front page?
     public List<BookmarkResponse> getAllBookMarksByStatus(){
         List<BookmarkResponse> responses = new ArrayList<>();
         for(BookmarkRecord record : bookmarkRepository.findAll()){
