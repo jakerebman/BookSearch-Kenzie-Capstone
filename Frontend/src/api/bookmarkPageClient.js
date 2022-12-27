@@ -1,10 +1,10 @@
 import BaseClass from "../util/baseClass";
 import axios from "axios";
 
-export default class CollectionClient extends BaseClass {
+export default class BookmarkPageClient extends BaseClass {
     constructor(props = {}) {
         super();
-        const methodsToBind = ['clientLoaded', 'createCollection', 'getCollectionById', 'deleteCollectionById', 'getAllCollections'];
+        const methodsToBind = ['clientLoaded', 'getBooksByAuthor', 'getBooksByGenre', 'getBooks', 'getBookmark', 'getAllBookmarksByStatus', 'editBookmarkStatus'];
         this.bindClassMethods(methodsToBind, this);
         this.props = props;
         this.clientLoaded(axios);

@@ -6,27 +6,29 @@ import com.kenzie.appserver.controller.model.CreateBookmarkRequest;
 import com.kenzie.appserver.repositories.BookmarkRepository;
 import com.kenzie.appserver.repositories.model.BookmarkRecord;
 import com.kenzie.capstone.service.client.BookSearchServiceClient;
+import com.kenzie.capstone.service.model.BookSearch;
+import com.kenzie.capstone.service.model.BookSearchResponse;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
 import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
-import java.util.UUID;
+import java.util.*;
+import java.util.stream.Collectors;
 
 @Service
 public class BookmarkService {
 
     private final BookmarkRepository bookmarkRepository;
-    private final BookSearchServiceClient client;
+    private final BookSearchServiceClient bookSearchServiceClient;
 
-    public BookmarkService(BookmarkRepository bookmarkRepository, BookSearchServiceClient client ){
+    public BookmarkService(BookmarkRepository bookmarkRepository, BookSearchServiceClient bookSearchServiceClient) {
         this.bookmarkRepository = bookmarkRepository;
-        this.client = client;
+        this.bookSearchServiceClient = bookSearchServiceClient;
     }
 
+    // TODO: The following needs to be pulled from cache: title, author, genre, numPages, Isbn13, description and imageurl
+    // TODO: The frontend needs to pass the read status chosen by the user to the backend to store in the db
     public BookmarkResponse addNewBookmark(CreateBookmarkRequest createBookmarkRequest){
         BookmarkRecord record = new BookmarkRecord();
         record.setBookmarkId(UUID.randomUUID().toString());
@@ -46,18 +48,17 @@ public class BookmarkService {
     }
 
     public BookmarkResponse updateBookmarkStatus(String bookmarkId, String status){
-         return Optional.of(bookmarkRepository.findById(bookmarkId))
-                 .stream()
-                 .peek(bookmarkRecord -> {
-                     if(bookmarkRecord.isPresent()){
-                     bookmarkRecord.get().setReadStatus(status);
-                     }else{
-                     throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Bookmark not found");
-                     }
-                 })
-                 .map(bookmarkRecord -> recordToResponse(bookmarkRecord.get()))
-                 .findAny().get();
-
+        return Optional.of(bookmarkRepository.findById(bookmarkId))
+                .stream()
+                .peek(bookmarkRecord -> {
+                    if(bookmarkRecord.isPresent()){
+                        bookmarkRecord.get().setReadStatus(status);
+                    }else{
+                        throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Bookmark not found");
+                    }
+                })
+                .map(bookmarkRecord -> recordToResponse(bookmarkRecord.get()))
+                .findAny().get();
     }
 
     public void deleteBookmark(String bookmarkId){
@@ -65,6 +66,8 @@ public class BookmarkService {
     }
 
     //Todo: Talk about what we actually want to send to frontend
+    // TODO: Do we want to return a list of BookmarkResponses which includes all data - relevant if caching?
+    // Or use the BookmarkUpdateResponse and only return what's needed for rendering the front page?
     public List<BookmarkResponse> getAllBookMarksByStatus(){
         List<BookmarkResponse> responses = new ArrayList<>();
         for(BookmarkRecord record : bookmarkRepository.findAll()){
@@ -83,6 +86,24 @@ public class BookmarkService {
         else{
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "bookmarkId not found");
         }
+    }
+
+    public List<BookSearchResponse> getBooksByGenre(String genre){
+        return Optional.ofNullable(bookSearchServiceClient.getBookRecommendationsByGenre(genre))
+                .orElse(Collections.emptyList());
+
+    }
+
+    public List<BookSearchResponse> getBooksByAuthor(String author){
+        return Optional.ofNullable(bookSearchServiceClient.getBookRecommendationsByAuthor(author))
+                .orElse(Collections.emptyList());
+
+    }
+
+    public BookSearchResponse getBook(String bookSearchId){
+        return Optional.ofNullable(bookSearchServiceClient.getBookSearch(bookSearchId))
+                .orElse(new BookSearchResponse());
+
     }
 
     private BookmarkResponse recordToResponse(BookmarkRecord bookmarkRecord){
@@ -113,5 +134,4 @@ public class BookmarkService {
         response.setReadStatus(record.getReadStatus());
         return response;
     }
-
 }
