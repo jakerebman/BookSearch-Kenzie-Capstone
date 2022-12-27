@@ -48,18 +48,17 @@ public class BookmarkService {
     }
 
     public BookmarkResponse updateBookmarkStatus(String bookmarkId, String status){
-         return Optional.of(bookmarkRepository.findById(bookmarkId))
-                 .stream()
-                 .peek(bookmarkRecord -> {
-                     if(bookmarkRecord.isPresent()){
-                     bookmarkRecord.get().setReadStatus(status);
-                     }else{
-                     throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Bookmark not found");
-                     }
-                 })
-                 .map(bookmarkRecord -> recordToResponse(bookmarkRecord.get()))
-                 .findAny().get();
-
+        return Optional.of(bookmarkRepository.findById(bookmarkId))
+                .stream()
+                .peek(bookmarkRecord -> {
+                    if(bookmarkRecord.isPresent()){
+                        bookmarkRecord.get().setReadStatus(status);
+                    }else{
+                        throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Bookmark not found");
+                    }
+                })
+                .map(bookmarkRecord -> recordToResponse(bookmarkRecord.get()))
+                .findAny().get();
     }
 
     public void deleteBookmark(String bookmarkId){
@@ -90,19 +89,19 @@ public class BookmarkService {
     }
 
     public List<BookSearchResponse> getBooksByGenre(String genre){
-        return Optional.ofNullable(client.getBookRecommendationsByGenre(genre))
+        return Optional.ofNullable(bookSearchServiceClient.getBookRecommendationsByGenre(genre))
                 .orElse(Collections.emptyList());
 
     }
 
     public List<BookSearchResponse> getBooksByAuthor(String author){
-        return Optional.ofNullable(client.getBookRecommendationsByAuthor(author))
+        return Optional.ofNullable(bookSearchServiceClient.getBookRecommendationsByAuthor(author))
                 .orElse(Collections.emptyList());
 
     }
 
     public BookSearchResponse getBook(String bookSearchId){
-        return Optional.ofNullable(client.getBookSearch(bookSearchId))
+        return Optional.ofNullable(bookSearchServiceClient.getBookSearch(bookSearchId))
                 .orElse(new BookSearchResponse());
 
     }
@@ -135,5 +134,4 @@ public class BookmarkService {
         response.setReadStatus(record.getReadStatus());
         return response;
     }
-
 }
