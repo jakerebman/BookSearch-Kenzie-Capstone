@@ -2,6 +2,7 @@ package com.kenzie.appserver.controller;
 
 import com.kenzie.appserver.controller.model.*;
 import com.kenzie.appserver.service.BookmarkService;
+import com.kenzie.capstone.service.model.BookSearchResponse;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -57,5 +58,26 @@ public class BookmarkController {
             return ResponseEntity.notFound().build();
         }
         return ResponseEntity.ok(bookmarkResponse);
+    }
+
+    @GetMapping("/books/{author}")
+    public ResponseEntity<List<BookSearchResponse>> getBooksByAuthor(@PathVariable("author") String author) {
+        List<BookSearchResponse> books = bookmarkService.getBooksByAuthor(author);
+        return ResponseEntity.ok(books);
+    }
+
+    @GetMapping("/books/{genre}")
+    public ResponseEntity<List<BookSearchResponse>> getBooksByGenre(@PathVariable("genre") String genre) {
+        List<BookSearchResponse> books = bookmarkService.getBooksByAuthor(genre);
+        return ResponseEntity.ok(books);
+    }
+
+    @GetMapping("/books/{bookSearchId}")
+    public ResponseEntity<BookSearchResponse> getBookById(@PathVariable("bookSearchId") String bookSearchId) {
+        BookSearchResponse bookSearchResponse = bookmarkService.getBook(bookSearchId);
+        if (bookSearchResponse == null) {
+            return ResponseEntity.notFound().build();
+        }
+        return ResponseEntity.ok(bookSearchResponse);
     }
 }

@@ -233,8 +233,6 @@ public class BookmarkControllerTest {
         bookmarkRequest2.setImageURL(book2_imageURL);
         bookmarkRequest2.setReadStatus("Interested");
 
-//        BookmarkResponse bookmarkResponse1 = bookmarkService.addNewBookmark(bookmarkRequest1);
-//        BookmarkResponse bookmarkResponse2 = bookmarkService.addNewBookmark(bookmarkRequest2);
         bookmarkService.addNewBookmark(bookmarkRequest1);
         bookmarkService.addNewBookmark(bookmarkRequest2);
 
@@ -258,7 +256,6 @@ public class BookmarkControllerTest {
             assertThat(response.getReadStatus()).isNotEmpty().as("The read status is populated");
         }
     }
-
 
     /** ------------------------------------------------------------------------
      *  Get Bookmark
@@ -313,5 +310,17 @@ public class BookmarkControllerTest {
     /** ------------------------------------------------------------------------
      *  Get Book
      *  ------------------------------------------------------------------------ **/
+//    @Test
+//    public void getBookById_Successful() throws Exception {
+//        String bookTitle = "Pride and Prejudice";
+//        String bookAuthor = "Jane Austen";
+//        String numPages = "259";
+//        String isbn = "978-0679783268";
+//        String description = "It is a truth universally acknowledged...";
+//        String imageName = mockNeat.names().get();
+//        String imageURL = "s3://pats-bucket/" + imageName;
+//
+//        BookSearchResponse bookResponse = bookmarkService.getBook(bookAuthor);
+//    }
 
 }
