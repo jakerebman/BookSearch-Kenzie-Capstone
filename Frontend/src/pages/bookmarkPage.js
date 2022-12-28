@@ -168,6 +168,7 @@ class BookmarkPage extends BaseClass {
     // get global working and then focus on passing the collectionId automatically later
 
     // Event Handlers --------------------------------------------------------------------------------------------------
+    // TODO: Change to Search bar results. Copy and use for the dropdown results as well.
     async onCreateCollection(event) {
         console.log("Entering onCreateCollection method...");
         event.preventDefault();
@@ -350,6 +351,7 @@ class BookmarkPage extends BaseClass {
         // }
     }
 
+    // TODO: Generate something similar for the list that will link to hyperlinks. Lists not Table.
     async generateTable(id, date, name, type, description, itemNames) {
         // Dynamically render HTML for getCollectionById results
         console.log("Entering generateTable method...");
@@ -359,39 +361,6 @@ class BookmarkPage extends BaseClass {
         }
 
         console.log(name);
-
-        // Get reference for the body - if method used
-        var tableDiv = document.getElementById("collection-table-results");
-
-        // Create a table element
-        var table = document.createElement("table");
-
-        // Set table id
-        table.setAttribute('id', 'get-collection-table');
-        var tr = document.createElement("tr");
-
-        // Add header rows
-        const headerRowNames = [
-            "Collection ID",
-            "Collection Creation Date",
-            "Collection Name",
-            "Collection Type",
-            "Collection Description",
-            "Collection Item Names",
-            "Delete Collection",
-            "Add Items To Collection",
-            "Close Table"
-        ];
-
-        for (var i = 0; i < headerRowNames.length; i++) {
-            // Create column element
-            var th = document.createElement("th");
-            // Create cell element
-            var text = document.createTextNode(headerRowNames[i]);
-            th.appendChild(text);
-            tr.appendChild(th);
-        }
-        table.appendChild(tr);
 
 
 
