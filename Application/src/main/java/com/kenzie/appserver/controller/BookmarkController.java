@@ -2,13 +2,15 @@ package com.kenzie.appserver.controller;
 
 import com.kenzie.appserver.controller.model.*;
 import com.kenzie.appserver.service.BookmarkService;
-import com.kenzie.capstone.service.model.BookSearchResponse;
+import com.kenzie.appserver.controller.model.BookSearchResponse;
+import com.kenzie.appserver.service.model.BookSearch;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 
 import java.net.URI;
+import java.util.ArrayList;
 import java.util.List;
 
 @RestController
@@ -29,7 +31,7 @@ public class BookmarkController {
         return ResponseEntity.created(URI.create("/bookmarks" + response.getBookmarkId())).body(response);
     }
 
-    @PostMapping("{/bookmarkId}")
+    @PostMapping("/{bookmarkId}")
     public ResponseEntity<BookmarkResponse> updateBookmarkStatusById(@RequestBody BookmarkUpdateRequest bookmarkUpdateRequest) {
         BookmarkResponse bookmarkResponse = bookmarkService.updateBookmarkStatus(bookmarkUpdateRequest.getBookmarkId(),
                 bookmarkUpdateRequest.getStatus());
@@ -68,7 +70,7 @@ public class BookmarkController {
 
     @GetMapping("/books/{genre}")
     public ResponseEntity<List<BookSearchResponse>> getBooksByGenre(@PathVariable("genre") String genre) {
-        List<BookSearchResponse> books = bookmarkService.getBooksByAuthor(genre);
+        List<BookSearchResponse> books = bookmarkService.getBooksByGenre(genre);
         return ResponseEntity.ok(books);
     }
 

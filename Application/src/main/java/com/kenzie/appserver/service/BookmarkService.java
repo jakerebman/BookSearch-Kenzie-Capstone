@@ -6,9 +6,11 @@ import com.kenzie.appserver.controller.model.CreateBookmarkRequest;
 import com.kenzie.appserver.repositories.BookmarkRepository;
 import com.kenzie.appserver.repositories.model.BookmarkRecord;
 import com.kenzie.capstone.service.client.BookSearchServiceClient;
+//import com.kenzie.appserver.service.model.BookSearch;
 import com.kenzie.capstone.service.model.BookSearch;
-import com.kenzie.capstone.service.model.BookSearchResponse;
+import com.kenzie.appserver.controller.model.BookSearchResponse;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
@@ -88,22 +90,44 @@ public class BookmarkService {
         }
     }
 
-    public List<BookSearchResponse> getBooksByGenre(String genre){
-        return Optional.ofNullable(bookSearchServiceClient.getBookRecommendationsByGenre(genre))
-                .orElse(Collections.emptyList());
+//    public List<BookSearchResponse> getBooksByGenre(String genre){
+//        return Optional.ofNullable(bookSearchServiceClient.getBookRecommendationsByGenre(genre))
+//                .orElse(Collections.emptyList());
+//    }
+public List<BookSearchResponse> getBooksByGenre(String genre){
 
+    List<BookSearch> books = bookSearchServiceClient.getBookRecommendationsByGenre(genre);
+
+//    if (books == null) {
+//        return ResponseEntity.notFound().build();
+//    }
+    return books
+            .stream()
+            .map(this::convertBookSearchToResponse)
+            .collect(Collectors.toList());
+}
+
+//    public List<BookSearchResponse> getBooksByAuthor(String author){
+//        return Optional.ofNullable(bookSearchServiceClient.getBookRecommendationsByAuthor(author))
+//                .orElse(Collections.emptyList());
+//    }
+    public List<BookSearchResponse> getBooksByAuthor(String author) {
+        List<BookSearch> books = bookSearchServiceClient.getBookRecommendationsByAuthor(author);
+
+        return books
+                .stream()
+                .map(this::convertBookSearchToResponse)
+                .collect(Collectors.toList());
     }
 
-    public List<BookSearchResponse> getBooksByAuthor(String author){
-        return Optional.ofNullable(bookSearchServiceClient.getBookRecommendationsByAuthor(author))
-                .orElse(Collections.emptyList());
-
-    }
+//    public BookSearchResponse getBook(String bookSearchId){
+//        return Optional.ofNullable(bookSearchServiceClient.getBookSearch(bookSearchId))
+//                .orElse(new BookSearchResponse());
+//    }
 
     public BookSearchResponse getBook(String bookSearchId){
-        return Optional.ofNullable(bookSearchServiceClient.getBookSearch(bookSearchId))
-                .orElse(new BookSearchResponse());
-
+        BookSearch book = bookSearchServiceClient.getBookSearch(bookSearchId);
+        return convertBookSearchToResponse(book);
     }
 
     private BookmarkResponse recordToResponse(BookmarkRecord bookmarkRecord){
@@ -133,5 +157,18 @@ public class BookmarkService {
         response.setTitle(record.getTitle());
         response.setReadStatus(record.getReadStatus());
         return response;
+    }
+
+    private BookSearchResponse convertBookSearchToResponse(BookSearch bookSearch) {
+        BookSearchResponse bookSearchResponse = new BookSearchResponse();
+        bookSearchResponse.setBookSearchId(bookSearch.getBookSearchId());
+        bookSearchResponse.setTitle(bookSearch.getTitle());
+        bookSearchResponse.setAuthor(bookSearch.getAuthor());
+        bookSearchResponse.setGenre(bookSearch.getGenre());
+        bookSearchResponse.setNumPages(bookSearch.getNumPages());
+        bookSearchResponse.setIsbn13(bookSearch.getIsbn13());
+        bookSearchResponse.setDescription(bookSearch.getDescription());
+        bookSearchResponse.setImageURL(bookSearch.getImageURL());
+        return bookSearchResponse;
     }
 }
