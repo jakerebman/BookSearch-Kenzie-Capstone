@@ -2,6 +2,7 @@ package com.kenzie.appserver.controller;
 
 import com.fasterxml.jackson.datatype.jdk8.Jdk8Module;
 import com.kenzie.appserver.IntegrationTest;
+import com.kenzie.appserver.controller.model.BookSearchResponse;
 import com.kenzie.appserver.controller.model.BookmarkResponse;
 import com.kenzie.appserver.controller.model.BookmarkUpdateRequest;
 import com.kenzie.appserver.controller.model.CreateBookmarkRequest;
@@ -18,12 +19,15 @@ import org.springframework.test.web.servlet.ResultActions;
 import org.testcontainers.shaded.com.fasterxml.jackson.core.type.TypeReference;
 import org.testcontainers.shaded.com.fasterxml.jackson.databind.ObjectMapper;
 
+import java.awt.print.Book;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.UUID;
 
+import static org.hamcrest.Matchers.is;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 
@@ -302,25 +306,110 @@ public class BookmarkControllerTest {
     /** ------------------------------------------------------------------------
      *  Get Books By Author
      *  ------------------------------------------------------------------------ **/
+    // TODO: Database must be populated with the below book information in order for the test to succeed?
+    @Test
+    public void getBooksByAuthor_Successful() throws Exception {
+        String bookTitle = "Pride and Prejudice";
+        String bookAuthor = "Jane Austen";
+        String genre = "romance";
+        String numPages = "259";
+        String isbn = "978-0679783268";
+        String description = "It is a truth universally acknowledged...";
+        String imageName = mockNeat.names().get();
+        String imageURL = "s3://pats-bucket/" + imageName;
+
+        ResultActions actions = mvc.perform(get("/bookmarks/books/{author}", bookAuthor)
+                        .accept(MediaType.APPLICATION_JSON)
+                        .contentType(MediaType.APPLICATION_JSON))
+                .andExpect(status().isOk());
+
+        String responseBody = actions.andReturn().getResponse().getContentAsString();
+
+        List<BookSearchResponse> responses = mapper.readValue(responseBody, new TypeReference<List<BookSearchResponse>>() {});
+
+        assertThat(responses.size()).isGreaterThan(0).as("There are books in the list");
+        for (BookSearchResponse response : responses) {
+            assertThat(response.getBookSearchId()).isNotEmpty().as("The ID is populated");
+            assertThat(response.getTitle()).isNotEmpty().as("The book title is populated");
+            assertThat(response.getAuthor()).isEqualTo(bookAuthor).as("The book author matches");
+            assertThat(response.getGenre()).isNotEmpty().as("The book genre is populated");
+            assertThat(response.getNumPages()).isNotEmpty().as("The number of book pages is populated");
+            assertThat(response.getIsbn13()).isNotEmpty().as("The book ISBN is populated");
+            assertThat(response.getDescription()).isNotEmpty().as("The book description is populated");
+            assertThat(response.getImageURL()).isNotEmpty().as("The book image url is populated");
+        }
+    }
 
     /** ------------------------------------------------------------------------
      *  Get Books By Genre
      *  ------------------------------------------------------------------------ **/
+    @Test
+    public void getBooksByGenre_Successful() throws Exception {
+        String bookTitle = "Pride and Prejudice";
+        String bookAuthor = "Jane Austen";
+        String genre = "romance";
+        String numPages = "259";
+        String isbn = "978-0679783268";
+        String description = "It is a truth universally acknowledged...";
+        String imageName = mockNeat.names().get();
+        String imageURL = "s3://pats-bucket/" + imageName;
+
+        ResultActions actions = mvc.perform(get("/bookmarks/books/{genre}", genre)
+                .accept(MediaType.APPLICATION_JSON)
+                .contentType(MediaType.APPLICATION_JSON))
+                .andExpect(status().isOk());
+
+        String responseBody = actions.andReturn().getResponse().getContentAsString();
+
+        List<BookSearchResponse> responses = mapper.readValue(responseBody, new TypeReference<List<BookSearchResponse>>() {});
+
+        assertThat(responses.size()).isGreaterThan(0).as("There are books in the list");
+        for (BookSearchResponse response : responses) {
+            assertThat(response.getBookSearchId()).isNotEmpty().as("The ID is populated");
+            assertThat(response.getTitle()).isNotEmpty().as("The book title is populated");
+            assertThat(response.getAuthor()).isNotEmpty().as("The book author is populated");
+            assertThat(response.getGenre()).isEqualTo(genre).as("The book genre matches");
+            assertThat(response.getNumPages()).isNotEmpty().as("The number of book pages is populated");
+            assertThat(response.getIsbn13()).isNotEmpty().as("The book ISBN is populated");
+            assertThat(response.getDescription()).isNotEmpty().as("The book description is populated");
+            assertThat(response.getImageURL()).isNotEmpty().as("The book image url is populated");
+        }
+    }
 
     /** ------------------------------------------------------------------------
      *  Get Book
      *  ------------------------------------------------------------------------ **/
-//    @Test
-//    public void getBookById_Successful() throws Exception {
-//        String bookTitle = "Pride and Prejudice";
-//        String bookAuthor = "Jane Austen";
-//        String numPages = "259";
-//        String isbn = "978-0679783268";
-//        String description = "It is a truth universally acknowledged...";
-//        String imageName = mockNeat.names().get();
-//        String imageURL = "s3://pats-bucket/" + imageName;
-//
-//        BookSearchResponse bookResponse = bookmarkService.getBook(bookAuthor);
-//    }
+    @Test
+    public void getBookById_Successful() throws Exception {
+        String bookSearchId = UUID.randomUUID().toString();
+        String bookTitle = "Pride and Prejudice";
+        String bookAuthor = "Jane Austen";
+        String numPages = "259";
+        String isbn = "978-0679783268";
+        String description = "It is a truth universally acknowledged...";
+        String imageName = mockNeat.names().get();
+        String imageURL = "s3://pats-bucket/" + imageName;
+
+        BookSearchResponse bookResponse = bookmarkService.getBook(bookSearchId);
+
+        mvc.perform(get("/bookmarks/books/{id}", bookSearchId))
+                .andExpect(jsonPath("bookSearchId")
+                        .value(is(bookSearchId)))
+                .andExpect(jsonPath("title")
+                        .isString())
+                .andExpect(jsonPath("author")
+                        .isString())
+                .andExpect(jsonPath("genre")
+                        .isString())
+                .andExpect(jsonPath("numPages")
+                        .isString())
+                .andExpect(jsonPath("isbn13")
+                        .isString())
+                .andExpect(jsonPath("description")
+                        .isString())
+                .andExpect(jsonPath("imageURL")
+                        .isString())
+                .andExpect(status().is2xxSuccessful());
+    }
 
 }
