@@ -4,7 +4,7 @@ import axios from "axios";
 export default class BookmarkPageClient extends BaseClass {
     constructor(props = {}) {
         super();
-        const methodsToBind = ['clientLoaded', 'getBooksByAuthor', 'getBooksByGenre', 'getBooks', 'getBookmark', 'getAllBookmarksByStatus', 'editBookmarkStatus'];
+        const methodsToBind = ['clientLoaded', 'getByAuthor', 'getBooksByGenre', 'getBookmark', 'getAllBookmarksByStatus', 'editBookmarkStatus'];
         this.bindClassMethods(methodsToBind, this);
         this.props = props;
         this.clientLoaded(axios);
@@ -28,9 +28,9 @@ export default class BookmarkPageClient extends BaseClass {
      * @param errorCallback (Optional) A function to execute if the call fails
      * @returns The collection
      */
-    async getCollectionById(id, errorCallback) {
+    async getByAuthor(id, errorCallback) {
         try {
-            const response = await this.client.get(`/collections/${id}`);
+            const response = await this.client.get(`/bookmark/books/${id}`);
             return response.data;
         } catch (error) {
             this.handleError("getCollectionById", error, errorCallback)
