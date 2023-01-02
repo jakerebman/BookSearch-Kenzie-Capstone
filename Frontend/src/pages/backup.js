@@ -10,7 +10,7 @@ var CURRENT_STATE;
 class BookmarkPage extends BaseClass {
     constructor() {
         super();
-        this.bindClassMethods(['onCreateCollection', 'onGetCollection', 'onDeleteCollection', 'confirmDeleteCollection', 'addItemsToTable', 'onCollectionPageDelete', 'onGetAllCollections','renderCollection'], this);
+        this.bindClassMethods(['dropDownList','onCreateCollection', 'onGetCollection', 'onDeleteCollection', 'confirmDeleteCollection', 'addItemsToTable', 'onCollectionPageDelete', 'onGetAllCollections','renderCollection'], this);
         this.dataStore = new DataStore();
     }
 
@@ -20,9 +20,10 @@ class BookmarkPage extends BaseClass {
     async mount() {
         // document.getElementById
         document.getElementById('create-collection-form').addEventListener('submit', this.onCreateCollection);
-        document.getElementById('search-collection').addEventListener('submit', this.onGetByAuthor);
+        document.getElementById('search-collection').addEventListener('submit', this.onGetCollection);
         document.getElementById('delete-collection').addEventListener('click', this.onCollectionPageDelete);
         document.getElementById('collection-list').addEventListener('click', this.onGetAllCollections);
+        document.getElementById('dropbtn').addEventListener('click', this.dropDownList);
         // TODO: Add listeners for form-delete-btn + add-items btn
 
         this.client = new BookmarkPageClient();
@@ -57,11 +58,11 @@ class BookmarkPage extends BaseClass {
             } else {
                 resultArea.innerHTML = "Error Creating Collection! Try Again... ";
             }
-        } else if (getState === 'AUTHOR') {
-            console.log("State = AUTHOR");
-            const getByAuthor = this.dataStore.get("getByAuthor");
+        } else if (getState === 'GET') {
+            console.log("State = GET");
+            const getCollection = this.dataStore.get("getCollection");
 
-            if (getByAuthor) {
+            if (getCollection) {
                 document.getElementById("collection-results-header").innerHTML = "COLLECTION ID:";
                 console.log(getCollection);
 
@@ -92,11 +93,54 @@ class BookmarkPage extends BaseClass {
                 document.getElementById('table-delete-btn').addEventListener('click', this.onDeleteCollection);
                 document.getElementById('table-add-items-btn').addEventListener('click', this.addItemsToTable);
             } else {
-                this.errorHandler("Error finding books by Author! Try Again... ");
-                console.log("Error finding books by Author!");
+                this.errorHandler("Error Getting Collection! Try Again... ");
+                console.log("Error Getting Collection!");
             }
 
+        } else if (getState === 'DELETE') {
+            console.log("State = 'DELETE'");
+            const deleteCollectionId = this.dataStore.get("deleteCollectionId");
+
+            if (deleteCollectionId) {
+                console.log(deleteCollectionId);
+                this.showMessage(`Request submitted to delete: ${deleteCollectionId}`);
+            } else {
+                this.errorHandler(`Error Deleting Collection ID: ${deleteCollectionId}`);
+                console.log("Error Deleting Collection ID...");
+            }
+        } else if (getState === 'GET_ALL') {
+            console.log("State === 'GET_ALL'");
+            let resultArea = document.getElementById('collection-result-info');
+            resultArea.innerHTML = "";
+
+            const getAllCollections = this.dataStore.get("getAllCollections");
+            const convertCollections = Object.entries(getAllCollections);
+            console.log(convertCollections);
+
+            if (getAllCollections) {
+                document.getElementById("create-collection-results").style.display = "flex";
+                document.getElementById("collection-results-header").innerHTML = "ALL COLLECTIONS:";
+                const ul = document.createElement("ul");
+                for (let i = 0; i < getAllCollections.length; i++) {
+                    const li = document.createElement("li");
+                    console.log("inside the for loop " + getAllCollections[i]);
+                    li.innerHTML += `
+                    <div>Collection Name: ${getAllCollections[i].collectionName}</div>
+                    <div>Collection ID: ${getAllCollections[i].collectionId}</div>`;
+                    ul.append(li);
+                }
+                resultArea.append(ul);
+            } else {
+                resultArea.innerHTML = "Error Printing Collections...";
+            }
+        } else {
+            console.log("ERROR: Unable to process current state!");
         }
+        // TODO: Add Get All collections - pass in the response from getAllCollections (reference 'create')
+        // } else if (getState === 'DELETE') {
+        //     // Do delete things
+        // } else {
+        //}
     }
 
 
@@ -120,26 +164,26 @@ class BookmarkPage extends BaseClass {
         // // Prevent the page from refreshing on form submit
         event.preventDefault();
 
-        let authorName = document.getElementById('search-input').value;
-        console.log(authorName);
-        if (authorName === '' || authorName.trim().length === 0) {
-            this.errorHandler("ERROR: Must enter valid Author name!");
-            console.log("Author name: " + authorName + " is empty");
+        let collectionId = document.getElementById('search-input').value;
+        console.log(collectionId);
+        if (collectionId === '' || collectionId.trim().length === 0) {
+            this.errorHandler("ERROR: Must enter valid Collection ID!");
+            console.log("Collection ID: " + collectionId + " is empty");
         }
 
         //localStorage.setItem("collectionId", collectionId);
         try {
-            const getByAuthor = await this.client.getBooksByAuthor(authorName, this.errorHandler);
+            const getCollection = await this.client.getCollectionById(collectionId, this.errorHandler);
 
-            if (getByAuthor) {
-                this.showMessage(`Found Author: ${authorName}`);
+            if (getCollection) {
+                this.showMessage(`Found Collection: ${collectionId}`);
                 this.dataStore.setState({
-                    [CURRENT_STATE]: "AUTHOR",
-                    ["getByAuthor"]: getByAuthor
+                    [CURRENT_STATE]: "GET",
+                    ["getCollection"]: getCollection
                 });
             } else {
-                this.errorHandler("Error finding Author by Author name: " + `${authorName}` + "Try again with a valid Author name!");
-                console.log("AUTHOR isn't working...");
+                this.errorHandler("Error retrieving collection by ID: " + `${collectionId}` + "Try again with a valid collection ID");
+                console.log("GET isn't working...");
             }
         } catch(e) {
             console.log(e);
