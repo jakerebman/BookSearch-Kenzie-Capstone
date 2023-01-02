@@ -1,26 +1,19 @@
 package com.kenzie.appserver.controller;
 
-import com.fasterxml.jackson.datatype.jdk8.Jdk8Module;
 import com.kenzie.appserver.IntegrationTest;
 import com.kenzie.appserver.controller.model.BookSearchResponse;
 import com.kenzie.appserver.controller.model.BookmarkResponse;
 import com.kenzie.appserver.controller.model.BookmarkUpdateRequest;
 import com.kenzie.appserver.controller.model.CreateBookmarkRequest;
-import com.kenzie.appserver.repositories.BookmarkRepository;
 import com.kenzie.appserver.service.BookmarkService;
 import net.andreinc.mockneat.MockNeat;
-import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
-import org.mockito.Mock;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.ResultActions;
 import org.testcontainers.shaded.com.fasterxml.jackson.core.type.TypeReference;
 import org.testcontainers.shaded.com.fasterxml.jackson.databind.ObjectMapper;
-
-import java.awt.print.Book;
-import java.time.LocalDateTime;
 import java.util.List;
 import java.util.UUID;
 
