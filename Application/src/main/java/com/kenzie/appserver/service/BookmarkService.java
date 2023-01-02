@@ -9,7 +9,6 @@ import com.kenzie.capstone.service.client.BookSearchServiceClient;
 //import com.kenzie.appserver.service.model.BookSearch;
 import com.kenzie.capstone.service.model.BookSearch;
 import com.kenzie.appserver.controller.model.BookSearchResponse;
-import com.kenzie.capstone.service.model.BookSearchResponse;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
@@ -17,6 +16,7 @@ import org.springframework.web.server.ResponseStatusException;
 
 import java.time.LocalDateTime;
 import java.util.*;
+import java.util.stream.Collectors;
 
 @Service
 public class BookmarkService {
