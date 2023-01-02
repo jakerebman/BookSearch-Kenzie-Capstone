@@ -31,7 +31,7 @@ public class BookmarkController {
         return ResponseEntity.created(URI.create("/bookmarks" + response.getBookmarkId())).body(response);
     }
 
-    @PostMapping("/{bookmarkId}")
+    @PutMapping("/{bookmarkId}")
     public ResponseEntity<BookmarkResponse> updateBookmarkStatusById(@RequestBody BookmarkUpdateRequest bookmarkUpdateRequest) {
         BookmarkResponse bookmarkResponse = bookmarkService.updateBookmarkStatus(bookmarkUpdateRequest.getBookmarkId(),
                 bookmarkUpdateRequest.getStatus());

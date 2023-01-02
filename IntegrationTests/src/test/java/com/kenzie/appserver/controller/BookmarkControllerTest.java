@@ -110,7 +110,7 @@ public class BookmarkControllerTest {
         bookmarkUpdateRequest.setBookmarkId(bookmarkResponse.getBookmarkId());
         bookmarkUpdateRequest.setStatus("Read");
 
-        ResultActions actions = mvc.perform(post("/bookmarks/{bookmarkId}", bookmarkResponse.getBookmarkId())
+        ResultActions actions = mvc.perform(put("/bookmarks/{bookmarkId}", bookmarkResponse.getBookmarkId())
                 .content(mapper.writeValueAsString(bookmarkRequest))
                 .accept(MediaType.APPLICATION_JSON)
                 .contentType(MediaType.APPLICATION_JSON))
