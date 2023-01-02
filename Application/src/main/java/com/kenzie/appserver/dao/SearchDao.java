@@ -1,11 +1,17 @@
 package com.kenzie.appserver.dao;
 
-import java.awt.print.Book;
+
+import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBMapper;
+import com.kenzie.capstone.service.model.BookSearch;
 
 public class SearchDao {
-
-    public BookSearch getBook(final String bookId){
-        Book book = new Book();
-        book
-    }
+//    private final DynamoDBMapper mapper;
+//
+//    public BookSearch getBook(final String bookId){
+//        BookSearch bookSearch = new BookSearch();
+//
+//        mapper.query()
+//
+//
+//    }
 }

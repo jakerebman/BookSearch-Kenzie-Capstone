@@ -1,5 +1,6 @@
 package com.kenzie.appserver.service;
 
+import com.google.common.cache.Cache;
 import com.kenzie.appserver.SortByStatusComparator;
 import com.kenzie.appserver.controller.model.BookmarkResponse;
 import com.kenzie.appserver.controller.model.CreateBookmarkRequest;
@@ -19,6 +20,7 @@ public class BookmarkService {
 
     private final BookmarkRepository bookmarkRepository;
     private final BookSearchServiceClient bookSearchServiceClient;
+    private Cache<String, String> bookCache;
 
     public BookmarkService(BookmarkRepository bookmarkRepository, BookSearchServiceClient bookSearchServiceClient) {
         this.bookmarkRepository = bookmarkRepository;
@@ -100,6 +102,7 @@ public class BookmarkService {
     }
 
     public BookSearchResponse getBook(String bookSearchId){
+
         return Optional.ofNullable(bookSearchServiceClient.getBookSearch(bookSearchId))
                 .orElse(new BookSearchResponse());
 
