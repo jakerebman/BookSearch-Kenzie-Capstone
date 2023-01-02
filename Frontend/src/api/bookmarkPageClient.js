@@ -61,9 +61,30 @@ export default class BookmarkPageClient extends BaseClass {
         }
     }
 
-    async updateBookmarkStatusById(id, errorCallback) {
+//TODO: this may need to be looked at to make sure that the params are correct since the method updates by id
+    async updateBookmarkStatusById(bookmarkId,
+                                   creationDate,
+                                   title,
+                                   author,
+                                   genre,
+                                   numPages,
+                                   description,
+                                   imageUrl,
+                                   isbn13,
+                                   readStatus,
+                                   errorCallback=console.error) {
         try {
-            const response = await this.client.put(`/bookmarks/${id}`);
+            const response = await this.client.put(`/bookmarks/${id}`, {
+                "Bookmark_Id": bookmarkId,
+                "Bookmark_Creation_Date": creationDate,
+                "Title": title,
+                "Author": author,
+                "Genre": genre,
+                "Num_Pages": numPages,
+                "Description": description,
+                "Image_URL": imageUrl,
+                "ISBN13": isbn13,
+                "Read_Status": readStatus,});
             return response.data;
         } catch (error) {
             this.handleError("updateBookmarkStatusById", error, errorCallback);
@@ -121,61 +142,6 @@ export default class BookmarkPageClient extends BaseClass {
             return response.data;
         } catch (error) {
             this.handleError("getBookById", error, errorCallback)
-        }
-    }
-
-    /**
-     * Get collection for a given ID
-     * @param name Unique identifier for a collection
-     * @param type
-     * @param description
-     * @param errorCallback (Optional) A function to execute if the call fails
-     * @returns The collection
-     */
-    async createCollection(name, type, description, errorCallback=console.error) {
-        try {
-            const response = await this.client.post(`/collections`, {
-                // JSON object
-                "collectionName": name,
-                "type": type,
-                "description": description
-            });
-            return response.data;
-        } catch (error) {
-            this.handleError("createCollection", error, errorCallback);
-        }
-    }
-
-
-
-
-
-    /**
-     * Get all collections
-     * @param errorCallback (Optional) A function to execute if the call fails
-     * @returns An array of collections
-     */
-    async getAllCollections(errorCallback) {
-        try {
-            const response = await this.client.get(`/collections`);
-            return response.data;
-        } catch (error) {
-            this.handleError("getAllCollections", error, errorCallback);
-        }
-    }
-
-    /**
-     * Get collection for a given ID
-     * @param id Unique identifier for a collection
-     * @param errorCallback (Optional) A function to execute if the call fails
-     * @returns The collection
-     */
-    async deleteCollectionById(id, errorCallback) {
-        try {
-            const response = await this.client.delete(`/collections/${id}`);
-            return response.data;
-        } catch (error) {
-            this.handleError("deleteCollectionById", error, errorCallback)
         }
     }
 
