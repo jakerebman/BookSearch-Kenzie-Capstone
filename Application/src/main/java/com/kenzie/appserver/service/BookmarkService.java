@@ -1,5 +1,6 @@
 package com.kenzie.appserver.service;
 
+import com.kenzie.appserver.BookSearchRecommendationsNotFoundException;
 import com.kenzie.appserver.SortByStatusComparator;
 import com.kenzie.appserver.controller.model.BookmarkResponse;
 import com.kenzie.appserver.controller.model.CreateBookmarkRequest;
@@ -9,7 +10,6 @@ import com.kenzie.capstone.service.client.BookSearchServiceClient;
 //import com.kenzie.appserver.service.model.BookSearch;
 import com.kenzie.capstone.service.model.BookSearch;
 import com.kenzie.appserver.controller.model.BookSearchResponse;
-import com.kenzie.capstone.service.model.BookSearchResponse;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
@@ -17,6 +17,7 @@ import org.springframework.web.server.ResponseStatusException;
 
 import java.time.LocalDateTime;
 import java.util.*;
+import java.util.stream.Collectors;
 
 @Service
 public class BookmarkService {
@@ -102,7 +103,8 @@ public List<BookSearchResponse> getBooksByGenre(String genre){
 //    if (books == null) {
 //        return ResponseEntity.notFound().build();
 //    }
-    return books
+    return Optional.ofNullable(books)
+            .orElseThrow(BookSearchRecommendationsNotFoundException::new)
             .stream()
             .map(this::convertBookSearchToResponse)
             .collect(Collectors.toList());
@@ -115,7 +117,8 @@ public List<BookSearchResponse> getBooksByGenre(String genre){
     public List<BookSearchResponse> getBooksByAuthor(String author) {
         List<BookSearch> books = bookSearchServiceClient.getBookRecommendationsByAuthor(author);
 
-        return books
+        return Optional.ofNullable(books)
+                .orElseThrow(BookSearchRecommendationsNotFoundException::new)
                 .stream()
                 .map(this::convertBookSearchToResponse)
                 .collect(Collectors.toList());
@@ -127,6 +130,9 @@ public List<BookSearchResponse> getBooksByGenre(String genre){
 //    }
 
     public BookSearchResponse getBook(String bookSearchId){
+        if (bookSearchId == null){
+            throw new IllegalArgumentException("Id is null");
+        }
         BookSearch book = bookSearchServiceClient.getBookSearch(bookSearchId);
         return convertBookSearchToResponse(book);
     }
