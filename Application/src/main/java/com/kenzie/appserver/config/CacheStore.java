@@ -11,7 +11,7 @@ public class CacheStore {
     private Cache<String, BookSearchResponse> cache;
 
     public CacheStore(int expiry, TimeUnit timeUnit) {
-        // initalize the cache
+        // Initialize the cache
         this.cache = CacheBuilder.newBuilder()
                 .expireAfterWrite(expiry, timeUnit)
                 .concurrencyLevel(Runtime.getRuntime().availableProcessors())
@@ -19,20 +19,17 @@ public class CacheStore {
     }
 
     public BookSearchResponse get(String key) {
-        // Write your code here
-        // Retrieve and return the concert
+        // Retrieve and return the book
         return cache.getIfPresent(key);
     }
 
     public void evict(String key) {
-        // Write your code here
-        // Invalidate/evict the concert from cache
+        // Invalidate/evict the book from the cache
         cache.invalidate(key);
     }
 
     public void add(String key, BookSearchResponse value) {
-        // Write your code here
-        // Add concert to cache
+        // Add book to cache
         cache.put(key, value);
     }
 }

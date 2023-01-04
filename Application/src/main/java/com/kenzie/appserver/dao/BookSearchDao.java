@@ -1,10 +1,7 @@
 package com.kenzie.appserver.dao;
 
 
-import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBMapper;
-import com.kenzie.capstone.service.model.BookSearch;
-
-public class SearchDao {
+public class BookSearchDao {
 //    private final DynamoDBMapper mapper;
 //
 //    public BookSearch getBook(final String bookId){
