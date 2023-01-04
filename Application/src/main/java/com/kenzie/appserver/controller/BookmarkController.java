@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 
 import java.net.URI;
+import java.util.ArrayList;
 import java.util.List;
 
 @RestController
@@ -29,7 +30,7 @@ public class BookmarkController {
         return ResponseEntity.created(URI.create("/bookmarks" + response.getBookmarkId())).body(response);
     }
 
-    @PostMapping("{/bookmarkId}")
+    @PutMapping("/{bookmarkId}")
     public ResponseEntity<BookmarkResponse> updateBookmarkStatusById(@RequestBody BookmarkUpdateRequest bookmarkUpdateRequest) {
         BookmarkResponse bookmarkResponse = bookmarkService.updateBookmarkStatus(bookmarkUpdateRequest.getBookmarkId(),
                 bookmarkUpdateRequest.getStatus());
@@ -68,7 +69,7 @@ public class BookmarkController {
 
     @GetMapping("/books/{genre}")
     public ResponseEntity<List<BookSearchResponse>> getBooksByGenre(@PathVariable("genre") String genre) {
-        List<BookSearchResponse> books = bookmarkService.getBooksByAuthor(genre);
+        List<BookSearchResponse> books = bookmarkService.getBooksByGenre(genre);
         return ResponseEntity.ok(books);
     }
 

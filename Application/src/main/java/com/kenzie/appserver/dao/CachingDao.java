@@ -8,15 +8,15 @@ import com.kenzie.capstone.service.model.BookSearch;
 import javax.inject.Inject;
 
 public class CachingDao {
-    private final LoadingCache<String, BookSearch> searchCache;
+//    private final LoadingCache<String, BookSearch> searchCache;
 
     @Inject
     public CachingDao(final BookSearchDao searchDao){
-        searchCache = CacheBuilder.newBuilder()
-                .build(CacheLoader.from(searchDao::getBook));
+//        searchCache = CacheBuilder.newBuilder()
+//                .build(CacheLoader.from(searchDao::getBook));
     }
 
-    public BookSearch getBook(String bookId){
-        return searchCache.getUnchecked(bookId);
-    }
+//    public BookSearch getBook(String bookId){
+//        return searchCache.getUnchecked(bookId);
+//    }
 }
