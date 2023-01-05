@@ -1,6 +1,7 @@
 package com.kenzie.appserver.service;
 
-import com.google.common.cache.Cache;
+
+import com.kenzie.appserver.BookSearchRecommendationsNotFoundException;
 import com.kenzie.appserver.SortByStatusComparator;
 import com.kenzie.appserver.controller.model.BookmarkResponse;
 import com.kenzie.appserver.controller.model.CreateBookmarkRequest;
@@ -15,6 +16,7 @@ import org.springframework.web.server.ResponseStatusException;
 
 import java.time.LocalDateTime;
 import java.util.*;
+import java.util.stream.Collectors;
 
 @Service
 public class BookmarkService {
@@ -101,7 +103,8 @@ public List<BookSearchResponse> getBooksByGenre(String genre){
 //    if (books == null) {
 //        return ResponseEntity.notFound().build();
 //    }
-    return books
+    return Optional.ofNullable(books)
+            .orElseThrow(BookSearchRecommendationsNotFoundException::new)
             .stream()
             .map(this::convertBookSearchToResponse)
             .collect(Collectors.toList());
@@ -114,7 +117,8 @@ public List<BookSearchResponse> getBooksByGenre(String genre){
     public List<BookSearchResponse> getBooksByAuthor(String author) {
         List<BookSearch> books = bookSearchServiceClient.getBookRecommendationsByAuthor(author);
 
-        return books
+        return Optional.ofNullable(books)
+                .orElseThrow(BookSearchRecommendationsNotFoundException::new)
                 .stream()
                 .map(this::convertBookSearchToResponse)
                 .collect(Collectors.toList());
@@ -126,8 +130,12 @@ public List<BookSearchResponse> getBooksByGenre(String genre){
 //    }
 
     public BookSearchResponse getBook(String bookSearchId){
-        return Optional.ofNullable(bookSearchServiceClient.getBookSearch(bookSearchId))
-                .orElse(new BookSearchResponse());
+
+        if (bookSearchId == null){
+            throw new IllegalArgumentException("Id is null");
+        }
+        BookSearch book = bookSearchServiceClient.getBookSearch(bookSearchId);
+        return convertBookSearchToResponse(book);
     }
 
     private BookmarkResponse recordToResponse(BookmarkRecord bookmarkRecord){

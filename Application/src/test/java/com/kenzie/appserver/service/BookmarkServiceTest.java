@@ -1,11 +1,14 @@
 package com.kenzie.appserver.service;
 
+import com.kenzie.appserver.BookSearchRecommendationsNotFoundException;
+import com.kenzie.appserver.controller.model.BookSearchResponse;
 import com.kenzie.appserver.controller.model.BookmarkResponse;
 import com.kenzie.appserver.controller.model.CreateBookmarkRequest;
 import com.kenzie.appserver.repositories.BookmarkRepository;
 import com.kenzie.appserver.repositories.model.BookmarkRecord;
 import com.kenzie.capstone.service.client.BookSearchServiceClient;
-import com.kenzie.capstone.service.model.BookSearchResponse;
+import com.kenzie.capstone.service.model.BookSearch;
+//import com.kenzie.capstone.service.model.BookSearchResponse;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
@@ -175,7 +178,7 @@ public class BookmarkServiceTest {
     @Test
     void getBooksByGenre_validGenre_returnsListOfBookSearchResponse(){
         String genre = "Fantasy";
-        List<BookSearchResponse> responses = createBookSearchResponses();
+        List<BookSearch> responses = createBookSearchResponses();
         when(client.getBookRecommendationsByGenre(genre)).thenReturn(responses);
         List<BookSearchResponse> result = service.getBooksByGenre(genre);
 
@@ -187,14 +190,15 @@ public class BookmarkServiceTest {
     void getBooksByGenre_invalidGenre_returnsEmptyList(){
         String genre = "";
         when(client.getBookRecommendationsByGenre(genre)).thenReturn(null);
-        List<BookSearchResponse> result = service.getBooksByGenre(genre);
-        assertEquals(0, result.size());
+        assertThrows(BookSearchRecommendationsNotFoundException.class,
+                ()-> service.getBooksByGenre(genre),
+                "Exception should be thrown if returned list is null");
     }
 
     @Test
     void getBooksByAuthor_validAuthor_returnsListOfBookSearchResponse(){
         String author = "JK Rowling";
-        List<BookSearchResponse> responses = createBookSearchResponses();
+        List<BookSearch> responses = createBookSearchResponses();
         when(client.getBookRecommendationsByAuthor(author)).thenReturn(responses);
         List<BookSearchResponse> result = service.getBooksByAuthor(author);
 
@@ -206,14 +210,15 @@ public class BookmarkServiceTest {
     void getBooksByAuthor_invalidAuthor_returnsEmptyList(){
         String author = "";
         when(client.getBookRecommendationsByAuthor(author)).thenReturn(null);
-        List<BookSearchResponse> result = service.getBooksByAuthor(author);
-        assertEquals(0, result.size());
+        assertThrows(BookSearchRecommendationsNotFoundException.class,
+                ()-> service.getBooksByAuthor(author),
+                "Exception should be thrown if returned list is null");
     }
 
     @Test
     void getBooks_validId_returnsBookSearchResponse(){
         String id = UUID.randomUUID().toString();
-        BookSearchResponse response = new BookSearchResponse();
+        BookSearch response = new BookSearch();
         response.setBookSearchId(id);
         response.setTitle("Harry Potter and the Philosopher's Stone");
         response.setAuthor("JK Rowling");
@@ -226,7 +231,7 @@ public class BookmarkServiceTest {
         response.setImageURL("fakeURL");
 
         when(client.getBookSearch(id)).thenReturn(response);
-        BookSearchResponse result = service.getBook(id);
+        com.kenzie.appserver.controller.model.BookSearchResponse result = service.getBook(id);
 
         assertEquals(response.getBookSearchId(), result.getBookSearchId());
         assertEquals(response.getTitle(), result.getTitle());
@@ -240,16 +245,15 @@ public class BookmarkServiceTest {
 
     @Test
     void getBooks_invalidId_returnsEmptyBookSearchResponse(){
-        String id = "";
-        when(client.getBookSearch(id)).thenReturn(null);
-
-        BookSearchResponse result = service.getBook(id);
-        assertNull(result.getBookSearchId());
+        String id = null;
+        assertThrows(IllegalArgumentException.class,
+                ()-> service.getBook(id),
+                "Exception should be thrown if Id is null");
     }
 
-    private List<BookSearchResponse> createBookSearchResponses(){
-        List<BookSearchResponse> responses = new ArrayList<>();
-        BookSearchResponse response = new BookSearchResponse();
+    private List<BookSearch> createBookSearchResponses(){
+        List<BookSearch> responses = new ArrayList<>();
+        BookSearch response = new BookSearch();
         response.setBookSearchId(UUID.randomUUID().toString());
         response.setTitle("Harry Potter and the Philosopher's Stone");
         response.setAuthor("JK Rowling");
@@ -261,7 +265,7 @@ public class BookmarkServiceTest {
                 "his family and the terrible evil that haunts the magical world.");
         response.setImageURL("fakeURL");
 
-        BookSearchResponse response2 = new BookSearchResponse();
+        BookSearch response2 = new BookSearch();
         response2.setBookSearchId(UUID.randomUUID().toString());
         response2.setTitle("Harry Potter and the Chamber of Secrets");
         response2.setAuthor("JK Rowling");
