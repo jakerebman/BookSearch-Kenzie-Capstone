@@ -1,14 +1,13 @@
 package com.kenzie.appserver.service;
 
+import com.google.common.cache.Cache;
 import com.kenzie.appserver.SortByStatusComparator;
 import com.kenzie.appserver.controller.model.BookmarkResponse;
 import com.kenzie.appserver.controller.model.CreateBookmarkRequest;
 import com.kenzie.appserver.repositories.BookmarkRepository;
 import com.kenzie.appserver.repositories.model.BookmarkRecord;
 import com.kenzie.capstone.service.client.BookSearchServiceClient;
-//import com.kenzie.appserver.service.model.BookSearch;
-import com.kenzie.capstone.service.model.BookSearch;
-import com.kenzie.appserver.controller.model.BookSearchResponse;
+import com.kenzie.capstone.service.model.BookSearchResponse;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
@@ -16,13 +15,13 @@ import org.springframework.web.server.ResponseStatusException;
 
 import java.time.LocalDateTime;
 import java.util.*;
-import java.util.stream.Collectors;
 
 @Service
 public class BookmarkService {
 
     private final BookmarkRepository bookmarkRepository;
     private final BookSearchServiceClient bookSearchServiceClient;
+    private Cache<String, String> bookCache;
 
     public BookmarkService(BookmarkRepository bookmarkRepository, BookSearchServiceClient bookSearchServiceClient) {
         this.bookmarkRepository = bookmarkRepository;
@@ -127,8 +126,8 @@ public List<BookSearchResponse> getBooksByGenre(String genre){
 //    }
 
     public BookSearchResponse getBook(String bookSearchId){
-        BookSearch book = bookSearchServiceClient.getBookSearch(bookSearchId);
-        return convertBookSearchToResponse(book);
+        return Optional.ofNullable(bookSearchServiceClient.getBookSearch(bookSearchId))
+                .orElse(new BookSearchResponse());
     }
 
     private BookmarkResponse recordToResponse(BookmarkRecord bookmarkRecord){
