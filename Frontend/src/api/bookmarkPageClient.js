@@ -43,7 +43,7 @@ export default class BookmarkPageClient extends BaseClass {
                             errorCallback=console.error) {
         try {
             const response = await this.client.post(`/bookmarks`, {
-                // JSON object
+                // JSON object?
                 "Bookmark_Id": bookmarkId,
                 "Bookmark_Creation_Date": creationDate,
                 "Title": title,

@@ -1,5 +1,6 @@
 package com.kenzie.appserver.service;
 
+
 import com.kenzie.appserver.BookSearchRecommendationsNotFoundException;
 import com.kenzie.appserver.SortByStatusComparator;
 import com.kenzie.appserver.controller.model.BookmarkResponse;
@@ -7,9 +8,7 @@ import com.kenzie.appserver.controller.model.CreateBookmarkRequest;
 import com.kenzie.appserver.repositories.BookmarkRepository;
 import com.kenzie.appserver.repositories.model.BookmarkRecord;
 import com.kenzie.capstone.service.client.BookSearchServiceClient;
-//import com.kenzie.appserver.service.model.BookSearch;
-import com.kenzie.capstone.service.model.BookSearch;
-import com.kenzie.appserver.controller.model.BookSearchResponse;
+import com.kenzie.capstone.service.model.BookSearchResponse;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
@@ -24,6 +23,7 @@ public class BookmarkService {
 
     private final BookmarkRepository bookmarkRepository;
     private final BookSearchServiceClient bookSearchServiceClient;
+    private Cache<String, String> bookCache;
 
     public BookmarkService(BookmarkRepository bookmarkRepository, BookSearchServiceClient bookSearchServiceClient) {
         this.bookmarkRepository = bookmarkRepository;
@@ -130,6 +130,7 @@ public List<BookSearchResponse> getBooksByGenre(String genre){
 //    }
 
     public BookSearchResponse getBook(String bookSearchId){
+
         if (bookSearchId == null){
             throw new IllegalArgumentException("Id is null");
         }
