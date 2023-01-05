@@ -11,6 +11,7 @@ import com.kenzie.appserver.repositories.BookmarkRepository;
 import com.kenzie.appserver.repositories.model.BookmarkRecord;
 import com.kenzie.capstone.service.client.BookSearchServiceClient;
 import com.kenzie.capstone.service.model.BookSearchResponse;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
@@ -27,9 +28,11 @@ public class BookmarkService {
     private final BookSearchServiceClient bookSearchServiceClient;
     private CacheStore cache;
 
-    public BookmarkService(BookmarkRepository bookmarkRepository, BookSearchServiceClient bookSearchServiceClient) {
+    @Autowired
+    public BookmarkService(BookmarkRepository bookmarkRepository, BookSearchServiceClient bookSearchServiceClient, CacheStore cache) {
         this.bookmarkRepository = bookmarkRepository;
         this.bookSearchServiceClient = bookSearchServiceClient;
+        this.cache = cache;
     }
 
     // TODO: The following needs to be pulled from cache: title, author, genre, numPages, Isbn13, description and imageurl
