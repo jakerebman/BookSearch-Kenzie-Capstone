@@ -372,9 +372,10 @@ public class BookmarkControllerTest {
     /** ------------------------------------------------------------------------
      *  Get Book
      *  ------------------------------------------------------------------------ **/
-<<<<<<< HEAD
+
 //    @Test
 //    public void getBookById_Successful() throws Exception {
+//        String bookSearchId = UUID.randomUUID().toString();
 //        String bookTitle = "Pride and Prejudice";
 //        String bookAuthor = "Jane Austen";
 //        String numPages = "259";
@@ -383,41 +384,26 @@ public class BookmarkControllerTest {
 //        String imageName = mockNeat.names().get();
 //        String imageURL = "s3://pats-bucket/" + imageName;
 //
-//        BookSearchResponse bookResponse = bookmarkService.getBook(bookAuthor);
+//        //BookSearchResponse bookResponse = bookmarkService.getBook(bookSearchId);
+//        BookSearchResponse bookResponse = bookmarkService.getBook(bookSearchId);
+//
+//        mvc.perform(get("/bookmarks/books/{id}", bookSearchId))
+//                .andExpect(jsonPath("bookSearchId")
+//                        .value(is(bookSearchId)))
+//                .andExpect(jsonPath("title")
+//                        .isString())
+//                .andExpect(jsonPath("author")
+//                        .isString())
+//                .andExpect(jsonPath("genre")
+//                        .isString())
+//                .andExpect(jsonPath("numPages")
+//                        .isString())
+//                .andExpect(jsonPath("isbn13")
+//                        .isString())
+//                .andExpect(jsonPath("description")
+//                        .isString())
+//                .andExpect(jsonPath("imageURL")
+//                        .isString())
+//                .andExpect(status().is2xxSuccessful());
 //    }
-=======
-    @Test
-    public void getBookById_Successful() throws Exception {
-        String bookSearchId = UUID.randomUUID().toString();
-        String bookTitle = "Pride and Prejudice";
-        String bookAuthor = "Jane Austen";
-        String numPages = "259";
-        String isbn = "978-0679783268";
-        String description = "It is a truth universally acknowledged...";
-        String imageName = mockNeat.names().get();
-        String imageURL = "s3://pats-bucket/" + imageName;
-
-        BookSearchResponse bookResponse = bookmarkService.getBook(bookSearchId);
-
-        mvc.perform(get("/bookmarks/books/{id}", bookSearchId))
-                .andExpect(jsonPath("bookSearchId")
-                        .value(is(bookSearchId)))
-                .andExpect(jsonPath("title")
-                        .isString())
-                .andExpect(jsonPath("author")
-                        .isString())
-                .andExpect(jsonPath("genre")
-                        .isString())
-                .andExpect(jsonPath("numPages")
-                        .isString())
-                .andExpect(jsonPath("isbn13")
-                        .isString())
-                .andExpect(jsonPath("description")
-                        .isString())
-                .andExpect(jsonPath("imageURL")
-                        .isString())
-                .andExpect(status().is2xxSuccessful());
-    }
->>>>>>> dev
-
 }
