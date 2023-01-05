@@ -10,7 +10,7 @@ var CURRENT_STATE;
 class BookmarkPage extends BaseClass {
     constructor() {
         super();
-        this.bindClassMethods(['onCreateCollection', 'onGetCollection', 'onDeleteCollection', 'confirmDeleteCollection', 'addItemsToTable', 'onCollectionPageDelete', 'onGetAllCollections','renderCollection'], this);
+        this.bindClassMethods(['onCreateBookmark', 'onGetByAuthor', 'onGetByGenre', 'onGetBook', 'onGetBookmarksByStatus','renderCollection'], this);
         this.dataStore = new DataStore();
     }
 
@@ -19,9 +19,9 @@ class BookmarkPage extends BaseClass {
      */
     async mount() {
         // document.getElementById
-        document.getElementById('create-collection-form').addEventListener('submit', this.onCreateCollection);
+        document.getElementById('create-collection-form').addEventListener('click', this.onCreateBookmark);
         document.getElementById('search-collection').addEventListener('submit', this.onGetByAuthor);
-        document.getElementById('delete-collection').addEventListener('click', this.onCollectionPageDelete);
+        document.getElementById('genre-select-dropdown').addEventListener('click', this.onGetByGenre);
         document.getElementById('collection-list').addEventListener('click', this.onGetAllCollections);
         // TODO: Add listeners for form-delete-btn + add-items btn
 
@@ -42,59 +42,80 @@ class BookmarkPage extends BaseClass {
         }
 
         if (getState === 'CREATE') {
-            console.log("State = CREATE");
-            let resultArea = document.getElementById('collection-result-info');
+            console.log("State === 'CREATE'");
+            let resultArea = document.getElementById('book-info');
+            let imageArea = document.getElementById('book-image');
+            resultArea.innerHTML = "";
+            imageArea.innerHTML = "";
 
-            const collection = this.dataStore.get("collection");
-            console.log(collection);
-            console.log(collection.collectionId);
+            const createBookmark = this.dataStore.get("createBookmark");
+            const convertCreateBookmark = Object.entries(createBookmark);
+            console.log(convertCreateBookmark);
 
-            if (collection) {
-                document.getElementById("create-collection-results").style.display = "flex";
-                resultArea.innerHTML = `
-            <div>${collection.collectionId}</div>
-            `
+            if (createBookmark) {
+                document.getElementById("book-image").style.display = "flex";
+                document.getElementById("book-info").style.display = "flex";
+
+                const ul = document.createElement("ul");
+                //TODO: Pull info from both image and info to save.
+                for (let i = 0; i < getAllCollections.length; i++) {
+                    const li = document.createElement("li");
+                    console.log("inside the for loop " + getAllCollections[i]);
+                    li.innerHTML += `
+                    <div>Collection Name: ${getAllCollections[i].collectionName}</div>
+                    <div>Collection ID: ${getAllCollections[i].collectionId}</div>`;
+                    ul.append(li);
+                }
+                resultArea.append(ul);
             } else {
-                resultArea.innerHTML = "Error Creating Collection! Try Again... ";
+                resultArea.innerHTML = "Error Printing Collections...";
             }
         } else if (getState === 'AUTHOR') {
             console.log("State = AUTHOR");
+            let resultArea = document.getElementById('result-info')
+            resultArea.innerHTML = "";
+
             const getByAuthor = this.dataStore.get("getByAuthor");
+            const convertBooks = Object.entries(getByAuthor);
+            console.log(convertBooks);
 
             if (getByAuthor) {
-                document.getElementById("collection-results-header").innerHTML = "COLLECTION ID:";
-                console.log(getCollection);
-
-                let collectionId = getCollection.collectionId;
-                console.log(collectionId);
-                // Save in dataStore or localStorage
-                localStorage.setItem("collectionId", getCollection.collectionId);
-                let collectionDate = getCollection.creationDate;
-                console.log(collectionDate);
-                let collectionName = getCollection.collectionName;
-                console.log(collectionName);
-                let collectionType = getCollection.type;
-                console.log(collectionType);
-                // Save in dataStore or localstorage
-                localStorage.setItem("collectionType", getCollection.type);
-                let collectionDesc = getCollection.description;
-                console.log(collectionDesc);
-                let collectionItems = getCollection.collectionItemNames;
-                console.log(collectionItems);
-
-                await this.generateTable(collectionId,
-                    collectionDate,
-                    collectionName,
-                    collectionType,
-                    collectionDesc,
-                    collectionItems);
-
-                document.getElementById('table-delete-btn').addEventListener('click', this.onDeleteCollection);
-                document.getElementById('table-add-items-btn').addEventListener('click', this.addItemsToTable);
+                const ul = document.createElement("ul");
+                for (let i = 0; i < getByAuthor.length; i++) {
+                    const li = document.createElement("li");
+                    console.log("inside the for loop " + getByAuthor[i]);
+                    li.innerHTML += `
+                    <div>Title: ${getByAuthor[i].Title}</div>
+                    <div>Author: ${getByAuthor[i].Author}</div>`;
+                    ul.append(li);
+                }
+                resultArea.append(ul);
             } else {
-                this.errorHandler("Error finding books by Author! Try Again... ");
-                console.log("Error finding books by Author!");
+                resultArea.innerHTML = "Error Printing Search results...";
             }
+        } else if (getState === 'GENRE') {
+            console.log("State = GENRE");
+            let resultArea = document.getElementById('result-info')
+            resultArea.innerHTML = "";
+
+            const getByGenre = this.dataStore.get("getByGenre");
+            const convertBooks = Object.entries(getByGenre);
+            console.log(convertBooks);
+            if (getByGenre) {
+               const ul = document.createElement("ul");
+               for (let i = 0; i < getByGenre.length; i++) {
+                   const li = document.createElement("li");
+                   console.log("inside the for loop " + getByGenre[i]);
+                   li.innerHTML += `
+                   <div>Title: ${getByGenre[i].Title}</div>
+                   <div>Author: ${getByGenre[i].Author}</div>`;
+                   ul.append(li);
+               }
+               resultArea.append(ul);
+            } else {
+                resultArea.innerHTML = "Error Printing Search results...";
+            }
+        } else if (getState === 'GET') {
 
         }
     }
@@ -109,12 +130,19 @@ class BookmarkPage extends BaseClass {
 
     // Event Handlers --------------------------------------------------------------------------------------------------
     // TODO: Change to Search bar results. Copy and use for the dropdown results as well.
+    async onCreateBookmark(event) {
+
+           console.log("Entering onCreateBookmark method.....");
+
+           event.preventDefault();
+
+           // let bookmark = this.datastore.
+
+
+    }
+
     async onGetByAuthor(event) {
 
-        /* Add to place where it's needed
-        *   item.style.setProperty('--display', 'none');
-        * */
-        // TODO: Add some sort of id validation?
         console.log("Entering onGetByAuthor method...");
 
         // // Prevent the page from refreshing on form submit
@@ -146,48 +174,42 @@ class BookmarkPage extends BaseClass {
         }
     }
 
-    async onGetAllCollections(event) {
-        // TODO: Make a call to getAllCollections endpoints, render table in render() method
-        console.log("Entering onGetAllCollections method...");
+    async onGetByGenre(event) {
+
+        console.log("Entering onGetByGenre method...");
+
+        // // Prevent the page from refreshing on form submit
         event.preventDefault();
 
-        const allCollections = await this.client.getAllCollections(this.errorHandler);
+        let genre = document.getElementById('genre-type').value;
+        console.log(genre);
+        if (genre === '' || genre.trim().length === 0) {
+            this.errorHandler("ERROR: Must enter valid Genre!");
+            console.log("Genre: " + genre + " is empty");
+        }
 
-        if (allCollections && allCollections.length > 0) {
-            this.showMessage("Listing All Collections!");
-            this.dataStore.setState({
-                [CURRENT_STATE]: "GET_ALL",
-                ["getAllCollections"]: allCollections
-            });
-        } else {
-            this.errorHandler("Error retrieving all collections. Try again ... ");
-            console.log("GET ALL isn't working...");
+        //localStorage.setItem("collectionId", collectionId);
+        try {
+            const getByGenre = await this.client.getBooksByGenre(genre, this.errorHandler);
+
+            if (getByGenre) {
+                this.showMessage(`Found Genre: ${genre}`);
+                this.dataStore.setState({
+                    [CURRENT_STATE]: "GENRE",
+                    ["getByGenre"]: getByGenre
+                });
+            } else {
+                this.errorHandler("Error finding Genre: " + `${genre}` + "Try again with a valid Genre!");
+                console.log("GENRE isn't working...");
+            }
+        } catch(e) {
+            console.log(e);
         }
     }
 
-    async onDeleteCollection(event) {
-        console.log("Entering onDeleteCollection method...");
-        event.preventDefault();
 
-        // Retrieve the collectionId
-        let collectionId = document.getElementById('search-input').value;
 
-        // Validate the collectionId
-        if (collectionId === '' || collectionId.trim().length === 0) {
-            this.errorHandler("ERROR: Must enter valid Collection ID!");
-            console.log("Collection ID is empty" + " " + collectionId);
-        }
-
-        if (collectionId) {
-            await this.confirmDeleteCollection(collectionId);
-        } else {
-            this.errorHandler("Error: Collection ID: " + `${collectionId}` + " Invalid!");
-            console.log("Issue with Collection ID on DELETE...");
-        }
-    }
-
-    // TODO: Is another delete method needed to handle 'Delete Collection' button?
-    // TODO: CollectionPage 'Delete Collection' could use window.prompt()
+    // TODO: This one for Capstone.
 
     async onCollectionPageDelete(event) {
         // TODO: Workflow - Is this needed? State needs to be different from table delete button!
@@ -220,220 +242,6 @@ class BookmarkPage extends BaseClass {
         });
     }
 
-    async confirmDeleteCollection(collectionId) {
-        console.log("Entering the confirmDeleteCollection method...");
-
-        var msg = prompt("Are you sure you want to delete this collection? Enter 'yes' or 'no'");
-        var response = msg.toLowerCase();
-
-        if (response === null || response === "") {
-            this.errorHandler("ERROR: Must enter either yes or no!");
-        }
-
-        let deleteCollection;
-
-        if (response === 'yes') {
-            deleteCollection = await this.client.deleteCollectionById(collectionId, this.errorHandler);
-            this.showMessage(`Collection: ${collectionId} - Deleted!`);
-        } else if (response === 'no') {
-            this.showMessage("Collection Not Deleted!");
-        } else {
-            this.errorHandler("ERROR: Must enter either yes or no!");
-        }
-
-        this.dataStore.setState({
-            [CURRENT_STATE]: "DELETE",
-            ["deleteCollection"]: deleteCollection,
-            ["deleteCollectionId"]: collectionId
-        });
-
-        // Alternative method - potentially use for on-screen button functionality
-        // Try with prompt first
-        // if (confirm("Are you sure you want to delete this collection? Select 'OK' to confirm deletion.")) {
-        //     Make API Call
-        //     returnMsg = "Collection Deleted"
-        // } else {
-        //      returnMsg = "Collection Not Deleted!"
-        // }
-    }
-
-    // TODO: Generate something similar for the list that will link to hyperlinks. Lists not Table.
-    async generateTable(id, date, name, type, description, itemNames) {
-        // Dynamically render HTML for getCollectionById results
-        console.log("Entering generateTable method...");
-
-        if (itemNames.size === 0) {
-            itemNames = "null";
-        }
-
-        console.log(name);
-
-
-
-        var trData = document.createElement("tr");
-
-        var td1 = document.createElement("td");
-        var td2 = document.createElement("td");
-        var td3 = document.createElement("td");
-        var td4 = document.createElement("td");
-        var td5 = document.createElement("td");
-        var td6 = document.createElement("td");
-        var td7 = document.createElement("td");
-        var td8 = document.createElement("td");
-        var td9 = document.createElement("td");
-
-        var colId = document.createTextNode(id);
-        var colCreationDate = document.createTextNode(date);
-        var colName = document.createTextNode(name);
-        var colType = document.createTextNode(type);
-        var colDesc = document.createTextNode(description);
-        var colItemNames = document.createTextNode(itemNames);
-
-        td1.appendChild(colId);
-        td2.appendChild(colCreationDate);
-        td3.appendChild(colName);
-        td4.appendChild(colType);
-        td5.appendChild(colDesc);
-        td6.appendChild(colItemNames);
-        td7.innerHTML = "<button type='button' id='table-delete-btn'>DELETE</button>";
-        td8.innerHTML = "<button type='button' id='table-add-items-btn'>Add To Collection</button>";
-        td9.innerHTML = "<input type='button' id='close-table' value='CLOSE' onclick=document.getElementById(\"get-collection-table\").style.display='none'>";
-
-        trData.appendChild(td1);
-        trData.appendChild(td2);
-        trData.appendChild(td3);
-        trData.appendChild(td4);
-        trData.appendChild(td5);
-        trData.appendChild(td6);
-        trData.appendChild(td7);
-        trData.appendChild(td8);
-        trData.appendChild(td9);
-
-        table.appendChild(trData);
-
-        tableDiv.appendChild(table);
-    }
-
-    async generateAllTable(collections) {
-        // Dynamically render HTML for getCollectionById results
-        console.log("Entering generateTable method...");
-
-        // TODO: Extract each of the values from the get all request
-        // TODO: This time the data append should be in a for loop
-
-        // if (itemNames.size === 0) {
-        //     itemNames = "null";
-        // }
-
-        console.log(name);
-
-        // Get reference for the body - if method used
-        //var tableDiv = document.getElementById('');
-
-        // Create a table element
-        var table = document.createElement("table");
-
-        // Set table id
-        table.setAttribute('id', 'get-collection-table');
-        var tr = document.createElement("tr");
-
-        // Add header rows
-        const headerRowNames = [
-            "Collection ID",
-            "Collection Creation Date",
-            "Collection Name",
-            "Collection Type",
-            "Collection Description",
-            "Collection Item Names",
-            "Delete Collection",
-            "Add Items To Collection",
-            "Close Table"
-        ];
-
-        for (var i = 0; i < headerRowNames.length; i++) {
-            // Create column element
-            var th = document.createElement("th");
-            // Create cell element
-            var text = document.createTextNode(headerRowNames[i]);
-            th.appendChild(text);
-            tr.appendChild(th);
-        }
-        table.appendChild(tr);
-
-        collections.forEach(collection => {
-            var trData = document.createElement("tr");
-
-            var td1 = document.createElement("td");
-            var td2 = document.createElement("td");
-            var td3 = document.createElement("td");
-            var td4 = document.createElement("td");
-            var td5 = document.createElement("td");
-            var td6 = document.createElement("td");
-            var td7 = document.createElement("td");
-            var td8 = document.createElement("td");
-            var td9 = document.createElement("td");
-
-            var colId = document.createTextNode();
-            var colCreationDate = document.createTextNode();
-            var colName = document.createTextNode();
-            var colType = document.createTextNode();
-            var colDesc = document.createTextNode();
-            var colItemNames = document.createTextNode();
-
-            td1.appendChild(colId);
-            td2.appendChild(colCreationDate);
-            td3.appendChild(colName);
-            td4.appendChild(colType);
-            td5.appendChild(colDesc);
-            td6.appendChild(colItemNames);
-            td7.innerHTML = "<button type='button' id='table-delete-btn'>DELETE</button>";
-            td8.innerHTML = "<button type='button' id='table-add-items-btn'>Add To Collection</button>";
-            td9.innerHTML = "<input type='button' id='close-table' value='CLOSE' onclick=document.getElementById(\"get-collection-table\").style.display='none'>";
-
-            trData.appendChild(td1);
-            trData.appendChild(td2);
-            trData.appendChild(td3);
-            trData.appendChild(td4);
-            trData.appendChild(td5);
-            trData.appendChild(td6);
-            trData.appendChild(td7);
-            trData.appendChild(td8);
-            trData.appendChild(td9);
-
-            table.appendChild(trData);
-        })
-        document.body.appendChild(table);
-        // table.setAttribute("border-collapse", "collapse");
-        // td.setAttribute("border", "1px solid #cecfd5");
-        // td.setAttribute("padding", "10px 15px");
-    }
-
-    async addItemsToTable() {
-        // TODO:
-        // 1. Try to figure out how to pass or retrieve collection id and add to the form
-        // 2. Update with the correct html page for the mtg card game page
-        // Get CollectionId and CollectionType from localStorage
-        //let collectionId = localStorage.getItem("collectionId");
-        let collectionType = localStorage.getItem("collectionType");
-        // If type = card game redirect to cardGamePage
-        // else if type = board game redirect to board game page
-
-        if (collectionType === '' || collectionType.trim().length === 0) {
-            console.log("ERROR: Unable to retrieve the collection type from local Storage");
-        } else {
-            collectionType = collectionType.replaceAll(' ', '');
-            console.log(collectionType);
-        }
-
-        if (collectionType.toLowerCase() === 'cardgame') {
-            // TODO: Needs to be changed to w/e the card game page url will be
-            window.location.href = `http://localhost:5001/index.html`
-        } else if (collectionType.toLowerCase() === 'boardgame') {
-            window.location.href = `http://localhost:5001/mtgPage.html`
-        }
-
-
-    }
 }
 
 /**
