@@ -1,14 +1,14 @@
 package com.kenzie.appserver.service;
 
 import com.kenzie.appserver.BookSearchRecommendationsNotFoundException;
-import com.kenzie.appserver.controller.model.BookSearchResponse;
+//import com.kenzie.appserver.controller.model.BookSearchResponse;
 import com.kenzie.appserver.controller.model.BookmarkResponse;
 import com.kenzie.appserver.controller.model.CreateBookmarkRequest;
 import com.kenzie.appserver.repositories.BookmarkRepository;
 import com.kenzie.appserver.repositories.model.BookmarkRecord;
 import com.kenzie.capstone.service.client.BookSearchServiceClient;
 import com.kenzie.capstone.service.model.BookSearch;
-//import com.kenzie.capstone.service.model.BookSearchResponse;
+import com.kenzie.capstone.service.model.BookSearchResponse;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
@@ -231,7 +231,7 @@ public class BookmarkServiceTest {
         response.setImageURL("fakeURL");
 
         when(client.getBookSearch(id)).thenReturn(response);
-        com.kenzie.appserver.controller.model.BookSearchResponse result = service.getBook(id);
+        com.kenzie.capstone.service.model.BookSearchResponse result = service.getBook(id);
 
         assertEquals(response.getBookSearchId(), result.getBookSearchId());
         assertEquals(response.getTitle(), result.getTitle());
