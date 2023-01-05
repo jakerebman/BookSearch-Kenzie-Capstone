@@ -4,6 +4,7 @@ package com.kenzie.appserver.service;
 import com.google.common.cache.Cache;
 import com.kenzie.appserver.BookSearchRecommendationsNotFoundException;
 import com.kenzie.appserver.SortByStatusComparator;
+import com.kenzie.appserver.config.CacheStore;
 import com.kenzie.appserver.controller.model.BookmarkResponse;
 import com.kenzie.appserver.controller.model.CreateBookmarkRequest;
 import com.kenzie.appserver.repositories.BookmarkRepository;
@@ -24,7 +25,7 @@ public class BookmarkService {
 
     private final BookmarkRepository bookmarkRepository;
     private final BookSearchServiceClient bookSearchServiceClient;
-    private Cache<String, String> bookCache;
+    private CacheStore cache;
 
     public BookmarkService(BookmarkRepository bookmarkRepository, BookSearchServiceClient bookSearchServiceClient) {
         this.bookmarkRepository = bookmarkRepository;
@@ -131,12 +132,14 @@ public List<BookSearchResponse> getBooksByGenre(String genre){
 //    }
 
     public BookSearchResponse getBook(String bookSearchId){
+        BookSearch cachedBook = cache.get(bookSearchId);
 
-        if (bookSearchId == null){
-            throw new IllegalArgumentException("Id is null");
+        if(cachedBook != null) {
+            return cachedBook;
+        } else {
+            BookSearch nonCachedBook = bookSearchServiceClient.getBookSearch(bookSearchId);
+            return convertBookSearchToResponse(nonCachedBook);
         }
-        BookSearch book = bookSearchServiceClient.getBookSearch(bookSearchId);
-        return convertBookSearchToResponse(book);
     }
 
     private BookmarkResponse recordToResponse(BookmarkRecord bookmarkRecord){
