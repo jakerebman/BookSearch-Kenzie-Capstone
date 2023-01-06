@@ -138,7 +138,7 @@ public List<BookSearchResponse> getBooksByGenre(String genre){
 //    }
 
     public BookSearchResponse getBook(String bookSearchId){
-        BookSearch cachedBook = cache.get(bookSearchId);
+        BookSearchResponse cachedBook = cache.get(bookSearchId);
 
         if(cachedBook != null) {
             return cachedBook;
