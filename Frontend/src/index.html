@@ -22,29 +22,11 @@
                 </label>
             </div>
         </form>
-        <div class="dropdown">
-            <label for="touch"><span>Search By Genre</span></label>
-            <input type="checkbox" id="touch">
-            <div class="slide">
-                <a href="Fantasy">Fantasy</a>
-                <br>
-                <a href="History">History</a>
-                <br>
-                <a href="Non-Fiction">Non-Fiction</a>
-                <br>
-                <a href="Fantasy">Fantasy</a>
-                <br>
-                <a href="Fantasy">Fantasy</a>
-                <br>
-                <a href="Fantasy">Fantasy</a>
-                <br>
-                <a href="Fantasy">Fantasy</a>
-                <br>
-                <a href="Fantasy">Fantasy</a>
-                <br>
-<!--                <a href="Fantasy">Fantasy</a>-->
-<!--                <br>-->
-            </div>
+        <div class="dropdown" id="genre-select-dropdown">
+            <select class="form-select" id="genre-type" data-validation-required-message="Please select the type of items that will be in the collection.">
+                <option value="" disabled selected hidden>Select Genre</option>
+                <option id="fantasy">Fantasy</option>
+            </select>
         </div>
 
     </div>
@@ -53,9 +35,8 @@
             <div class="card search-result" id="result">
                 <h1></h1>
                 <h3 class="title">Search Result:</h3>
-                <p id="result-info"></p>
                 <div class="card scroll-box">
-
+                    <p id="result-info"></p>
                 </div>
             </div>
         </div>
@@ -65,20 +46,22 @@
                 <h3 class="title">Book Window</h3>
                 <div class="card-result">
                     <div class="card book-pages">
-                    <div class="card book-image">this is the image
-                        <!--                        <button class="bookmark ">BUTT</button>-->
-                        <button type="submit"><i class="fa fa-bookmark"></i></button>
-
-
-
+                        <div class="card book-image" id="book-image">
+                            <select class="form-select" id="bookmark-status" data-validation-required-message="Please select the type of items that will be in the collection.">
+                                <option value="" disabled selected hidden></option>
+                                <option id="read">Read</option>
+                                <option id="interested">Interested</option>
+                                <option id="delete">Delete Bookmark</option>
+                            </select>
+                            <button type="submit"><i class="fa fa-bookmark"></i></button>
                         </div>
                     </div>
                 </div>
             </div>
-            <div class="card book-description">
+            <div class="card book-details">
                 <h1></h1>
                 <h3 class="title">Book Description</h3>
-                <div class="card scroll-description">
+                <div class="card scroll-description" id="book-info">
                 </div>
             </div>
         </div>

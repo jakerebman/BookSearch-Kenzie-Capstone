@@ -88,7 +88,7 @@ label {
     background-image: url("images/bookPages.jpg");
 }
 
-.book-description{
+.book-details{
     height: 30vh;
 }
 
@@ -163,44 +163,6 @@ span::after {
 
 #touch:checked + .slide {height: 400px;}
 
-/*.dropdown {*/
-/*    float: right;*/
-/*    overflow: hidden;*/
-/*}*/
-
-/*.dropdown .dropbtn {*/
-/*    cursor: pointer;*/
-/*    font-size: 16px;*/
-/*    border: none;*/
-/*    outline: none;*/
-/*    color: black;*/
-/*    padding: 15px 16px;*/
-/*    background-color: inherit;*/
-/*    font-family: inherit;*/
-/*    margin: 0;*/
-/*}*/
-
-/*.dropdown-content {*/
-/*    display: none;*/
-/*    position: absolute;*/
-/*    background-color: #f9f9f9;*/
-/*    min-width: 160px;*/
-/*    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);*/
-/*    z-index: 1;*/
-/*}*/
-
-/*.dropdown-content a {*/
-/*    float: none;*/
-/*    color: black;*/
-/*    padding: 12px 16px;*/
-/*    text-decoration: none;*/
-/*    display: block;*/
-/*    text-align: left;*/
-/*}*/
-
-/*.dropdown-content a:hover {*/
-/*    background-color: #ddd;*/
-/*}*/
 
 /*Book Window Image*/
 img {
