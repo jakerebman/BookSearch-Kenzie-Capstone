@@ -3,7 +3,7 @@ package com.kenzie.appserver.config;
 import com.google.common.cache.Cache;
 import com.google.common.cache.CacheBuilder;
 import com.kenzie.capstone.service.model.BookSearch;
-import com.kenzie.capstone.service.model.BookSearchResponse;
+import com.kenzie.appserver.controller.model.BookSearchResponse;
 
 import java.util.concurrent.TimeUnit;
 
