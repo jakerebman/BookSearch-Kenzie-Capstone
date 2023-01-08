@@ -95,7 +95,7 @@ public class BookmarkControllerTest {
         String genre = "Fantasy";
         String numPages = "1294";
         String isbn = "978-1250297143";
-        String description = "Dalinar Kholin’s Alethi armies won a fleeting victory at a terrible cost...";
+        String description = "Dalinar Kholin%60s Alethi armies won a fleeting victory at a terrible cost...";
         String imageName = mockNeat.names().get();
         String imageURL = "s3://pats-bucket/" + imageName;
 
@@ -110,6 +110,8 @@ public class BookmarkControllerTest {
         bookmarkRequest.setReadStatus("Interested");
 
         BookmarkResponse bookmarkResponse = bookmarkService.addNewBookmark(bookmarkRequest);
+
+        System.out.println("Bookmark ID: " + bookmarkResponse.getBookmarkId());
 
         BookmarkUpdateRequest bookmarkUpdateRequest = new BookmarkUpdateRequest();
         bookmarkUpdateRequest.setBookmarkId(bookmarkResponse.getBookmarkId());
@@ -318,7 +320,7 @@ public class BookmarkControllerTest {
     @Test
     public void getBooksByAuthor_Successful() throws Exception {
         String bookTitle = "Pride and Prejudice";
-        String bookAuthor = "Jane Austen";
+        String bookAuthor = "Jane%20Austen";
         String genre = "Romance";
         String numPages = "259";
         String isbn = "978-0679783268";

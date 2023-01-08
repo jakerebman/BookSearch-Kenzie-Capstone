@@ -33,8 +33,9 @@ public class BookmarkController {
         BookmarkResponse response = bookmarkService.addNewBookmark(createBookmarkRequest);
 
         log.info(String.format("Bookmark ID: %s", response.getBookmarkId()));
+
         if (response.getBookmarkId() == null) {
-            throw new ResponseStatusException(HttpStatus.NO_CONTENT, "BookmarkId is null.");
+            throw new ResponseStatusException(HttpStatus.NO_CONTENT, "Bookmark ID invalid.");
         }
 
         return ResponseEntity.created(URI.create("/bookmarks" + response.getBookmarkId())).body(response);
@@ -43,9 +44,15 @@ public class BookmarkController {
     @PutMapping("/{bookmarkId}")
     public ResponseEntity<BookmarkResponse> updateBookmarkStatusById(@RequestBody BookmarkUpdateRequest bookmarkUpdateRequest) {
 
+        log.info(String.format("Bookmark ID: %s", bookmarkUpdateRequest.getBookmarkId()));
+
+        if (bookmarkUpdateRequest.getBookmarkId() == null || bookmarkUpdateRequest.getBookmarkId().isEmpty()) {
+            throw new ResponseStatusException(HttpStatus.NO_CONTENT, "BookmarkId is null.");
+        }
 
         BookmarkResponse bookmarkResponse = bookmarkService.updateBookmarkStatus(bookmarkUpdateRequest.getBookmarkId(),
                 bookmarkUpdateRequest.getStatus());
+
         log.info(String.format("Bookmark ID: %s", bookmarkResponse.getBookmarkId()));
 
         return ResponseEntity.ok(bookmarkResponse);
