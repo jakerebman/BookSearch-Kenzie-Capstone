@@ -54,11 +54,15 @@ public class BookmarkController {
 
     @GetMapping("/{bookmarkId}")
     public ResponseEntity<BookmarkResponse> getBookmarkById(@PathVariable("bookmarkId") String bookmarkId) {
-        BookmarkResponse bookmarkResponse = bookmarkService.getBookMark(bookmarkId);
-        if (bookmarkResponse == null) {
+        try {
+            BookmarkResponse bookmarkResponse = bookmarkService.getBookMark(bookmarkId);
+            if (bookmarkResponse == null) {
+                return ResponseEntity.notFound().build();
+            }
+            return ResponseEntity.ok(bookmarkResponse);
+        }catch (ResponseStatusException e){
             return ResponseEntity.notFound().build();
         }
-        return ResponseEntity.ok(bookmarkResponse);
     }
 
     @GetMapping("/books/{author}")
