@@ -7,15 +7,20 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
+import org.apache.logging.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
 
 import java.net.URI;
 import java.util.ArrayList;
 import java.util.List;
 
+
 @RestController
 @RequestMapping("/bookmarks")
 public class BookmarkController {
     private final BookmarkService bookmarkService;
+
+    static final Logger log = LogManager.getLogger();
 
     BookmarkController(BookmarkService bookmarkService) { this.bookmarkService = bookmarkService; }
 
@@ -27,13 +32,22 @@ public class BookmarkController {
 
         BookmarkResponse response = bookmarkService.addNewBookmark(createBookmarkRequest);
 
+        log.info(String.format("Bookmark ID: %s", response.getBookmarkId()));
+        if (response.getBookmarkId() == null) {
+            throw new ResponseStatusException(HttpStatus.NO_CONTENT, "BookmarkId is null.");
+        }
+
         return ResponseEntity.created(URI.create("/bookmarks" + response.getBookmarkId())).body(response);
     }
 
     @PutMapping("/{bookmarkId}")
     public ResponseEntity<BookmarkResponse> updateBookmarkStatusById(@RequestBody BookmarkUpdateRequest bookmarkUpdateRequest) {
+
+
         BookmarkResponse bookmarkResponse = bookmarkService.updateBookmarkStatus(bookmarkUpdateRequest.getBookmarkId(),
                 bookmarkUpdateRequest.getStatus());
+        log.info(String.format("Bookmark ID: %s", bookmarkResponse.getBookmarkId()));
+
         return ResponseEntity.ok(bookmarkResponse);
     }
 
@@ -65,19 +79,19 @@ public class BookmarkController {
         }
     }
 
-    @GetMapping("/books/{author}")
+    @GetMapping("/{author}/authors")
     public ResponseEntity<List<BookSearchResponse>> getBooksByAuthor(@PathVariable("author") String author) {
         List<BookSearchResponse> books = bookmarkService.getBooksByAuthor(author);
         return ResponseEntity.ok(books);
     }
 
-    @GetMapping("/books/{genre}")
+    @GetMapping("/{genre}/genres")
     public ResponseEntity<List<BookSearchResponse>> getBooksByGenre(@PathVariable("genre") String genre) {
         List<BookSearchResponse> books = bookmarkService.getBooksByGenre(genre);
         return ResponseEntity.ok(books);
     }
 
-    @GetMapping("/books/{bookSearchId}")
+    @GetMapping("/{bookSearchId}/books")
     public ResponseEntity<BookSearchResponse> getBookById(@PathVariable("bookSearchId") String bookSearchId) {
         BookSearchResponse bookSearchResponse = bookmarkService.getBook(bookSearchId);
         if (bookSearchResponse == null) {
