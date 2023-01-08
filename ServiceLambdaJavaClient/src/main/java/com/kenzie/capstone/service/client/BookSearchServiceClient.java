@@ -14,13 +14,13 @@ public class BookSearchServiceClient {
 
     //endpoints (I am not sure what exactly they will be)
 
-    private static final String GET_BOOK_RECOMMENDATION_BY_GENRE = "BookSearch/list/{genre}";
+    private static final String GET_BOOK_RECOMMENDATION_BY_GENRE = "BookSearch/list/{Genre}";
     private static final String GET_BOOKS_BY_GENRE_ENDPOINT = "booksearch/{genre}";
 
-    private static final String GET_BOOK_RECOMMENDATION_BY_AUTHOR = "BookSearch/list/{author}";
+    private static final String GET_BOOK_RECOMMENDATION_BY_AUTHOR = "BookSearch/list/{Author}";
     private static final String GET_BOOKS_BY_AUTHOR_ENDPOINT = "booksearch/{author}";
 
-    private static final String GET_BOOK = "BookSearch/Book_Search_Id/{bookSearchId}";
+    private static final String GET_BOOK = "BookSearch/Book_Search_Id/{BookSearchId}";
     private static final String GET_BOOK_ENDPOINT = "booksearch/{bookSearchId}";
 
     private ObjectMapper mapper;

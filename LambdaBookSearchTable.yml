@@ -1,9 +1,13 @@
 Resources:
   UserTable:
-    Type: AWS::DynamoDB::BookSearch
+    Type: AWS::DynamoDB::Table
     Properties:
       "AttributeDefinitions":
         - "AttributeName": "Book_Search_Id"
+          "AttributeType": "S"
+        - "AttributeName": "Genre"
+          "AttributeType": "S"
+        - "AttributeName": "Author"
           "AttributeType": "S"
       "KeySchema":
         - "AttributeName": "Book_Search_Id"
@@ -20,7 +24,7 @@ Resources:
             - AttributeName: "Book_Search_Id"
               KeyType: "RANGE"
           Projection:
-            ProjectionType: All
+            ProjectionType: "ALL"
         - IndexName: "AuthorIndex"
           KeySchema:
             - AttributeName: "Author"
@@ -28,4 +32,4 @@ Resources:
             - AttributeName: "Book_Search_Id"
               KeyType: "RANGE"
           Projection:
-            ProjectionType: All
+            ProjectionType: "ALL"
