@@ -2,13 +2,14 @@ package com.kenzie.appserver.service;
 
 import com.kenzie.appserver.BookSearchRecommendationsNotFoundException;
 //import com.kenzie.appserver.controller.model.BookSearchResponse;
+import com.kenzie.appserver.config.CacheStore;
 import com.kenzie.appserver.controller.model.BookmarkResponse;
 import com.kenzie.appserver.controller.model.CreateBookmarkRequest;
 import com.kenzie.appserver.repositories.BookmarkRepository;
 import com.kenzie.appserver.repositories.model.BookmarkRecord;
 import com.kenzie.capstone.service.client.BookSearchServiceClient;
 import com.kenzie.capstone.service.model.BookSearch;
-import com.kenzie.capstone.service.model.BookSearchResponse;
+import com.kenzie.appserver.controller.model.BookSearchResponse;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
@@ -35,6 +36,9 @@ public class BookmarkServiceTest {
 
     @Mock
     private BookSearchServiceClient client;
+
+    @Mock
+    private CacheStore cache;
 
     @InjectMocks
     private BookmarkService service;
@@ -230,8 +234,9 @@ public class BookmarkServiceTest {
                 "his family and the terrible evil that haunts the magical world.");
         response.setImageURL("fakeURL");
 
+        when(cache.get(id)).thenReturn(null);
         when(client.getBookSearch(id)).thenReturn(response);
-        com.kenzie.capstone.service.model.BookSearchResponse result = service.getBook(id);
+        BookSearchResponse result = service.getBook(id);
 
         assertEquals(response.getBookSearchId(), result.getBookSearchId());
         assertEquals(response.getTitle(), result.getTitle());
@@ -246,6 +251,7 @@ public class BookmarkServiceTest {
     @Test
     void getBooks_invalidId_returnsEmptyBookSearchResponse(){
         String id = null;
+        when(cache.get(any())).thenReturn(null);
         assertThrows(IllegalArgumentException.class,
                 ()-> service.getBook(id),
                 "Exception should be thrown if Id is null");

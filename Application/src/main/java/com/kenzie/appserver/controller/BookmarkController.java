@@ -2,7 +2,7 @@ package com.kenzie.appserver.controller;
 
 import com.kenzie.appserver.controller.model.*;
 import com.kenzie.appserver.service.BookmarkService;
-import com.kenzie.capstone.service.model.BookSearchResponse;
+import com.kenzie.appserver.controller.model.BookSearchResponse;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;

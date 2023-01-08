@@ -13,7 +13,7 @@ import com.kenzie.capstone.service.client.BookSearchServiceClient;
 
 
 import com.kenzie.capstone.service.model.BookSearch;
-import com.kenzie.capstone.service.model.BookSearchResponse;
+import com.kenzie.appserver.controller.model.BookSearchResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 
@@ -144,8 +144,12 @@ public List<BookSearchResponse> getBooksByGenre(String genre){
             return cachedBook;
         } else {
             BookSearch nonCachedBook = bookSearchServiceClient.getBookSearch(bookSearchId);
+            if (nonCachedBook == null){
+                throw new IllegalArgumentException();
+            }
             return convertBookSearchToResponse(nonCachedBook);
-        }
+
+    }
     }
 
     private BookmarkResponse recordToResponse(BookmarkRecord bookmarkRecord){
