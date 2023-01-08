@@ -102,6 +102,7 @@ public class BookmarkControllerTest {
         CreateBookmarkRequest bookmarkRequest = new CreateBookmarkRequest();
         bookmarkRequest.setTitle(bookTitle);
         bookmarkRequest.setAuthor(bookAuthor);
+        bookmarkRequest.setGenre(genre);
         bookmarkRequest.setNumPages(numPages);
         bookmarkRequest.setIsbn13(isbn);
         bookmarkRequest.setDescription(description);
@@ -126,6 +127,7 @@ public class BookmarkControllerTest {
         assertThat(response.getBookmarkCreationDate()).isNotEmpty().as("The bookmark creation date is populated");
         assertThat(response.getTitle()).isEqualTo(bookmarkRequest.getTitle()).as("The book title is correct");
         assertThat(response.getAuthor()).isEqualTo(bookmarkRequest.getAuthor()).as("The book author is correct");
+        assertThat(response.getGenre()).isEqualTo(bookmarkRequest.getGenre()).as("The book genre is correct");
         assertThat(response.getNumPages()).isEqualTo(bookmarkRequest.getNumPages()).as("The book page count is correct");
         assertThat(response.getIsbn13()).isEqualTo(bookmarkRequest.getIsbn13()).as("The book ISBN is correct");
         assertThat(response.getDescription()).isEqualTo(bookmarkRequest.getDescription()).as("The book description is correct");
