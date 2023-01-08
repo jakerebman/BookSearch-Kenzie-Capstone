@@ -134,7 +134,7 @@ public class BookmarkControllerTest {
         assertThat(response.getIsbn13()).isEqualTo(bookmarkRequest.getIsbn13()).as("The book ISBN is correct");
         assertThat(response.getDescription()).isEqualTo(bookmarkRequest.getDescription()).as("The book description is correct");
         assertThat(response.getImageURL()).isEqualTo(bookmarkRequest.getImageURL()).as("The book image url is correct");
-        assertThat(response.getReadStatus()).isEqualTo(bookmarkRequest.getReadStatus()).as("The book read status is correct");
+        assertThat(response.getReadStatus()).isEqualTo(bookmarkUpdateRequest.getStatus()).as("The book read status is correct");
     }
 
     @Test
