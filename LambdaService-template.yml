@@ -28,7 +28,7 @@ Resources:
         UpdateResource:
           Type: Api
           Properties:
-            Path: /BookSearch/list/{Genre}
+            Path: /bookSearch/genres/{Genre}
             Method: get
   GetBookSearchByAuthorFunction:
     Type: AWS::Serverless::Function
@@ -52,7 +52,7 @@ Resources:
         UpdateResource:
           Type: Api
           Properties:
-            Path: BookSearch/list/{Author}
+            Path: /bookSearch/authors/{Author}
             Method: get
   GetBookSearch:
     Type: AWS::Serverless::Function
@@ -76,7 +76,7 @@ Resources:
         UpdateResource:
           Type: Api
           Properties:
-            Path: BookSearch/Book_Search_Id/{BookSearchId}
+            Path: /bookSearch/{bookSearchId}
             Method: get
 
 #AWSTemplateFormatVersion: '2010-09-09'
