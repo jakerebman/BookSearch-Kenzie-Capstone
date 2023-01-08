@@ -92,7 +92,7 @@ public class BookmarkService {
     public BookmarkResponse getBookMark(String bookmarkId){
         if (bookmarkRepository.findById(bookmarkId).isPresent()){
             return bookmarkRepository.findById(bookmarkId)
-                    .map(this::recordToPartialResponse)
+                    .map(this::recordToResponse)
                     .get();
         }
         else{
