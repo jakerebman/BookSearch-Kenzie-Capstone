@@ -10,7 +10,8 @@ var CURRENT_STATE;
 class BookmarkPage extends BaseClass {
     constructor() {
         super();
-        this.bindClassMethods(['onCreateBookmark', 'onGetByAuthor', 'onGetByGenre', 'onGetBook', 'onGetBookmarksByStatus','renderCollection'], this);
+//        this.bindClassMethods(['onCreateBookmark', 'onGetByAuthor', 'onGetByGenre', 'onGetBook', 'onGetBookmarksByStatus','renderCollection'], this);
+        this.bindClassMethods(['onCreateBookmark', 'onGetByAuthor', 'onGetByGenre','renderCollection', 'renderBookmarks'], this);
         this.dataStore = new DataStore();
     }
 
@@ -19,19 +20,52 @@ class BookmarkPage extends BaseClass {
      */
     async mount() {
         // document.getElementById
-        document.getElementById('create-collection-form').addEventListener('click', this.onCreateBookmark);
-        document.getElementById('search-collection').addEventListener('submit', this.onGetByAuthor);
+//        document.getElementById('create-collection-form').addEventListener('click', this.onCreateBookmark);
+        document.getElementById('search-input').addEventListener('submit', this.onGetByAuthor);
         document.getElementById('genre-select-dropdown').addEventListener('click', this.onGetByGenre);
-        document.getElementById('collection-list').addEventListener('click', this.onGetAllCollections);
+//        document.getElementById('collection-list').addEventListener('click', this.onGetAllCollections);
         // TODO: Add listeners for form-delete-btn + add-items btn
 
         this.client = new BookmarkPageClient();
 
+        let result = await this.client.getAllBookmarksByStatus(this.errorHandler);
+
+        this.dataStore.set("allBookmarkdBooks", result);
+
+        this.renderBookmarks();
         this.dataStore.addChangeListener(this.renderCollection);
+        this.dataStore.addChangeListener(this.renderBookmarks);
         //this.renderCollection();
     }
 
     // Render Methods --------------------------------------------------------------------------------------------------
+    async renderBookmarks() {
+        let resultArea = document.getElementById("bookmark-info");
+
+        resultArea.innerHTML = ""
+
+        const allBookmarkdBooks = this.dataStore.get("allBookmarkdBooks");
+
+//        const toArray = Object.entries(allBookmarkdBooks);
+//        console.log(toArray);
+
+        if (allBookmarkdBooks) {
+           const ul = document.createElement("ul");
+           for (let i = 0; i < allBookmarkdBooks.length; i++) {
+               const li = document.createElement("li");
+               console.log("inside the for loop " + allBookmarkdBooks[i]);
+               li.innerHTML += `
+               <button onclick="getBook()" id="bookmarkd-books">Click Me</button>
+               <div>Title: ${allBookmarkdBooks[i].Title}</div>
+               <div>Author: ${allBookmarkdBooks[i].Author}</div>`;
+               ul.append(li);
+           }
+           resultArea.append(ul);
+        } else {
+            resultArea.innerHTML = "Error Printing Bookmark results...";
+        }
+    }
+
     async renderCollection() {
         console.log("Entering render method...");
         let getState = this.dataStore.get(CURRENT_STATE);
@@ -129,7 +163,11 @@ class BookmarkPage extends BaseClass {
     // get global working and then focus on passing the collectionId automatically later
 
     // Event Handlers --------------------------------------------------------------------------------------------------
-    // TODO: Change to Search bar results. Copy and use for the dropdown results as well.
+    async getBook() {
+        alert("It works!!!");
+    }
+
+
     async onCreateBookmark(event) {
 
            console.log("Entering onCreateBookmark method.....");
