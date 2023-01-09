@@ -238,6 +238,7 @@ public class EndpointUtility {
             if (statusCode == 200) {
                 return httpResponse.body();
             } else {
+                System.out.println("HTTP Response Body: " + httpResponse.body());
                 throw new ApiGatewayException("GET request failed: " + statusCode + " status code received");
             }
         } catch (IOException | InterruptedException e) {
