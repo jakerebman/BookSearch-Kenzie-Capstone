@@ -14,8 +14,10 @@ public class BookSearchServiceClient {
 
     //endpoints (I am not sure what exactly they will be)
 
+
     //private static final String GET_BOOK_RECOMMENDATION_BY_GENRE = "BookSearch/list/{Genre}";
     private static final String GET_BOOKS_BY_GENRE_ENDPOINT = "booksearch/genres/{genre}";
+
 
     //private static final String GET_BOOK_RECOMMENDATION_BY_AUTHOR = "BookSearch/list/{Author}";
     private static final String GET_BOOKS_BY_AUTHOR_ENDPOINT = "booksearch/authors/{author}";
