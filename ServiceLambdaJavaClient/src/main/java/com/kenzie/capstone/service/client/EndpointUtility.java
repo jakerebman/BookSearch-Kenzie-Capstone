@@ -220,6 +220,9 @@ public class EndpointUtility {
         String api = getApiEndpint();
         String url = api + endpoint;
 
+        System.out.println("API Endpoint: " + api);
+        System.out.println("URL: " + url);
+
         HttpClient client = HttpClient.newHttpClient();
         URI uri = URI.create(url);
         HttpRequest request = HttpRequest.newBuilder()
