@@ -229,6 +229,7 @@ public class EndpointUtility {
                 .build();
         try {
             HttpResponse<String> httpResponse = client.send(request, HttpResponse.BodyHandlers.ofString());
+            System.out.println("GET Endpoint Response Headers: " + httpResponse.headers());
 
             int statusCode = httpResponse.statusCode();
             if (statusCode == 200) {
