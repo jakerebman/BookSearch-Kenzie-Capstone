@@ -14,13 +14,15 @@ public class BookSearchServiceClient {
 
     //endpoints (I am not sure what exactly they will be)
 
-    private static final String GET_BOOK_RECOMMENDATION_BY_GENRE = "bookSearch/genres/{Genre}";
-    private static final String GET_BOOKS_BY_GENRE_ENDPOINT = "booksearch/{genre}";
 
-    private static final String GET_BOOK_RECOMMENDATION_BY_AUTHOR = "BookSearch/list/{Author}";
-    private static final String GET_BOOKS_BY_AUTHOR_ENDPOINT = "booksearch/{author}";
+    //private static final String GET_BOOK_RECOMMENDATION_BY_GENRE = "BookSearch/list/{Genre}";
+    private static final String GET_BOOKS_BY_GENRE_ENDPOINT = "booksearch/genres/{genre}";
 
-    private static final String GET_BOOK = "BookSearch/Book_Search_Id/{BookSearchId}";
+
+    //private static final String GET_BOOK_RECOMMENDATION_BY_AUTHOR = "BookSearch/list/{Author}";
+    private static final String GET_BOOKS_BY_AUTHOR_ENDPOINT = "booksearch/authors/{author}";
+
+    //private static final String GET_BOOK = "BookSearch/Book_Search_Id/{BookSearchId}";
     private static final String GET_BOOK_ENDPOINT = "booksearch/{bookSearchId}";
 
     private ObjectMapper mapper;
@@ -29,7 +31,7 @@ public class BookSearchServiceClient {
 
     public List<BookSearch> getBookRecommendationsByGenre(String genre){
         EndpointUtility utility = new EndpointUtility();
-        String response = utility.getEndpoint(GET_BOOK_RECOMMENDATION_BY_GENRE.replace("{genre}", genre));
+        String response = utility.getEndpoint(GET_BOOKS_BY_GENRE_ENDPOINT.replace("{genre}", genre));
         List<BookSearch> recommendation;
         try{
             recommendation = mapper.readValue(response, new TypeReference<>(){});
@@ -42,7 +44,7 @@ public class BookSearchServiceClient {
 
     public List<BookSearch> getBookRecommendationsByAuthor(String author){
         EndpointUtility utility = new EndpointUtility();
-        String response = utility.getEndpoint(GET_BOOK_RECOMMENDATION_BY_AUTHOR.replace("{author}", author));
+        String response = utility.getEndpoint(GET_BOOKS_BY_AUTHOR_ENDPOINT.replace("{author}", author));
         List<BookSearch> recommendation;
         try{
             recommendation = mapper.readValue(response, new TypeReference<>(){});
@@ -54,7 +56,7 @@ public class BookSearchServiceClient {
 
     public BookSearch getBookSearch(String bookSearchId){
         EndpointUtility utility = new EndpointUtility();
-        String response = utility.getEndpoint(GET_BOOK.replace("{bookSearchId}", bookSearchId));
+        String response = utility.getEndpoint(GET_BOOK_ENDPOINT.replace("{bookSearchId}", bookSearchId));
         BookSearch bookSearchResponse;
         try{
            bookSearchResponse = mapper.readValue(response, BookSearch.class);

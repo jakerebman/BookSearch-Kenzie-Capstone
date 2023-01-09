@@ -35,7 +35,7 @@ public class GetBookSearch implements RequestHandler<APIGatewayProxyRequestEvent
         APIGatewayProxyResponseEvent response = new APIGatewayProxyResponseEvent()
                 .withHeaders(headers);
 
-        String bookSearchId = input.getPathParameters().get("Book_Search_Id");
+        String bookSearchId = input.getPathParameters().get("bookSearchId");
 
         if (bookSearchId == null || bookSearchId.length() == 0){
             return response
