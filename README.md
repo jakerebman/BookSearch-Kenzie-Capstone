@@ -47,4 +47,3 @@ click the Start Lab button to begin again with renewed AWS credentials.
 To teardown the pipeline, run `./cleanupPipeline.sh`
 
 
-testing
