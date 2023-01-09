@@ -55,7 +55,7 @@ class BookmarkPage extends BaseClass {
                const li = document.createElement("li");
                console.log("inside the for loop " + allBookmarkdBooks[i]);
                li.innerHTML += `
-               <button onclick="getBook()" id="bookmarkd-books">Click Me</button>
+               <button onclick="getBook()" id="bookmarkd-books">${allBookmarkdBooks[i].Title}</button>
                <div>Title: ${allBookmarkdBooks[i].Title}</div>
                <div>Author: ${allBookmarkdBooks[i].Author}</div>`;
                ul.append(li);
