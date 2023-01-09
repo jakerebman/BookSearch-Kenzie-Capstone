@@ -5,6 +5,7 @@ const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 
 module.exports = {
   optimization: {
+    minimize: false,
     usedExports: true
   },
   entry: {
