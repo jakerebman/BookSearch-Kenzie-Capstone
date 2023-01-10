@@ -52,7 +52,7 @@ public class BookmarkControllerTest {
         String isbn = "125031318X";
         String description = "Gideon has a sword, some dirty magazines, and no more time for undead nonsense";
         String imageName = mockNeat.names().get();
-        String imageURL = "s3://pats-bucket/" + imageName;
+        String imageURL = "https://capstone-pbandj-book-image.s3.amazonaws.com/42036538.jpg";
 
         CreateBookmarkRequest bookmarkRequest = new CreateBookmarkRequest();
         bookmarkRequest.setTitle(bookTitle);
@@ -79,7 +79,6 @@ public class BookmarkControllerTest {
         assertThat(bookmarkResponse.getGenre()).isEqualTo(bookmarkRequest.getGenre()).as("The book genre is correct");
         assertThat(bookmarkResponse.getNumPages()).isEqualTo(bookmarkRequest.getNumPages()).as("The book page count is correct");
         assertThat(bookmarkResponse.getIsbn13()).isEqualTo(bookmarkRequest.getIsbn13()).as("The book ISBN is correct");
-        // TODO: Should we just test that the description and ImageURL are populated?
         assertThat(bookmarkResponse.getDescription()).isEqualTo(bookmarkRequest.getDescription()).as("The book description is correct");
         assertThat(bookmarkResponse.getImageURL()).isEqualTo(bookmarkRequest.getImageURL()).as("The book image url is correct");
         assertThat(bookmarkResponse.getReadStatus()).isEqualTo(bookmarkRequest.getReadStatus()).as("The book read status is correct");
@@ -97,7 +96,7 @@ public class BookmarkControllerTest {
         String isbn = "978-1250297143";
         String description = "Dalinar Kholin%60s Alethi armies won a fleeting victory at a terrible cost...";
         String imageName = mockNeat.names().get();
-        String imageURL = "s3://pats-bucket/" + imageName;
+        String imageURL = "https://capstone-pbandj-book-image.s3.amazonaws.com/Oathbringer.png";
 
         CreateBookmarkRequest bookmarkRequest = new CreateBookmarkRequest();
         bookmarkRequest.setTitle(bookTitle);
@@ -149,7 +148,6 @@ public class BookmarkControllerTest {
                 .content(mapper.writeValueAsString(bookmarkUpdateRequest))
                 .accept(MediaType.APPLICATION_JSON)
                 .contentType(MediaType.APPLICATION_JSON))
-                // TODO: Would Error be '4xx' or 'Not Found'?
                 .andExpect(status().is4xxClientError());
     }
 
@@ -165,7 +163,7 @@ public class BookmarkControllerTest {
         String isbn = "978-0813319513";
         String description = "The most famous study of strategy ever written...";
         String imageName = mockNeat.names().get();
-        String imageURL = "s3://pats-bucket/" + imageName;
+        String imageURL = "https://capstone-pbandj-book-image.s3.amazonaws.com/tAoW.png";
 
         CreateBookmarkRequest bookmarkRequest = new CreateBookmarkRequest();
         bookmarkRequest.setTitle(bookTitle);
@@ -190,16 +188,6 @@ public class BookmarkControllerTest {
                 .andExpect(status().isNotFound());
     }
 
-//    @Test
-//    public void deleteBookmarkById_WithInvalidId() throws Exception {
-//        String bookmarkId = UUID.randomUUID().toString();
-//
-//        mvc.perform(delete("/bookmarks/{bookmarkId}", bookmarkId)
-//                .accept(MediaType.APPLICATION_JSON)
-//                .contentType(MediaType.APPLICATION_JSON))
-//                .andExpect(status().isNotFound());
-//    }
-
     /** ------------------------------------------------------------------------
      *  Get All Bookmarks By Status
      *  ------------------------------------------------------------------------ **/
@@ -212,7 +200,7 @@ public class BookmarkControllerTest {
         String book1_isbn = "979-8712811786";
         String book1_description = "Jason wakes up in a mysterious world of magic and monsters...";
         String book1_imageName = mockNeat.names().get();
-        String book1_imageURL = "s3://pats-bucket/" + book1_imageName;
+        String book1_imageURL = "https://capstone-pbandj-book-image.s3.amazonaws.com/He_Who_Fights_With_Monsters.png";
 
         String book2_bookTitle = "Ready Player One";
         String book2_bookAuthor = "Ernest Cline";
@@ -221,7 +209,7 @@ public class BookmarkControllerTest {
         String book2_isbn = "978-0307887443";
         String book2_description = "A world at stake. A quest for the ultimate prize. Are you ready?";
         String book2_imageName = mockNeat.names().get();
-        String book2_imageURL = "s3://pats-bucket/" + book2_imageName;
+        String book2_imageURL = "https://capstone-pbandj-book-image.s3.amazonaws.com/ready-player-one.jpg";
 
         CreateBookmarkRequest bookmarkRequest1 = new CreateBookmarkRequest();
         bookmarkRequest1.setTitle(book1_bookTitle);
@@ -280,7 +268,7 @@ public class BookmarkControllerTest {
         String isbn = "978-1524761332";
         String description = "An unexpected quest. Two worlds at stake. Are you ready?";
         String imageName = mockNeat.names().get();
-        String imageURL = "s3://pats-bucket/" + imageName;
+        String imageURL = "https://capstone-pbandj-book-image.s3.amazonaws.com/ready-player-2.jpg";
 
         CreateBookmarkRequest bookmarkRequest = new CreateBookmarkRequest();
         bookmarkRequest.setTitle(bookTitle);
@@ -316,17 +304,9 @@ public class BookmarkControllerTest {
     /** ------------------------------------------------------------------------
      *  Get Books By Author
      *  ------------------------------------------------------------------------ **/
-    // TODO: Database must be populated with the below book information in order for the test to succeed?
     @Test
     public void getBooksByAuthor_Successful() throws Exception {
-        String bookTitle = "Pride and Prejudice";
-        String bookAuthor = "Jane%20Austen";
-        String genre = "Romance";
-        String numPages = "259";
-        String isbn = "978-0679783268";
-        String description = "It is a truth universally acknowledged...";
-        String imageName = mockNeat.names().get();
-        String imageURL = "s3://pats-bucket/" + imageName;
+        String bookAuthor = "Brandon Sanderson";
 
         ResultActions actions = mvc.perform(get("/bookmarks/{author}/authors", bookAuthor)
                         .accept(MediaType.APPLICATION_JSON)
@@ -355,14 +335,7 @@ public class BookmarkControllerTest {
      *  ------------------------------------------------------------------------ **/
     @Test
     public void getBooksByGenre_Successful() throws Exception {
-        String bookTitle = "Pride and Prejudice";
-        String bookAuthor = "Jane Austen";
-        String genre = "Romance";
-        String numPages = "259";
-        String isbn = "978-0679783268";
-        String description = "It is a truth universally acknowledged...";
-        String imageName = mockNeat.names().get();
-        String imageURL = "s3://pats-bucket/" + imageName;
+        String genre = "Fantasy";
 
         ResultActions actions = mvc.perform(get("/bookmarks/{genre}/genres", genre)
                 .accept(MediaType.APPLICATION_JSON)
