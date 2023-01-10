@@ -147,8 +147,9 @@ public List<BookSearchResponse> getBooksByGenre(String genre){
             if (nonCachedBook == null){
                 throw new IllegalArgumentException();
             }
-            return convertBookSearchToResponse(nonCachedBook);
-
+            BookSearchResponse response = convertBookSearchToResponse(nonCachedBook);
+            cache.add(bookSearchId, response);
+            return response;
     }
     }
 
