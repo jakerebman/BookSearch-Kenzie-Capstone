@@ -32,7 +32,7 @@ public class BookSearchDao {
 
     public List<BookSearchRecord> getRecommendationbyAuthor(String author) {
         BookSearchRecord record = new BookSearchRecord();
-        record.setGenre(author);
+        record.setAuthor(author);
 
         try {
             DynamoDBQueryExpression<BookSearchRecord> queryExpression = new DynamoDBQueryExpression<BookSearchRecord>()
