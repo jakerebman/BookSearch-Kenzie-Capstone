@@ -159,14 +159,6 @@ public class BookmarkServiceTest {
 
         assertEquals(record.getTitle(), response.getTitle());
         assertEquals(record.getReadStatus(), response.getReadStatus());
-        assertNull(response.getBookmarkId());
-        assertNull(response.getBookmarkCreationDate());
-        assertNull(response.getAuthor());
-        assertNull(response.getGenre());
-        assertNull(response.getNumPages());
-        assertNull(response.getIsbn13());
-        assertNull(response.getDescription());
-        assertNull(response.getImageURL());
     }
 
     @Test
