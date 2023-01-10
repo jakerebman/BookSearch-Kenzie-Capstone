@@ -17,10 +17,15 @@ module.exports = {
     filename: '[name].js',
   },
   devServer: {
-    https: false,
+    // https: false,
+    https: true,
+    headers: {
+      "Access-Control-Allow-Origin": "*",
+    },
     port: 8080,
     open: true,
-    openPage: 'http://localhost:8080',
+    // TODO: Changed localhost urls from http to https
+    openPage: 'https://localhost:8080',
     // diableHostChecks, otherwise we get an error about headers and the page won't render
     disableHostCheck: true,
     contentBase: 'packaging_additional_published_artifacts',
@@ -29,9 +34,10 @@ module.exports = {
     proxy: [
       {
         context: [
-          '/example',
+          '/bookmarks',
+            // '/example',
         ],
-        target: 'http://localhost:5001'
+        target: 'https://localhost:5001'
       }
     ]
   },
