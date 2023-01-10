@@ -32,7 +32,7 @@ class BookmarkPage extends BaseClass {
 
         this.dataStore.set("allBookmarkdBooks", result);
 
-        this.renderBookmarks();
+        await this.renderBookmarks();
         this.dataStore.addChangeListener(this.renderCollection);
         this.dataStore.addChangeListener(this.renderBookmarks);
         //this.renderCollection();
@@ -45,66 +45,41 @@ class BookmarkPage extends BaseClass {
         resultArea.innerHTML = ""
 
         const allBookmarkdBooks = this.dataStore.get("allBookmarkdBooks");
-
+        console.log("Before first if statement.")
         if (allBookmarkdBooks) {
             for (let i = 0; i < allBookmarkdBooks.length; i++) {
                 console.log("Inside Loop to Parse Data")
                 let bookmarkId = allBookmarkdBooks[i].Bookmark_Id;
-                console.log(bookmarkId);
 
                 this.dataStore.set(bookmarkId, allBookmarkdBooks[i]);
             }
         }
 
-//        const toArray = Object.entries(allBookmarkdBooks);
-//        console.log(toArray);
-        // Removed from line 61: <button onclick="getBook()" id="bookmarkd-books">${allBookmarkdBooks[i].Title}</button>
-
+        console.log("After the first if statement.")
         if (allBookmarkdBooks) {
             console.log(allBookmarkdBooks)
 
-           let count = 1;
-           const ul = document.createElement("ul");
-           ul.id = "bookmarks-status";
-           for (let i = 0; i < allBookmarkdBooks.length; i++) {
-               //let bookmarkId = allBookmarkdBooks[i].Bookmark_Id;
-               const li = document.createElement("li");
-               console.log("inside the for loop " + allBookmarkdBooks[i]);
+            const ul = document.createElement("ul");
 
-               const divId = "book-title" + count;
-               li.innerHTML += `
-               <div id=divId style="cursor: pointer;">Title: ${allBookmarkdBooks[i].Title}</div>
-               <div>Author: ${allBookmarkdBooks[i].Author}</div>`;
-               // let bookEvent = document.getElementById("book-title");
-               // if (bookEvent) {
-               //     console.log("Trigger Click Event!!!")
-               //     bookEvent.addEventListener("click", async () => {
-               //         await this.addBookDetails(bookmarkId)
-               //     });
-               // }
-               ul.append(li);
-               count++;
-           }
-           resultArea.append(ul);
-           //document.getElementById("book-title").addEventListener('click', this.addBookDetails);
+            ul.addEventListener("click", this.addBookImage)
 
-            for (let i = 0; allBookmarkdBooks.length; i++) {
-                console.log("Click Event!!!")
-                let bookmarkId = allBookmarkdBooks[i].Bookmark_Id;
+            ul.id = "bookmarks-status";
+            for (let i = 0; i < allBookmarkdBooks.length; i++) {
+                //let bookmarkId = allBookmarkdBooks[i].Bookmark_Id;
+                const li = document.createElement("li");
+                li.innerHTML = ""
+                console.log("inside the for loop " + allBookmarkdBooks[i]);
 
-                if (bookmarkId !== 'undefined') {
-                    console.log("Bookmark ID in Trigger: " + bookmarkId);
-                    let eleDivId = "book-title" + count;
-                    let elements = document.getElementById(eleDivId);
-                    if (elements) {
-                        elements[i].addEventListener("click", async () => {
-                            await this.addBookDetails(bookmarkId)
-                        });
-                    }
-                } else {
-                    console.log("Bookmark ID Invalid: " + bookmarkId);
-                }
+                const divId = `${allBookmarkdBooks[i].Bookmark_Id}`;
+
+                li.innerHTML = `
+                <div id=${divId} imgPath=${allBookmarkdBooks[i].Image_URL} style="cursor: pointer;">Title: ${allBookmarkdBooks[i].Title}</div>  
+                <div>Author: ${allBookmarkdBooks[i].Author}</div>`;
+                //li.setAttribute("imgPath",allBookmarkdBooks[i].Image_URL)
+
+                ul.append(li);
             }
+           resultArea.append(ul);
         } else {
             resultArea.innerHTML = "Error Printing Bookmark results...";
         }
@@ -324,15 +299,22 @@ class BookmarkPage extends BaseClass {
         });
     }
 
-    async addBookImage(bookmarkId) {
+    async addBookImage(event) {
+
+        console.log(event.target.innerText)
+        console.log(event.target.id) // this should be your book id maybe?
+        console.log(event.target.innerHTML)
+        console.log(event.target.getAttribute("imgPath"))
         console.log("Entering Book Details Method");
-        const allBookmarkdBooks = this.dataStore.get("allBookmarkdBooks");
-        console.log(allBookmarkdBooks);
 
-        let bookImage = allBookmarkdBooks.Image_URL;
-        console.log(bookImage);
-
-        let imageArea = document.getElementById('book-image');
+        const image = document.querySelector(".image")
+        // imageArea.remove() - not this one.
+        // img.src=""
+        // img.alt=""
+        // img.setAttribute('src', '')
+        // img.setAttribute('alt', '')
+        image.src=event.target.getAttribute("imgPath")
+        image.alt= "book image"
     }
 
     async addBookDetails(bookmarkId) {

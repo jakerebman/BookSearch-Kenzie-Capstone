@@ -117,6 +117,7 @@ h3.title {
 /*Drop Down*/
 .dropdown {
     float: right;
+    padding: 6px;
 }
 span {
     padding : 7px;
