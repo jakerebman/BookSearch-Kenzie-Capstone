@@ -220,6 +220,9 @@ public class EndpointUtility {
         String api = getApiEndpint();
         String url = api + endpoint;
 
+        System.out.println("API Endpoint: " + api);
+        System.out.println("URL: " + url);
+
         HttpClient client = HttpClient.newHttpClient();
         URI uri = URI.create(url);
         HttpRequest request = HttpRequest.newBuilder()
@@ -229,11 +232,13 @@ public class EndpointUtility {
                 .build();
         try {
             HttpResponse<String> httpResponse = client.send(request, HttpResponse.BodyHandlers.ofString());
+            System.out.println("GET Endpoint Response Headers: " + httpResponse.headers());
 
             int statusCode = httpResponse.statusCode();
             if (statusCode == 200) {
                 return httpResponse.body();
             } else {
+                System.out.println("HTTP Response Body: " + httpResponse.body());
                 throw new ApiGatewayException("GET request failed: " + statusCode + " status code received");
             }
         } catch (IOException | InterruptedException e) {

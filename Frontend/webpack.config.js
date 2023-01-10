@@ -5,20 +5,27 @@ const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 
 module.exports = {
   optimization: {
+    minimize: false,
     usedExports: true
   },
   entry: {
-    examplePage: path.resolve(__dirname, 'src', 'pages', 'examplePage.js'),
+//    examplePage: path.resolve(__dirname, 'src', 'pages', 'examplePage.js')
+    bookmarkPage: path.resolve(__dirname, 'src', 'pages', 'bookmarkPage.js')
   },
   output: {
     path: path.resolve(__dirname, 'dist'),
     filename: '[name].js',
   },
   devServer: {
-    https: false,
+    // https: false,
+    https: true,
+    headers: {
+      "Access-Control-Allow-Origin": "*",
+    },
     port: 8080,
     open: true,
-    openPage: 'http://localhost:8080',
+    // TODO: Changed localhost urls from http to https
+    openPage: 'https://localhost:8080',
     // diableHostChecks, otherwise we get an error about headers and the page won't render
     disableHostCheck: true,
     contentBase: 'packaging_additional_published_artifacts',
@@ -27,9 +34,10 @@ module.exports = {
     proxy: [
       {
         context: [
-          '/example',
+          '/bookmarks',
+            // '/example',
         ],
-        target: 'http://localhost:5001'
+        target: 'https://localhost:5001'
       }
     ]
   },
@@ -44,6 +52,14 @@ module.exports = {
         {
           from: path.resolve('src/css'),
           to: path.resolve("dist/css")
+        }
+      ]
+    }),
+    new CopyPlugin({
+      patterns: [
+        {
+          from: path.resolve('src/images'),
+          to: path.resolve("dist/images")
         }
       ]
     }),

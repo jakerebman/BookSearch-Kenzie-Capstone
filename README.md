@@ -15,6 +15,14 @@ You must do this for the ServiceLambda to work!
 aws cloudformation create-stack --stack-name lambda-table --template-body file://LambdaExampleTable.yml --capabilities CAPABILITY_IAM
 ```
 
+```
+aws cloudformation create-stack --stack-name lambda-table --template-body file://LambdaBookSearchTable.yml --capabilities CAPABILITY_IAM
+```
+
+```
+aws dynamodb batch-write-item --request-items file://BookSearch_seeddata.json
+```
+
 ### To deploy the Development Environment
 
 Run `./deployDev.sh`

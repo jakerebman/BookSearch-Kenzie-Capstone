@@ -1,0 +1,354 @@
+{
+  "BookSearch":[
+    {
+      "PutRequest": {
+        "Item": {
+          "Book_Search_Id": {"S": "e777dff7-b7cb-4bdc-9319-931b95da2ec9"},
+          "Title": {"S": "Harry Potter and the Sorcerer's Stone"},
+          "Author": {"S": "J.K. Rowling"},
+          "Genre": {"S": "Fantasy"},
+          "Num_Pages": {"S": "309"},
+          "ISBN13": {"S": "978-0590353403"},
+          "description": {"S": "Harry Potter has no idea how famous he is. That's because he's being raised by his miserable aunt and uncle who are terrified Harry will learn that he's really a wizard, just as his parents were. But everything changes when Harry is summoned to attend an infamous school for wizards, and he begins to discover some clues about his illustrious birthright. From the surprising way he is greeted by a lovable giant, to the unique curriculum and colorful faculty at his unusual school, Harry finds himself drawn deep inside a mystical world he never knew existed and closer to his own noble destiny."},
+          "Image_URL": {"S": "https://capstone-pbandj-book-image.s3.amazonaws.com/HPandSS.png"}
+        }
+      }
+    },
+    {
+      "PutRequest": {
+        "Item": {
+          "Book_Search_Id": {"S": "fc9ae543-c159-4e7e-addc-0fb7e79a00ae"},
+          "Title": {"S": "Harry Potter and the Chamber of Secrets"},
+          "Author": {"S": "J.K. Rowling"},
+          "Genre": {"S": "Fantasy"},
+          "Num_Pages": {"S": "341"},
+          "ISBN13": {"S": "978-0439064873"},
+          "description": {"S": "The Dursleys were so mean that hideous that summer that all Harry Potter wanted was to get back to the Hogwarts School for Witchcraft and Wizardry. But just as he's packing his bags, Harry receives a warning from a strange, impish creature named Dobby who says that if Harry Potter returns to Hogwarts, disaster will strike."},
+          "Image_URL": {"S": "https://capstone-pbandj-book-image.s3.amazonaws.com/HPandCoS.png"}
+        }
+      }
+    },
+    {
+      "PutRequest": {
+        "Item": {
+          "Book_Search_Id": {"S": "2e1c0d6e-e283-42b2-a9b9-a9723f148640"},
+          "Title": {"S": "Harry Potter and the Prisoner of Azkaban"},
+          "Author": {"S": "J.K. Rowling"},
+          "Genre": {"S": "Fantasy"},
+          "Num_Pages": {"S": "435"},
+          "ISBN13": {"S": "978-0439136358"},
+          "description": {"S": "For twelve long years, the dread fortress of Azkaban held an infamous prisoner named Sirius Black. Convicted of killing thirteen people with a single curse, he was said to be the heir apparent to the Dark Lord, Voldemort.Now he has escaped, leaving only two clues as to where he might be headed: Harry Potter's defeat of You-Know-Who was Black's downfall as well. And the Azkaban guards heard Black muttering in his sleep, \"He's at Hogwarts . . . he's at Hogwarts.\"Harry Potter isn't safe, not even within the walls of his magical school, surrounded by his friends. Because on top of it all, there may well be a traitor in their midst."},
+          "Image_URL": {"S": "https://capstone-pbandj-book-image.s3.amazonaws.com/HPatPoA.png"}
+        }
+      }
+    },
+    {
+      "PutRequest": {
+        "Item": {
+          "Book_Search_Id": {"S": "fc3b9333-ea39-4b57-b317-d576fad8d4cf"},
+          "Title": {"S": "Harry Potter and the Goblet of Fire"},
+          "Author": {"S": "J.K. Rowling"},
+          "Genre": {"S": "Fantasy"},
+          "Num_Pages": {"S": "752"},
+          "ISBN13": {"S": "978-0439139601"},
+          "description": {"S": "Harry Potter is midway through his training as a wizard and his coming of age. Harry wants to get away from the pernicious Dursleys and go to the International Quidditch Cup. He wants to find out about the mysterious event that's supposed to take place at Hogwarts this year, an event involving two other rival schools of magic, and a competition that hasn't happened for a hundred years. He wants to be a normal, fourteen-year-old wizard. But unfortunately for Harry Potter, he's not normal - even by wizarding standards. And in his case, different can be deadly."},
+          "Image_URL": {"S": "https://capstone-pbandj-book-image.s3.amazonaws.com/HPatGoF.png"}
+        }
+      }
+    },
+    {
+      "PutRequest": {
+        "Item": {
+          "Book_Search_Id": {"S": "20a52fc4-963d-4a67-90ec-d6c13c5fe080"},
+          "Title": {"S": "Harry Potter and the Order of the Phoenix"},
+          "Author": {"S": "J.K. Rowling"},
+          "Genre": {"S": "Fantasy"},
+          "Num_Pages": {"S": "896"},
+          "ISBN13": {"S": "978-0439358071"},
+          "description": {"S": "In his fifth year at Hogwart's, Harry faces challenges at every turn, from the dark threat of He-Who-Must-Not-Be-Named and the unreliability of the government of the magical world to the rise of Ron Weasley as the keeper of the Gryffindor Quidditch Team. Along the way he learns about the strength of his friends, the fierceness of his enemies, and the meaning of sacrifice."},
+          "Image_URL": {"S": "https://capstone-pbandj-book-image.s3.amazonaws.com/HPatOotP.png"}
+        }
+      }
+    },
+    {
+      "PutRequest": {
+        "Item": {
+          "Book_Search_Id": {"S": "a92671ef-2053-48e5-b670-388fc40d0d9a"},
+          "Title": {"S": "Harry Potter and the Half-Blood Prince"},
+          "Author": {"S": "J.K. Rowling"},
+          "Genre": {"S": "Fantasy"},
+          "Num_Pages": {"S": "652"},
+          "ISBN13": {"S": "978-0439785969"},
+          "description": {"S": "The war against Voldemort is not going well; even the Muggles have been affected. Dumbledore is absent from Hogwarts for long stretches of time, and the Order of the Phoenix has already suffered losses."},
+          "Image_URL": {"S": "https://capstone-pbandj-book-image.s3.amazonaws.com/HPatHBP.png"}
+        }
+      }
+    },
+    {
+      "PutRequest": {
+        "Item": {
+          "Book_Search_Id": {"S": "675026c6-3bf1-406f-add8-a242cf2b09cf"},
+          "Title": {"S": "Harry Potter and the Deathly Hallows"},
+          "Author": {"S": "J.K. Rowling"},
+          "Genre": {"S": "Fantasy"},
+          "Num_Pages": {"S": "784"},
+          "ISBN13": {"S": "978-0545010221"},
+          "description": {"S": "Without the guidance and protection of their professors, Harry , Ron and Hermione begin a mission to destroy the Horcruxes, the sources of Voldemort's immortality. Though they must rely on one another more than ever, dark forces threaten to tear them apart. Voldemort's Death Eaters have seized control of the Ministry of Magic and Hogwarts, and they are searching for Harry -- even as he and his friends prepare for the ultimate showdown."},
+          "Image_URL": {"S": "https://capstone-pbandj-book-image.s3.amazonaws.com/HPatDH.png"}
+        }
+      }
+    },
+    {
+      "PutRequest": {
+        "Item": {
+          "Book_Search_Id": {"S": "32e56b38-dac2-4d9c-aeeb-3c77e46c3258"},
+          "Title": {"S": "Tesla: Wizard at War: The Genius, the Particle Beam Weapon, and the Pursuit of Power"},
+          "Author": {"S": "Marc Seifer"},
+          "Genre": {"S": "Biography"},
+          "Num_Pages": {"S": "384"},
+          "ISBN13": {"S": "978-0806540962"},
+          "description": {"S": "In this insightful and revelatory new book, the author of the highly acclaimed, award-winning international bestseller  Wizard: The Life and Times of Nikola Tesla delves deeper into the groundbreaking ideas and astonishing mind of one  of the greatest geniuses of modern times. The culmination of more than four decades of research, Tesla: Wizard at War explores the historical impact of Tesla’s particle beam weapon and other brilliant work—and how it continues to  shape global military technology and diplomatic strategies even today"},
+          "Image_URL": {"S": "https://capstone-pbandj-book-image.s3.amazonaws.com/TWaWTGtPBWatPoP.png"}
+        }
+      }
+    },
+    {
+      "PutRequest": {
+        "Item": {
+          "Book_Search_Id": {"S": "1230c9ce-e343-4686-ab25-cc178cc105db"},
+          "Title": {"S": "How to Win Friends & Influence People"},
+          "Author": {"S": "Dale Carnegie"},
+          "Genre": {"S": "Self-Help"},
+          "Num_Pages": {"S": "320"},
+          "ISBN13": {"S": "978-0671027032\n"},
+          "description": {"S": "Dale Carnegie’s rock-solid, time-tested advice has carried countless people up the ladder of success in their business and personal lives. One of the most groundbreaking and timeless bestsellers of all time, How to Win Friends & Influence People will teach you:\n\n-Six ways to make people like you\n\n-Twelve ways to win people to your way of thinking\n\n-Nine ways to change people without arousing resentment"},
+          "Image_URL": {"S": "https://capstone-pbandj-book-image.s3.amazonaws.com/HTWFaIP.png"}
+        }
+      }
+    },
+    {
+      "PutRequest": {
+        "Item": {
+          "Book_Search_Id": {"S": "c8ef7262-279c-400d-b799-10317f3008bb"},
+          "Title": {"S": "Start With Why"},
+          "Author": {"S": "Simon Sinek"},
+          "Genre": {"S": "Self-Help"},
+          "Num_Pages": {"S": "256"},
+          "ISBN13": {"S": "978-1591842804"},
+          "description": {"S": "In 2009, Simon Sinek started a movement to help people become more inspired at work, and in turn inspire their colleagues and customers. Since then, millions have been touched by the power of his ideas, including more than 28 million who’ve watched his TED Talk based on START WITH WHY -- the third most popular TED video of all time.\n\nSinek starts with a fundamental question: Why are some people and organizations more innovative, more influential, and more profitable than others? Why do some command greater loyalty from customers and employees alike? Even among the successful, why are so few able to repeat their success over and over?\n\nPeople like Martin Luther King Jr., Steve Jobs, and the Wright Brothers had little in common, but they all started with WHY. They realized that people won't truly buy into a product, service, movement, or idea until they understand the WHY behind it.\n\nSTART WITH WHY shows that the leaders who've had the greatest influence in the world all think, act, and communicate the same way -- and it's the opposite of what everyone else does. Sinek calls this powerful idea The Golden Circle, and it provides a framework upon which organizations can be built, movements can be led, and people can be inspired. And it all starts with WHY.\n"},
+          "Image_URL": {"S": "https://capstone-pbandj-book-image.s3.amazonaws.com/SWW.png"}
+        }
+      }
+    },
+    {
+      "PutRequest": {
+        "Item": {
+          "Book_Search_Id": {"S": "d6b72cf8-d4f6-4191-a465-c28a5dec186d"},
+          "Title": {"S": "The Subtle Art of Not Giving a F*ck"},
+          "Author": {"S": "Mark Manson"},
+          "Genre": {"S": "Self-Help"},
+          "Num_Pages": {"S": "212"},
+          "ISBN13": {"S": "978-0063016651"},
+          "description": {"S": "he Subtle Art of Not Giving a F*ck is a book that challenges the conventions of self-help by inviting the reader to NOT try, say no often and embrace negative thinking. Not giving a f*ck is about being comfortable with being different and caring about something more important than adversity."},
+          "Image_URL": {"S": "https://capstone-pbandj-book-image.s3.amazonaws.com/TSAoNGaF.png"}
+        }
+      }
+    },
+    {
+      "PutRequest": {
+        "Item": {
+          "Book_Search_Id": {"S": "b07119c3-9e92-47db-91a8-e1609040c311"},
+          "Title": {"S": "The Art of War"},
+          "Author": {"S": "Sun Tzu"},
+          "Genre": {"S": "History"},
+          "Num_Pages": {"S": "384"},
+          "ISBN13": {"S": "978-0813319513"},
+          "description": {"S": "Sun-tzu's Art of War is almost certainly the most famous study of strategy ever written. This treatise has been credited with influencing some of the most legendary military operations. Beyond the battlefield, people far and wide have long turned to Art of War for advice on how to succeed in various competitive situations, and companies around the world now make this book required reading for their executives. "},
+          "Image_URL": {"S": "https://capstone-pbandj-book-image.s3.amazonaws.com/tAoW.png"}
+        }
+      }
+    },
+    {
+      "PutRequest": {
+        "Item": {
+          "Book_Search_Id": {"S": "927fba34-439a-4ea9-a8ff-7ddf83331f41"},
+          "Title": {"S": "And There Was Light: Abraham Lincoln and the American Struggle"},
+          "Author": {"S": "Jon Meacham"},
+          "Genre": {"S": "History"},
+          "Num_Pages": {"S": "720"},
+          "ISBN13": {"S": "978-0553393965"},
+          "description": {"S": "NEW YORK TIMES BESTSELLER • Pulitzer Prize–winning biographer Jon Meacham chronicles the life of Abraham Lincoln, charting how—and why—he confronted secession, threats to democracy, and the tragedy of slavery to expand the possibilities of America."},
+          "Image_URL": {"S": "https://capstone-pbandj-book-image.s3.amazonaws.com/ATWLALatAS.png"}
+        }
+      }
+    },
+    {
+      "PutRequest": {
+        "Item": {
+          "Book_Search_Id": {"S": "f7bf0747-4b6f-4d63-bb4a-1bfcdb69b995"},
+          "Title": {"S": "SPQR: A History of Ancient Rome"},
+          "Author": {"S": "Mary Beard"},
+          "Genre": {"S": "History"},
+          "Num_Pages": {"S": "608"},
+          "ISBN13": {"S": "978-0871404237"},
+          "description": {"S": "Ancient Rome was an imposing city even by modern standards, a sprawling imperial metropolis of more than a million inhabitants, a \"mixture of luxury and filth, liberty and exploitation, civic pride and murderous civil war\" that served as the seat of power for an empire that spanned from Spain to Syria. Yet how did all this emerge from what was once an insignificant village in central Italy? In S.P.Q.R., world-renowned classicist Mary Beard narrates the unprecedented rise of a civilization that even two thousand years later still shapes many of our most fundamental assumptions about power, citizenship, responsibility, political violence, empire, luxury, and beauty."},
+          "Image_URL": {"S": "https://capstone-pbandj-book-image.s3.amazonaws.com/SPQRaHoAR.png"}
+        }
+      }
+    },
+    {
+      "PutRequest": {
+        "Item": {
+          "Book_Search_Id": {"S": "c88bc44c-c846-4cbc-98da-3f0f0b7f9517"},
+          "Title": {"S": "The Age of the Vikings"},
+          "Author": {"S": "Anders Winroth"},
+          "Genre": {"S": "History"},
+          "Num_Pages": {"S": "328"},
+          "ISBN13": {"S": "978-0691169293"},
+          "description": {"S": "The Vikings maintain their grip on our imagination, but their image is too often distorted by myth. It is true that they pillaged, looted, and enslaved. But they also settled peacefully and traveled far from their homelands in swift and sturdy ships to explore. The Age of the Vikings tells the full story of this exciting period in history. Drawing on a wealth of written, visual, and archaeological evidence, Anders Winroth captures the innovation and pure daring of the Vikings without glossing over their destructive heritage. He not only explains the Viking attacks, but also looks at Viking endeavors in commerce, politics, discovery, and colonization, and reveals how Viking arts, literature, and religious thought evolved in ways unequaled in the rest of Europe. The Age of the Vikings sheds new light on the complex society, culture, and legacy of these legendary seafarers."},
+          "Image_URL": {"S": "https://capstone-pbandj-book-image.s3.amazonaws.com/tAotV.png"}
+        }
+      }
+    },
+    {
+      "PutRequest": {
+        "Item": {
+          "Book_Search_Id": {"S": "e4e1849b-9e0c-4e04-a32d-cc61aade1a31"},
+          "Title": {"S": "A History of the Samurai: Legendary Warriors of Japan"},
+          "Author": {"S": "Jonathan Lopez-Vera"},
+          "Genre": {"S": "History"},
+          "Num_Pages": {"S": "288"},
+          "ISBN13": {"S": "978-4805315354"},
+          "description": {"S": "A History of the Samurai tells the complete story of Japan's legendary warrior class from beginning to end--an epic tale of intrigue, bloodshed and bravery that is central to an understanding of the Japanese character and of Japanese history. It describes in detail the core Samurai philosophy of Bushido--\"the way of the warrior\"--a complex code of conduct embracing ideals of honor and loyalty that continues to govern the Japanese way of life today."},
+          "Image_URL": {"S": "https://capstone-pbandj-book-image.s3.amazonaws.com/aHotSLWoJ.png"}
+        }
+      }
+    },
+    {
+      "PutRequest": {
+        "Item": {
+          "Book_Search_Id": {"S": "be829d09-079b-4fdb-a6c7-ecbe3376d629"},
+          "Title": {"S": "Inside Delta Force: The Story of America's elite Counterterrorist Unit"},
+          "Author": {"S": "Eric L. Haney"},
+          "Genre": {"S": "Biography"},
+          "Num_Pages": {"S": "256"},
+          "ISBN13": {"S": "978-0385732529"},
+          "description": {"S": "They are the Army's most elite top-secret strike force. But you won't hear about their heroics on the news, no headlines about them can appear in the papers, and no one—not even their families—can know who they are. First Special Forces Operational Detachment-D—Delta Force, America's supersecret counterterrorist unit. On paper they do not exist, but without them, our lives wouldn't be the same."},
+          "Image_URL": {"S": "https://capstone-pbandj-book-image.s3.amazonaws.com/IDFtSoAECU.png"}
+        }
+      }
+    },
+    {
+      "PutRequest": {
+        "Item": {
+          "Book_Search_Id": {"S": "997e14ef-03e2-4b19-9ee6-81b867e6df56"},
+          "Title": {"S": "Gandhi: An Autobiography - The Story of My Experiments With Truth"},
+          "Author": {"S": "Mohandas Karamchand (Mahatma) Gandhi"},
+          "Genre": {"S": "Biography"},
+          "Num_Pages": {"S": "560"},
+          "ISBN13": {"S": "978-0807059098"},
+          "description": {"S": "Mohandas K. Gandhi is one of the most inspiring figures of our time. In his classic autobiography he recounts the story of his life and how he developed his concept of active nonviolent resistance, which propelled the Indian struggle for independence and countless other nonviolent struggles of the twentieth century."},
+          "Image_URL": {"S": "https://capstone-pbandj-book-image.s3.amazonaws.com/GaAtSoMEWT.png"}
+        }
+      }
+    },
+    {
+      "PutRequest": {
+        "Item": {
+          "Book_Search_Id": {"S": "8b7a07bc-287b-4ee8-a945-484551546757"},
+          "Title": {"S": "J.r.r. Tolkien: A Biography"},
+          "Author": {"S": "Humphrey Carpenter"},
+          "Genre": {"S": "Biography"},
+          "Num_Pages": {"S": "304"},
+          "ISBN13": {"S": "978-0618057023"},
+          "description": {"S": "The authorized biography of the creator of Middle-earth. In the decades since his death in September 1973, millions have read THE HOBBIT, THE LORD OF THE RINGS, and THE SILMARILLION and become fascinated about the very private man behind the books. Born in South Africa in January 1892, John Ronald Reuel Tolkien was orphaned in childhood and brought up in near-poverty. He served in the first World War, surviving the Battle of the Somme, where he lost many of the closest friends he'd ever had. After the war he returned to the academic life, achieving high repute as a scholar and university teacher, eventually becoming Merton Professor of English at Oxford where he was a close friend of C.S. Lewis and the other writers known as The Inklings."},
+          "Image_URL": {"S": "https://capstone-pbandj-book-image.s3.amazonaws.com/JRRTaB.png"}
+        }
+      }
+    },
+    {
+      "PutRequest": {
+        "Item": {
+          "Book_Search_Id": {"S": "33794d78-78e7-4dc5-9a81-dd5c6d195424"},
+          "Title": {"S": "Virginia Woolf"},
+          "Author": {"S": "Hermione Lee"},
+          "Genre": {"S": "Biography"},
+          "Num_Pages": {"S": "944"},
+          "ISBN13": {"S": "978-0375701368"},
+          "description": {"S": "While Virginia Woolf--one of our century's most brilliant and mercurial writers--has had no shortage of biographers, none has seemed as naturally suited to the task as Hermione Lee. Subscribing to Virginia Woolf's own belief in the fluidity and elusiveness of identity, Lee comes at her subject from a multitude of perspectives, producing a richly layered portrait of the writer and the woman that leaves all of her complexities and contradictions intact.  Such issues as sexual abuse, mental illness, and suicide are brought into balance with the immensity of her literary achievement, her heroic commitment to her work, her generosity and wit,  and her sanity and strength."},
+          "Image_URL": {"S": "https://capstone-pbandj-book-image.s3.amazonaws.com/VW.png"}
+        }
+      }
+    },
+    {
+      "PutRequest": {
+        "Item": {
+          "Book_Search_Id": {"S": "7ff7a379-609b-43fa-905a-9a7993b34b56"},
+          "Title": {"S": "Penelope Fitzgerald: A Life"},
+          "Author": {"S": "Hermione Lee"},
+          "Genre": {"S": "Biography"},
+          "Num_Pages": {"S": "512"},
+          "ISBN13": {"S": "978-0385352345"},
+          "description": {"S": "The acclaimed biographer of Edith Wharton and Virginia Woolf gives us an intimate portrait of one of the most quietly brilliant novelists of the twentieth century.\n\nPenelope Fitzgerald was a great English writer whose career didn't begin until she was nearly sixty. She would go on to win some of the most coveted awards in literature—the Booker Prize and the National Book Critics Circle Award."},
+          "Image_URL": {"S": "https://capstone-pbandj-book-image.s3.amazonaws.com/PFaL.png"}
+        }
+      }
+    },
+    {
+      "PutRequest": {
+        "Item": {
+          "Book_Search_Id": {"S": "6e938968-9027-4ea1-96b6-9ecaea2ffc5f"},
+          "Title": {"S": "The Way of Kings: Book One of the Stormlight Archive (The Stormlight Archive, 1"},
+          "Author": {"S": "Brandon Sanderson"},
+          "Genre": {"S": "Fantasy"},
+          "Num_Pages": {"S": "1008"},
+          "ISBN13": {"S": "978-0765326355"},
+          "description": {"S": "It has been centuries since the fall of the ten consecrated orders known as the Knights Radiant, but their Shardblades and Shardplate remain: mystical swords and suits of armor that transform ordinary men into near-invincible warriors. Men trade kingdoms for Shardblades. Wars were fought for them, and won by them.\n\nOne such war rages on a ruined landscape called the Shattered Plains. There, Kaladin, who traded his medical apprenticeship for a spear to protect his little brother, has been reduced to slavery. In a war that makes no sense, where ten armies fight separately against a single foe, he struggles to save his men and to fathom the leaders who consider them expendable."},
+          "Image_URL": {"S": "https://capstone-pbandj-book-image.s3.amazonaws.com/tWoK.png"}
+        }
+      }
+    },
+    {
+      "PutRequest": {
+        "Item": {
+          "Book_Search_Id": {"S": "cb216301-bc03-40f8-ad29-d899854ab3a2"},
+          "Title": {"S": "Words of Radiance: Book Two of the Stormlight Archive (The Stormlight Archive, 2"},
+          "Author": {"S": "Brandon Sanderson"},
+          "Genre": {"S": "Fantasy"},
+          "Num_Pages": {"S": "1104"},
+          "ISBN13": {"S": "978-1250166531"},
+          "description": {"S": "Expected by his enemies to die the miserable death of a military slave, Kaladin survived to be given command of the royal bodyguards, a controversial first for a low-status \"darkeyes.\" Now he must protect the king and Dalinar from every common peril as well as the distinctly uncommon threat of the Assassin, all while secretly struggling to master remarkable new powers that are somehow linked to his honorspren, Syl."},
+          "Image_URL": {"S": "https://capstone-pbandj-book-image.s3.amazonaws.com/WoR.png"}
+        }
+      }
+    },
+    {
+      "PutRequest": {
+        "Item": {
+          "Book_Search_Id": {"S": "b60d818b-d4af-469a-81e3-4e27a31b0110"},
+          "Title": {"S": "Oathbringer: Book Three of the Stromlight Archive (The Stormlight Archive, 3)"},
+          "Author": {"S": "Brandon Sanderson"},
+          "Genre": {"S": "Fantasy"},
+          "Num_Pages": {"S": "1264"},
+          "ISBN13": {"S": "978-1250297143"},
+          "description": {"S": "Dalinar Kholin’s Alethi armies won a fleeting victory at a terrible cost: The enemy Parshendi summoned the violent Everstorm, which now sweeps the world with destruction, and in its passing awakens the once peaceful and subservient parshmen to the horror of their millennia-long enslavement by humans. While on a desperate flight to warn his family of the threat, Kaladin Stormblessed must come to grips with the fact that the newly kindled anger of the parshmen may be wholly justified."},
+          "Image_URL": {"S": "https://capstone-pbandj-book-image.s3.amazonaws.com/Oathbringer.png"}
+        }
+      }
+    },
+    {
+      "PutRequest": {
+        "Item": {
+          "Book_Search_Id": {"S": "3032e0ed-1196-4acc-b7ec-4688934ebb2f"},
+          "Title": {"S": "Rhythm of War: Book Four of the Stormlight Archive (The Stormlight Archive, 4)"},
+          "Author": {"S": "Brandon Sanderson"},
+          "Genre": {"S": "Fantasy"},
+          "Num_Pages": {"S": "1232"},
+          "ISBN13": {"S": "978-1250757302"},
+          "description": {"S": "After forming a coalition of human resistance against the enemy invasion, Dalinar Kholin and his Knights Radiant have spent a year fighting a protracted, brutal war. Neither side has gained an advantage, and the threat of a betrayal by Dalinar’s crafty ally Taravangian looms over every strategic move.\n\nNow, as new technological discoveries by Navani Kholin’s scholars begin to change the face of the war, the enemy prepares a bold and dangerous operation. The arms race that follows will challenge the very core of the Radiant ideals, and potentially reveal the secrets of the ancient tower that was once the heart of their strength."},
+          "Image_URL": {"S": "https://capstone-pbandj-book-image.s3.amazonaws.com/RoW.png"}
+        }
+      }
+    }
+  ]
+}
