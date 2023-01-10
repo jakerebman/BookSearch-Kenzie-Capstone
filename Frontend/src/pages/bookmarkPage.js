@@ -11,7 +11,7 @@ class BookmarkPage extends BaseClass {
     constructor() {
         super();
 //        this.bindClassMethods(['onCreateBookmark', 'onGetByAuthor', 'onGetByGenre', 'onGetBook', 'onGetBookmarksByStatus','renderCollection'], this);
-        this.bindClassMethods(['onCreateBookmark', 'onGetByAuthor', 'onGetByGenre','renderCollection', 'renderBookmarks'], this);
+        this.bindClassMethods(['onCreateBookmark', 'onGetByAuthor', 'onGetByGenre', 'addBookDetails', 'renderCollection', 'renderBookmarks'], this);
         this.dataStore = new DataStore();
     }
 
@@ -32,7 +32,7 @@ class BookmarkPage extends BaseClass {
 
         this.dataStore.set("allBookmarkdBooks", result);
 
-        this.renderBookmarks();
+        await this.renderBookmarks();
         this.dataStore.addChangeListener(this.renderCollection);
         this.dataStore.addChangeListener(this.renderBookmarks);
         //this.renderCollection();
@@ -45,21 +45,40 @@ class BookmarkPage extends BaseClass {
         resultArea.innerHTML = ""
 
         const allBookmarkdBooks = this.dataStore.get("allBookmarkdBooks");
-
-//        const toArray = Object.entries(allBookmarkdBooks);
-//        console.log(toArray);
-
+        console.log("Before first if statement.")
         if (allBookmarkdBooks) {
-           const ul = document.createElement("ul");
-           for (let i = 0; i < allBookmarkdBooks.length; i++) {
-               const li = document.createElement("li");
-               console.log("inside the for loop " + allBookmarkdBooks[i]);
-               li.innerHTML += `
-               <button onclick="getBook()" id="bookmarkd-books">${allBookmarkdBooks[i].Title}</button>
-               <div>Title: ${allBookmarkdBooks[i].Title}</div>
-               <div>Author: ${allBookmarkdBooks[i].Author}</div>`;
-               ul.append(li);
-           }
+            for (let i = 0; i < allBookmarkdBooks.length; i++) {
+                console.log("Inside Loop to Parse Data")
+                let bookmarkId = allBookmarkdBooks[i].Bookmark_Id;
+
+                this.dataStore.set(bookmarkId, allBookmarkdBooks[i]);
+            }
+        }
+
+        console.log("After the first if statement.")
+        if (allBookmarkdBooks) {
+            console.log(allBookmarkdBooks)
+
+            const ul = document.createElement("ul");
+
+            ul.addEventListener("click", this.addBookImage)
+
+            ul.id = "bookmarks-status";
+            for (let i = 0; i < allBookmarkdBooks.length; i++) {
+                //let bookmarkId = allBookmarkdBooks[i].Bookmark_Id;
+                const li = document.createElement("li");
+                li.innerHTML = ""
+                console.log("inside the for loop " + allBookmarkdBooks[i]);
+
+                const divId = `${allBookmarkdBooks[i].Bookmark_Id}`;
+
+                li.innerHTML = `
+                <div id=${divId} imgPath=${allBookmarkdBooks[i].Image_URL} style="cursor: pointer;">Title: ${allBookmarkdBooks[i].Title}</div>  
+                <div>Author: ${allBookmarkdBooks[i].Author}</div>`;
+                //li.setAttribute("imgPath",allBookmarkdBooks[i].Image_URL)
+
+                ul.append(li);
+            }
            resultArea.append(ul);
         } else {
             resultArea.innerHTML = "Error Printing Bookmark results...";
@@ -278,6 +297,32 @@ class BookmarkPage extends BaseClass {
             ["deleteCollection"]: deleteCollection,
             ["deleteCollectionId"]: deleteCollectionId
         });
+    }
+
+    async addBookImage(event) {
+
+        console.log(event.target.innerText)
+        console.log(event.target.id) // this should be your book id maybe?
+        console.log(event.target.innerHTML)
+        console.log(event.target.getAttribute("imgPath"))
+        console.log("Entering Book Details Method");
+
+        const image = document.querySelector(".image")
+        // imageArea.remove() - not this one.
+        // img.src=""
+        // img.alt=""
+        // img.setAttribute('src', '')
+        // img.setAttribute('alt', '')
+        image.src=event.target.getAttribute("imgPath")
+        image.alt= "book image"
+    }
+
+    async addBookDetails(bookmarkId) {
+        console.log("Entering Book Details Method");
+        const getBookById = this.dataStore.get(bookmarkId);
+        console.log(getBookById);
+
+        let resultArea = document.getElementById('book-info');
     }
 
 }
