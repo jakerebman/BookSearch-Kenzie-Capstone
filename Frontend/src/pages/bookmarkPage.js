@@ -45,37 +45,35 @@ class BookmarkPage extends BaseClass {
         resultArea.innerHTML = ""
 
         const allBookmarkdBooks = this.dataStore.get("allBookmarkdBooks");
-        console.log("Before first if statement.")
-        if (allBookmarkdBooks) {
-            for (let i = 0; i < allBookmarkdBooks.length; i++) {
-                console.log("Inside Loop to Parse Data")
-                let bookmarkId = allBookmarkdBooks[i].Bookmark_Id;
 
-                this.dataStore.set(bookmarkId, allBookmarkdBooks[i]);
-            }
-        }
-
-        console.log("After the first if statement.")
         if (allBookmarkdBooks) {
             console.log(allBookmarkdBooks)
 
             const ul = document.createElement("ul");
 
             ul.addEventListener("click", this.addBookImage)
+            ul.addEventListener("click", this.addBookDetails)
 
             ul.id = "bookmarks-status";
             for (let i = 0; i < allBookmarkdBooks.length; i++) {
-                //let bookmarkId = allBookmarkdBooks[i].Bookmark_Id;
                 const li = document.createElement("li");
                 li.innerHTML = ""
                 console.log("inside the for loop " + allBookmarkdBooks[i]);
 
                 const divId = `${allBookmarkdBooks[i].Bookmark_Id}`;
 
+                const bookInfo = `${allBookmarkdBooks[i].Description}`
+
                 li.innerHTML = `
-                <div id=${divId} imgPath=${allBookmarkdBooks[i].Image_URL} style="cursor: pointer;">Title: ${allBookmarkdBooks[i].Title}</div>  
+                <div id=${divId} imgPath=${allBookmarkdBooks[i].Image_URL}
+                                bookTitle="${allBookmarkdBooks[i].Title}"
+                                bookAuthor="${allBookmarkdBooks[i].Author}"
+                                bookDescription="${bookInfo}"
+                                bookGenre="${allBookmarkdBooks[i].Genre}"
+                                bookPages="${allBookmarkdBooks[i].Num_Pages}"
+                                bookIsbn="${allBookmarkdBooks[i].ISBN13}"
+                                style="cursor: pointer;">Title: ${allBookmarkdBooks[i].Title}</div>
                 <div>Author: ${allBookmarkdBooks[i].Author}</div>`;
-                //li.setAttribute("imgPath",allBookmarkdBooks[i].Image_URL)
 
                 ul.append(li);
             }
@@ -264,65 +262,42 @@ class BookmarkPage extends BaseClass {
         }
     }
 
-
-
-    // TODO: This one for Capstone.
-
-    async onCollectionPageDelete(event) {
-        // TODO: Workflow - Is this needed? State needs to be different from table delete button!
-        // 1. When user clicks the 'DeleteCollection' button, this method is called
-        // 2. Prompt user to enter a collection id
-        // 3. Validate collection id entered
-        // 4. If collection Id valid, save the collection id to the dataStore
-        // 5. Call the delete confirmation method
-        console.log("Entering onCollectionPageDelete method...");
-
-        event.preventDefault();
-
-        var deleteCollectionId = prompt("Enter Collection ID for Collection to Delete");
-        console.log(deleteCollectionId);
-
-        if (deleteCollectionId === null || deleteCollectionId=== "") {
-            this.errorHandler("ERROR: Must enter a valid Collection ID");
-        }
-
-        if (deleteCollectionId) {
-            await this.confirmDeleteCollection(deleteCollectionId);
-        } else {
-            this.errorHandler(`ERROR: Collection ID: ${deleteCollectionId} is Invalid!`);
-        }
-
-        this.dataStore.setState({
-            [CURRENT_STATE]: "DELETE",
-            ["deleteCollection"]: deleteCollection,
-            ["deleteCollectionId"]: deleteCollectionId
-        });
-    }
-
     async addBookImage(event) {
 
         console.log(event.target.innerText)
         console.log(event.target.id) // this should be your book id maybe?
         console.log(event.target.innerHTML)
         console.log(event.target.getAttribute("imgPath"))
-        console.log("Entering Book Details Method");
+        console.log("Entering Book Image Method");
 
         const image = document.querySelector(".image")
-        // imageArea.remove() - not this one.
-        // img.src=""
-        // img.alt=""
-        // img.setAttribute('src', '')
-        // img.setAttribute('alt', '')
+
         image.src=event.target.getAttribute("imgPath")
         image.alt= "book image"
     }
 
-    async addBookDetails(bookmarkId) {
+    async addBookDetails(event) {
         console.log("Entering Book Details Method");
-        const getBookById = this.dataStore.get(bookmarkId);
-        console.log(getBookById);
+        console.log(event.target.getAttribute("bookTitle"))
+        console.log(event.target.getAttribute("bookDescription"))
 
-        let resultArea = document.getElementById('book-info');
+        let resultArea = document.getElementById('book-info')
+        resultArea.innerHTML = ""
+
+        const ul = document.createElement("ul")
+
+        const li = document.createElement("li")
+        li.innerHTML = ""
+        li.innerHTML = `
+        <div>Title: ${event.target.getAttribute("bookTitle")}</div>
+        <div>Author: ${event.target.getAttribute("bookAuthor")}</div>
+        <div>Description: ${event.target.getAttribute("bookDescription")}</div>
+        <div>Genre: ${event.target.getAttribute("bookGenre")}</div>
+        <div>Number of Pages: ${event.target.getAttribute("bookPages")}</div>
+        <div>ISBN-13: ${event.target.getAttribute("bookIsbn")}</div>`;
+
+        ul.append(li)
+        resultArea.append(ul)
     }
 
 }
