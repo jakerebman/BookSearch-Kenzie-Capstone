@@ -63,28 +63,12 @@ export default class BookmarkPageClient extends BaseClass {
 
 //TODO: this may need to be looked at to make sure that the params are correct since the method updates by id
     async updateBookmarkStatusById(bookmarkId,
-                                   creationDate,
-                                   title,
-                                   author,
-                                   genre,
-                                   numPages,
-                                   description,
-                                   imageUrl,
-                                   isbn13,
                                    readStatus,
                                    errorCallback=console.error) {
         try {
-            const response = await this.client.put(`/bookmarks/${id}`, {
-                "Bookmark_Id": bookmarkId,
-                "Bookmark_Creation_Date": creationDate,
-                "Title": title,
-                "Author": author,
-                "Genre": genre,
-                "Num_Pages": numPages,
-                "Description": description,
-                "Image_URL": imageUrl,
-                "ISBN13": isbn13,
-                "Read_Status": readStatus,});
+            const response = await this.client.put(`/bookmarks/${bookmarkId}`, {
+                "bookmarkId": bookmarkId,
+                "status": readStatus,});
             return response.data;
         } catch (error) {
             this.handleError("updateBookmarkStatusById", error, errorCallback);

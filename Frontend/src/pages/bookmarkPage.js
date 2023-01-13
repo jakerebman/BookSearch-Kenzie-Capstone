@@ -11,7 +11,7 @@ class BookmarkPage extends BaseClass {
     constructor() {
         super();
 //        this.bindClassMethods(['onCreateBookmark', 'onGetByAuthor', 'onGetByGenre', 'onGetBook', 'onGetBookmarksByStatus','renderCollection'], this);
-        this.bindClassMethods(['onCreateBookmark', 'onGetByAuthor', 'onGetByGenre', 'addBookDetails', 'onBookmarkDelete', 'renderCollection', 'renderBookmarks'], this);
+        this.bindClassMethods(['onCreateBookmark', 'onGetByAuthor', 'onGetByGenre', 'addBookDetails', 'onBookmarkDelete', 'onUpdateBookmark', 'renderCollection', 'renderBookmarks'], this);
         this.dataStore = new DataStore();
     }
 
@@ -24,6 +24,7 @@ class BookmarkPage extends BaseClass {
         document.getElementById('search-input').addEventListener('submit', this.onGetByAuthor);
         document.getElementById('genre-select-dropdown').addEventListener('click', this.onGetByGenre);
         document.getElementById('delete-bookmark').addEventListener('click', this.onBookmarkDelete);
+        document.getElementById('read-status').addEventListener('click', this.onUpdateBookmark);
         // TODO: Add listeners for form-delete-btn + add-items btn
 
         this.client = new BookmarkPageClient();
@@ -33,13 +34,14 @@ class BookmarkPage extends BaseClass {
         this.dataStore.set("allBookmarkdBooks", result);
 
         await this.renderBookmarks();
+        // this.dataStore.addChangeListener(this.renderBookmarks);
         this.dataStore.addChangeListener(this.renderCollection);
-        this.dataStore.addChangeListener(this.renderBookmarks);
         //this.renderCollection();
     }
 
     // Render Methods --------------------------------------------------------------------------------------------------
     async renderBookmarks() {
+        console.log("Entering Render Bookmarks method...")
         let resultArea = document.getElementById("bookmark-info");
 
         resultArea.innerHTML = ""
@@ -82,6 +84,7 @@ class BookmarkPage extends BaseClass {
                                 bookGenre="${allBookmarkdBooks[i].Genre}"
                                 bookPages="${allBookmarkdBooks[i].Num_Pages}"
                                 bookIsbn="${allBookmarkdBooks[i].ISBN13}"
+                                bookReadStatus="${allBookmarkdBooks[i].Read_Status}"
                                 style="cursor: pointer;">Title: ${allBookmarkdBooks[i].Title}</div>
                 <div>Author: ${allBookmarkdBooks[i].Author}</div>
                 <div>Status: ${allBookmarkdBooks[i].Read_Status}</div>
@@ -180,26 +183,20 @@ class BookmarkPage extends BaseClass {
             }
         } else if (getState === 'UPDATE') {
             console.log("State = UPDATE");
-            let resultArea = document.getElementById('result-info')
-            resultArea.innerHTML = "";
+            const updatedBookmarkStatus = this.dataStore.get("updateBookmarkStatus");
+            console.log("Updated Bookmark Status Results: " + updatedBookmarkStatus);
 
-            const getByAuthor = this.dataStore.get("getByAuthor");
-            const convertBooks = Object.entries(getByAuthor);
-            console.log(convertBooks);
+            const updatedBookTitle = updatedBookmarkStatus.Title;
+            console.log("Updated Bookmark Status Results: " + updatedBookTitle);
 
-            if (getByAuthor) {
-                const ul = document.createElement("ul");
-                for (let i = 0; i < getByAuthor.length; i++) {
-                    const li = document.createElement("li");
-                    console.log("inside the for loop " + getByAuthor[i]);
-                    li.innerHTML += `
-                    <div>Title: ${getByAuthor[i].Title}</div>
-                    <div>Author: ${getByAuthor[i].Author}</div>`;
-                    ul.append(li);
-                }
-                resultArea.append(ul);
+            const updatedReadStatus = updatedBookmarkStatus.Read_Status;
+            console.log("Updated Bookmark Status Results: " + updatedBookmarkStatus);
+
+            if (updatedBookmarkStatus) {
+                this.showMessage(`Book: ${updatedBookTitle} Status changed to ${updatedReadStatus}`);
             } else {
-                resultArea.innerHTML = "Error Updating Bookmark...";
+                this.errorHandler(`ERROR Updating Book: ${updatedBookTitle}`);
+                console.log("ERROR Updating Bookmark...");
             }
         } else if (getState === 'DELETE') {
             console.log("State = 'DELETE'");
@@ -209,8 +206,6 @@ class BookmarkPage extends BaseClass {
             console.log("[STATE] Book Title: " + deleteBookTitle);
 
             if (deleteBookmarkId) {
-                console.log(deleteBookmarkId);
-                console.log(deleteBookTitle);
                 this.showMessage(`Request submitted to delete: ${deleteBookTitle}`);
             } else {
                 this.errorHandler(`Error Deleting Book: ${deleteBookTitle}`);
@@ -231,13 +226,11 @@ class BookmarkPage extends BaseClass {
 
     // Event Handlers --------------------------------------------------------------------------------------------------
     async onBookmarkDelete(event) {
-
         console.log("Entering onBookmarkDelete method...");
 
         event.preventDefault();
-        console.log(event)
+        console.log("Delete Event: " + event)
 
-//        const deleteCollectionId = ${event.target.id}
         // BookmarkId
         const bookmarkId = document.getElementById("bookmark-id").innerText;
         console.log(bookmarkId);
@@ -256,6 +249,41 @@ class BookmarkPage extends BaseClass {
             [CURRENT_STATE]: "DELETE",
             ["deleteBookmarkId"]: bookmarkId
         });
+    }
+
+    async onUpdateBookmark(event) {
+        console.log("Entering onUpdateBookmark method...");
+
+        event.preventDefault();
+        console.log("Update Event: " + event);
+
+        const bookmarkId = document.getElementById("bookmark-id").innerText;
+        console.log(bookmarkId);
+        const bookTitle = document.getElementById("bookmark-title").innerText;
+        console.log("Book Title: " + bookTitle);
+        const bookmarkStatus = "Read";
+
+
+        if (bookmarkId == null) {
+            this.errorHandler("ERROR: Bookmark ID is empty");
+        }
+
+        try {
+            let result = await this.client.updateBookmarkStatusById(bookmarkId, bookmarkStatus);
+
+            if (result) {
+                this.showMessage(`Bookmark Status Updated for Book: ${bookTitle}`);
+                this.dataStore.setState({
+                    [CURRENT_STATE]: "UPDATE",
+                    ["updateBookmarkStatus"]: result
+                });
+            } else {
+                this.errorHandler("ERROR: Unable to update status for Book: " + `${bookTitle}`);
+                console.log("UPDATE ain't working...");
+            }
+        } catch (e) {
+            console.log(e);
+        }
     }
 
 
@@ -370,7 +398,8 @@ class BookmarkPage extends BaseClass {
         <div>Description: ${event.target.getAttribute("bookDescription")}</div>
         <div>Genre: ${event.target.getAttribute("bookGenre")}</div>
         <div>Number of Pages: ${event.target.getAttribute("bookPages")}</div>
-        <div>ISBN-13: ${event.target.getAttribute("bookIsbn")}</div>`;
+        <div>ISBN-13: ${event.target.getAttribute("bookIsbn")}</div>
+        <div id="bookmark-status" style="display: none">${event.target.getAttribute("bookReadStatus")}</div>`;
 
         ul.append(li)
         resultArea.append(ul)
@@ -388,7 +417,7 @@ class BookmarkPage extends BaseClass {
         }
 
         let deleteBookmark;
-        const bookTitle = document.getElementById("bookmark-title");
+        const bookTitle = document.getElementById("bookmark-title").innerText;
         console.log("Book Title: " + bookTitle);
 
         if (response === 'yes') {
@@ -406,15 +435,6 @@ class BookmarkPage extends BaseClass {
             ["deleteBookTitle"]: bookTitle,
             ["deleteBookmarkId"]: bookmarkId
         });
-
-        // Alternative method - potentially use for on-screen button functionality
-        // Try with prompt first
-        // if (confirm("Are you sure you want to delete this collection? Select 'OK' to confirm deletion.")) {
-        //     Make API Call
-        //     returnMsg = "Collection Deleted"
-        // } else {
-        //      returnMsg = "Collection Not Deleted!"
-        // }
     }
 
 }
