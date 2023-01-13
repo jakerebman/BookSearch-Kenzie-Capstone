@@ -11,7 +11,7 @@ class BookmarkPage extends BaseClass {
     constructor() {
         super();
 //        this.bindClassMethods(['onCreateBookmark', 'onGetByAuthor', 'onGetByGenre', 'onGetBook', 'onGetBookmarksByStatus','renderCollection'], this);
-        this.bindClassMethods(['onCreateBookmark', 'onGetByAuthor', 'onGetByGenre', 'addBookDetails', 'renderCollection', 'renderBookmarks'], this);
+        this.bindClassMethods(['onCreateBookmark', 'onGetByAuthor', 'onGetByGenre', 'addBookDetails', 'onBookmarkDelete', 'renderCollection', 'renderBookmarks'], this);
         this.dataStore = new DataStore();
     }
 
@@ -23,7 +23,7 @@ class BookmarkPage extends BaseClass {
 //        document.getElementById('create-collection-form').addEventListener('click', this.onCreateBookmark);
         document.getElementById('search-input').addEventListener('submit', this.onGetByAuthor);
         document.getElementById('genre-select-dropdown').addEventListener('click', this.onGetByGenre);
-//        document.getElementById('collection-list').addEventListener('click', this.onGetAllCollections);
+        document.getElementById('delete-bookmark').addEventListener('click', this.onBookmarkDelete);
         // TODO: Add listeners for form-delete-btn + add-items btn
 
         this.client = new BookmarkPageClient();
@@ -47,9 +47,19 @@ class BookmarkPage extends BaseClass {
         const allBookmarkdBooks = this.dataStore.get("allBookmarkdBooks");
 
         if (allBookmarkdBooks) {
+            for (let i = 0; i < allBookmarkdBooks.length; i++) {
+                console.log("Inside Loop to Parse Data")
+                let bookmarkId = allBookmarkdBooks[i].Bookmark_Id;
+
+                this.dataStore.set(bookmarkId, allBookmarkdBooks[i]);
+            }
+        }
+
+        if (allBookmarkdBooks) {
             console.log(allBookmarkdBooks)
 
             const ul = document.createElement("ul");
+            ul.style.listStyle= 'none';
 
             ul.addEventListener("click", this.addBookImage)
             ul.addEventListener("click", this.addBookDetails)
@@ -73,7 +83,9 @@ class BookmarkPage extends BaseClass {
                                 bookPages="${allBookmarkdBooks[i].Num_Pages}"
                                 bookIsbn="${allBookmarkdBooks[i].ISBN13}"
                                 style="cursor: pointer;">Title: ${allBookmarkdBooks[i].Title}</div>
-                <div>Author: ${allBookmarkdBooks[i].Author}</div>`;
+                <div>Author: ${allBookmarkdBooks[i].Author}</div>
+                <div>Status: ${allBookmarkdBooks[i].Read_Status}</div>
+                <br>`;
 
                 ul.append(li);
             }
@@ -166,8 +178,40 @@ class BookmarkPage extends BaseClass {
             } else {
                 resultArea.innerHTML = "Error Printing Search results...";
             }
-        } else if (getState === 'GET') {
+        } else if (getState === 'UPDATE') {
+            console.log("State = UPDATE");
+            let resultArea = document.getElementById('result-info')
+            resultArea.innerHTML = "";
 
+            const getByAuthor = this.dataStore.get("getByAuthor");
+            const convertBooks = Object.entries(getByAuthor);
+            console.log(convertBooks);
+
+            if (getByAuthor) {
+                const ul = document.createElement("ul");
+                for (let i = 0; i < getByAuthor.length; i++) {
+                    const li = document.createElement("li");
+                    console.log("inside the for loop " + getByAuthor[i]);
+                    li.innerHTML += `
+                    <div>Title: ${getByAuthor[i].Title}</div>
+                    <div>Author: ${getByAuthor[i].Author}</div>`;
+                    ul.append(li);
+                }
+                resultArea.append(ul);
+            } else {
+                resultArea.innerHTML = "Error Updating Bookmark...";
+            }
+        } else if (getState === 'DELETE') {
+            console.log("State = 'DELETE'");
+            const deleteBookmarkId = this.dataStore.get("deleteBookmarkId");
+
+            if (deleteCollectionId) {
+                console.log(deleteBookmarkId);
+                this.showMessage(`Request submitted to delete: ${deleteBookmarkId}`);
+            } else {
+                this.errorHandler(`Error Deleting Collection ID: ${deleteBookmarkId}`);
+                console.log("Error Deleting Bookmark...");
+            }
         }
     }
 
@@ -180,8 +224,29 @@ class BookmarkPage extends BaseClass {
     // get global working and then focus on passing the collectionId automatically later
 
     // Event Handlers --------------------------------------------------------------------------------------------------
-    async getBook() {
-        alert("It works!!!");
+    async onBookmarkDelete(event) {
+
+        console.log("Entering onBookmarkDelete method...");
+
+        event.preventDefault();
+        console.log(event)
+
+//        const deleteCollectionId = ${event.target.id}
+        console.log(deleteCollectionId);
+
+        if (deleteCollectionId === null || deleteCollectionId=== "") {
+            this.errorHandler("ERROR: Must enter a valid Collection ID");
+        }
+
+        if (deleteCollectionId) {
+            await this.confirmDeleteCollection(deleteCollectionId);
+        } else {
+            this.errorHandler(`ERROR: Collection ID: ${deleteCollectionId} is Invalid!`);
+        }
+
+        this.dataStore.setState({
+            [CURRENT_STATE]: "DELETE"
+        });
     }
 
 
@@ -285,6 +350,7 @@ class BookmarkPage extends BaseClass {
         resultArea.innerHTML = ""
 
         const ul = document.createElement("ul")
+        ul.style.listStyle= 'none';
 
         const li = document.createElement("li")
         li.innerHTML = ""

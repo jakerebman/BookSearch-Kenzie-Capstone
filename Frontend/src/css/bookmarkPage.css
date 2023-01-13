@@ -86,6 +86,7 @@ label {
 
 .book-pages {
     background-image: url("images/bookPages.jpg");
+    height: 50vh;
 }
 
 .book-details{
@@ -215,11 +216,6 @@ img {
     height: 30px;
     box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
 }
-
-/*#form-submit button:hover {
-    background-color: #9E9FA0;
-    color: white;
-}*/
 
 .card h3 {
     text-align: left;
@@ -362,37 +358,42 @@ textarea::placeholder {
     background: #00bf72;
     border-color: #2e2e2e; }
 
-
-/* Table Styling */
-table {
-    border-collapse: collapse;
-    border: 1px solid #7f7f7f;
-    border-spacing: 0;
-    color: #4a4a4d;
-    font: 12px/1.4 "Helvetica Neue", Helvetica, Arial, sans-serif;
+.form-select {
+    width: 10vh;
+    float: right;
+    float: top;
 }
 
-th,
-td {
-    padding: 10px 15px;
-    vertical-align: middle;
+.bookmark-icon {
+    float: right;
+    float: top;
+    width: 30px;
+    height: 30px;
 }
 
-th {
-    background: #395870;
-    background: linear-gradient(#49708f, #293f50);
-    color: #fff;
-    font-size: 11px;
-    text-transform: uppercase;
+.image {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    width: 50%;
 }
 
-td {
-    border: 1px solid #7f7f7f;
-    /*width: 50px;*/
-    /*height: 50px;*/
-    /*text-align: center;*/
+.read-status {
+    display: block;
+    background-color: #66ff33;
+    margin-left: auto;
+    margin-right: auto;
+    padding: 5px;
 }
 
+.delete-bookmark {
+    float: right;
+    background-color: #ff0000;
+    padding: 5px;
+}
 
-
-
+.interested-status {
+    float: left;
+    background-color: #ffff00;
+    padding: 5px;
+}

@@ -45,18 +45,13 @@
                 <h1></h1>
                 <h3 class="title">Book Window</h3>
                 <div class="card-result">
-                    <div class="card book-pages">
-                        <div class="card book-image" id="book-image">
-                            <select class="form-select" id="bookmark-status" data-validation-required-message="Please select the type of items that will be in the collection.">
-                                <option value="" disabled selected hidden></option>
-                                <option id="read">Read</option>
-                                <option id="interested">Interested</option>
-                                <option id="delete">Delete Bookmark</option>
-                            </select>
-                            <button type="submit"><i class="fa fa-bookmark"></i></button>
-                            <img src="" alt="" class="image">
-                        </div>
+                    <div class="card book-pages" id="book-image">
+                        <button class="bookmark-icon" type="submit"><i class="fa fa-bookmark"></i></button>
+                        <img src="" alt="" class="image">
                     </div>
+                    <button class="interested-status" id="interested-status">I'm interested in this book.</button>
+                    <button class="delete-bookmark" id="delete-bookmark">Remove from my shelf.</button>
+                    <button class="read-status" id="read-status">I've read this book!</button>
                 </div>
             </div>
             <div class="card book-details">
