@@ -10,7 +10,6 @@ var CURRENT_STATE;
 class BookmarkPage extends BaseClass {
     constructor() {
         super();
-//        this.bindClassMethods(['onCreateBookmark', 'onGetByAuthor', 'onGetByGenre', 'onGetBook', 'onGetBookmarksByStatus','renderCollection'], this);
         this.bindClassMethods(['onCreateBookmark', 'onGetByAuthor', 'onGetByGenre', 'addBookDetails', 'onBookmarkDelete', 'onUpdateBookmark', 'renderCollection', 'renderBookmarks'], this);
         this.dataStore = new DataStore();
     }
