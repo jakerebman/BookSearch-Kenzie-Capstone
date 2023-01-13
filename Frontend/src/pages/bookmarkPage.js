@@ -204,14 +204,20 @@ class BookmarkPage extends BaseClass {
         } else if (getState === 'DELETE') {
             console.log("State = 'DELETE'");
             const deleteBookmarkId = this.dataStore.get("deleteBookmarkId");
+            console.log("[STATE] Bookmark ID: " + deleteBookmarkId);
+            const deleteBookTitle = this.dataStore.get("deleteBookTitle");
+            console.log("[STATE] Book Title: " + deleteBookTitle);
 
-            if (deleteCollectionId) {
+            if (deleteBookmarkId) {
                 console.log(deleteBookmarkId);
-                this.showMessage(`Request submitted to delete: ${deleteBookmarkId}`);
+                console.log(deleteBookTitle);
+                this.showMessage(`Request submitted to delete: ${deleteBookTitle}`);
             } else {
-                this.errorHandler(`Error Deleting Collection ID: ${deleteBookmarkId}`);
+                this.errorHandler(`Error Deleting Book: ${deleteBookTitle}`);
                 console.log("Error Deleting Bookmark...");
             }
+        } else {
+            console.log("ERROR: Unable to process current state!")
         }
     }
 
@@ -232,20 +238,23 @@ class BookmarkPage extends BaseClass {
         console.log(event)
 
 //        const deleteCollectionId = ${event.target.id}
-        console.log(deleteCollectionId);
+        // BookmarkId
+        const bookmarkId = document.getElementById("bookmark-id").innerText;
+        console.log(bookmarkId);
 
-        if (deleteCollectionId === null || deleteCollectionId=== "") {
-            this.errorHandler("ERROR: Must enter a valid Collection ID");
+        if (bookmarkId === null) {
+            this.errorHandler("ERROR: Bookmark ID is empty");
         }
 
-        if (deleteCollectionId) {
-            await this.confirmDeleteCollection(deleteCollectionId);
+        if (bookmarkId) {
+            await this.confirmDeleteBookmark(bookmarkId);
         } else {
-            this.errorHandler(`ERROR: Collection ID: ${deleteCollectionId} is Invalid!`);
+            this.errorHandler(`ERROR: Bookmark ID: ${bookmarkId} is Invalid!`);
         }
 
         this.dataStore.setState({
-            [CURRENT_STATE]: "DELETE"
+            [CURRENT_STATE]: "DELETE",
+            ["deleteBookmarkId"]: bookmarkId
         });
     }
 
@@ -355,7 +364,8 @@ class BookmarkPage extends BaseClass {
         const li = document.createElement("li")
         li.innerHTML = ""
         li.innerHTML = `
-        <div>Title: ${event.target.getAttribute("bookTitle")}</div>
+        <div id="bookmark-id" style="display: none">${event.target.id}</div>
+        <div id="bookmark-title">Title: ${event.target.getAttribute("bookTitle")}</div>
         <div>Author: ${event.target.getAttribute("bookAuthor")}</div>
         <div>Description: ${event.target.getAttribute("bookDescription")}</div>
         <div>Genre: ${event.target.getAttribute("bookGenre")}</div>
@@ -364,6 +374,47 @@ class BookmarkPage extends BaseClass {
 
         ul.append(li)
         resultArea.append(ul)
+    }
+
+    async confirmDeleteBookmark(bookmarkId) {
+        console.log("Entering the confirmDeleteBookmark method...");
+        console.log("Bookmark ID: " + bookmarkId)
+
+        var msg = prompt("Are you sure you want to delete this book? Enter 'yes' or 'no'");
+        var response = msg.toLowerCase();
+
+        if (response === null || response === "") {
+            this.errorHandler("ERROR: Must enter either yes or no!");
+        }
+
+        let deleteBookmark;
+        const bookTitle = document.getElementById("bookmark-title");
+        console.log("Book Title: " + bookTitle);
+
+        if (response === 'yes') {
+            deleteBookmark = await this.client.deleteBookmarkById(bookmarkId, this.errorHandler);
+            this.showMessage(`Book: ${bookTitle} - Deleted!`);
+        } else if (response === 'no') {
+            this.showMessage(`Book: ${bookTitle} - Not Deleted!`);
+        } else {
+            this.errorHandler("ERROR: Must enter either yes or no!");
+        }
+
+        this.dataStore.setState({
+            [CURRENT_STATE]: "DELETE",
+            ["deleteBookmark"]: deleteBookmark,
+            ["deleteBookTitle"]: bookTitle,
+            ["deleteBookmarkId"]: bookmarkId
+        });
+
+        // Alternative method - potentially use for on-screen button functionality
+        // Try with prompt first
+        // if (confirm("Are you sure you want to delete this collection? Select 'OK' to confirm deletion.")) {
+        //     Make API Call
+        //     returnMsg = "Collection Deleted"
+        // } else {
+        //      returnMsg = "Collection Not Deleted!"
+        // }
     }
 
 }
